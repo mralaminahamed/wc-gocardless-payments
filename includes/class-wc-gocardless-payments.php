@@ -138,6 +138,7 @@ final class WC_GoCardless_Payments {
 		$this->init_webhook_handler();
 		$this->init_admin();
 		$this->init_subscriptions();
+		$this->init_emails();
 		$this->register_hooks();
 	}
 
@@ -285,6 +286,38 @@ final class WC_GoCardless_Payments {
 	}
 
 	/**
+	 * Register GoCardless email notification classes with WooCommerce.
+	 *
+	 * Hooks into `woocommerce_email_classes` to inject the mandate confirmation
+	 * email into WooCommerce's email management system, making it configurable
+	 * via WooCommerce → Settings → Emails.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	private function init_emails(): void {
+		add_filter(
+			'woocommerce_email_classes',
+			array( $this, 'register_email_classes' )
+		);
+	}
+
+	/**
+	 * Add GoCardless email classes to the WooCommerce email registry.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array<string, WC_Email> $email_classes Registered email class instances.
+	 * @return array<string, WC_Email> Modified email class list.
+	 */
+	public function register_email_classes( array $email_classes ): array {
+		$email_classes['WC_GoCardless_Email_Mandate_Confirmed'] = new WC_GoCardless_Email_Mandate_Confirmed();
+
+		return $email_classes;
+	}
+
+	/**
 	 * Register miscellaneous plugin-level hooks.
 	 *
 	 * @since 1.0.0
@@ -373,11 +406,9 @@ final class WC_GoCardless_Payments {
 			return;
 		}
 
-		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-
 		wp_register_script(
 			'wc-gocardless-checkout',
-			WC_GOCARDLESS_URL . 'assets/js/checkout' . $suffix . '.js',
+			WC_GOCARDLESS_URL . 'assets/js/checkout.js',
 			array( 'jquery', 'wc-checkout' ),
 			WC_GOCARDLESS_VERSION,
 			true
@@ -428,7 +459,7 @@ final class WC_GoCardless_Payments {
  * Global accessor function for the WC_GoCardless singleton.
  *
  * Mirrors WooCommerce's own `WC()` pattern for ergonomic access throughout
- * the codebase:  wc_gocardless()->api->payments->create( ... )
+ * the codebase:  wc_gocardless_payments()->api->payments->create( ... )
  *
  * @since 1.0.0
  *
