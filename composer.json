@@ -32,6 +32,9 @@
 	"autoload": {
 		"classmap": [
 			"includes/"
+		],
+		"files": [
+			"includes/class-wc-gocardless-payments.php"
 		]
 	},
 	"scripts": {
