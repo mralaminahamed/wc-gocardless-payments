@@ -238,7 +238,64 @@ class WC_GoCardless_Order_Helper {
 	}
 
 	/**
-	 * Check whether an order has been fulfilled via a GoCardless payment.
+	 * Retrieve the payment type stored on an order (e.g. 'instant_bank_pay', 'direct_debit').
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WC_Order $order WooCommerce order.
+	 * @return string Payment type identifier or empty string.
+	 */
+	public static function get_payment_type( WC_Order $order ): string {
+		return (string) self::get_meta( $order, 'payment_type' );
+	}
+
+	/**
+	 * Store the GoCardless payment type on an order.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WC_Order $order        WooCommerce order.
+	 * @param string   $payment_type Payment type identifier.
+	 * @return void
+	 */
+	public static function set_payment_type( WC_Order $order, string $payment_type ): void {
+		$allowed = array( 'instant_bank_pay', 'direct_debit', 'vrp' );
+		if ( in_array( $payment_type, $allowed, true ) ) {
+			self::update_meta( $order, 'payment_type', $payment_type );
+		}
+	}
+
+	/**
+	 * Retrieve the IBP (Instant Bank Pay) payment status stored on an order.
+	 *
+	 * IBP payments have a distinct confirmation lifecycle from Direct Debit.
+	 * This stores the raw GoCardless IBP payment status for display and logic.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WC_Order $order WooCommerce order.
+	 * @return string GoCardless IBP status or empty string.
+	 */
+	public static function get_ibp_status( WC_Order $order ): string {
+		return (string) self::get_meta( $order, 'ibp_status' );
+	}
+
+	/**
+	 * Store the IBP payment status on an order.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WC_Order $order  WooCommerce order.
+	 * @param string   $status GoCardless IBP status value.
+	 * @param bool     $save   Whether to persist immediately.
+	 * @return void
+	 */
+	public static function set_ibp_status( WC_Order $order, string $status, bool $save = true ): void {
+		self::update_meta( $order, 'ibp_status', sanitize_text_field( $status ), $save );
+	}
+
+	/**
+	 * Check whether an order has been fulfilled via a GoCardless order.
 	 *
 	 * @since 1.0.0
 	 *
