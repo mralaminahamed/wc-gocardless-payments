@@ -307,6 +307,62 @@ class WC_GoCardless_Order_Helper {
 	}
 
 	/**
+	 * Retrieve the GoCardless VRP consent mandate ID stored on an order.
+	 *
+	 * VRP consents are stored on the initial subscription order and
+	 * referenced for all subsequent renewal orders.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WC_Order $order WooCommerce order (initial subscription order).
+	 * @return string VRP mandate ID (e.g. 'MD123ABC') or empty string.
+	 */
+	public static function get_vrp_consent_id( WC_Order $order ): string {
+		return (string) self::get_meta( $order, 'vrp_consent_id' );
+	}
+
+	/**
+	 * Store the GoCardless VRP consent mandate ID on an order.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WC_Order $order      WooCommerce order.
+	 * @param string   $consent_id GoCardless VRP mandate (consent) ID.
+	 * @return void
+	 */
+	public static function set_vrp_consent_id( WC_Order $order, string $consent_id ): void {
+		self::update_meta( $order, 'vrp_consent_id', sanitize_text_field( $consent_id ) );
+	}
+
+	/**
+	 * Retrieve the VRP payment amount constraint stored on an order.
+	 *
+	 * Records the max_amount_per_payment used when the consent was created,
+	 * enabling comparison during renewals.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WC_Order $order WooCommerce order.
+	 * @return int Maximum per-payment amount in minor units, or 0 if not set.
+	 */
+	public static function get_vrp_max_amount( WC_Order $order ): int {
+		return (int) self::get_meta( $order, 'vrp_max_amount', 0 );
+	}
+
+	/**
+	 * Store the VRP max-amount-per-payment constraint on an order.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WC_Order $order      WooCommerce order.
+	 * @param int      $max_amount Maximum payment amount in minor units.
+	 * @return void
+	 */
+	public static function set_vrp_max_amount( WC_Order $order, int $max_amount ): void {
+		self::update_meta( $order, 'vrp_max_amount', $max_amount );
+	}
+
+	/**
 	 * Retrieve the VRP consent ID stored on an order.
 	 *
 	 * The VRP consent ID is the GoCardless mandate ID for a VRP-scheme mandate.
