@@ -187,7 +187,7 @@ class WC_GoCardless_Redirect {
 				$order->update_status(
 					'cancelled',
 					sprintf(
-						/* translators: %s: Billing Request ID */
+					/* translators: %s: Billing Request ID */
 						__( 'Customer cancelled GoCardless authorisation (Billing Request: %s).', 'wc-gocardless-payments' ),
 						esc_html( $billing_request_id )
 					)
@@ -208,7 +208,7 @@ class WC_GoCardless_Redirect {
 				// The webhook will transition the order when confirmed.
 				$order->add_order_note(
 					sprintf(
-						/* translators: %s: Billing Request ID */
+					/* translators: %s: Billing Request ID */
 						__( 'Customer returned from GoCardless. Awaiting bank confirmation (Billing Request: %s).', 'wc-gocardless-payments' ),
 						esc_html( $billing_request_id )
 					)
@@ -261,6 +261,8 @@ class WC_GoCardless_Redirect {
 		// payment_complete() rather than waiting for webhook if status allows.
 		if ( $is_ibp ) {
 			$this->handle_ibp_fulfilled_return( $order, $billing_request, $payment_id );
+		} elseif ( 'vrp' === $payment_method ) {
+			$this->handle_vrp_fulfilled_return( $order, $billing_request, $mandate_id, $payment_id );
 		} else {
 			// Direct Debit: store mandate token and set on-hold — webhook confirms.
 			if ( ! empty( $mandate_id ) && $order->get_customer_id() > 0 ) {
@@ -271,7 +273,7 @@ class WC_GoCardless_Redirect {
 				$order->update_status(
 					'on-hold',
 					sprintf(
-						/* translators: 1: Mandate ID 2: Payment ID */
+					/* translators: 1: Mandate ID 2: Payment ID */
 						__( 'GoCardless mandate authorised (Mandate: %1$s, Payment: %2$s). Awaiting bank confirmation.', 'wc-gocardless-payments' ),
 						esc_html( $mandate_id ),
 						esc_html( $payment_id )
@@ -296,6 +298,77 @@ class WC_GoCardless_Redirect {
 			$billing_request,
 			$mandate_id,
 			$payment_id
+		);
+	}
+
+	/**
+	 * Handle a VRP consent fulfilled return.
+	 *
+	 * VRP consent authorisation creates a mandate (consent) but may or may not
+	 * include an immediate payment depending on the gateway setting.
+	 *
+	 *   - Consent only (no payment_id): store mandate_id, set on-hold.
+	 *     Subscription renewals will use this consent going forward.
+	 *   - Consent + initial payment (payment_id present): set on-hold;
+	 *     webhook payment.confirmed will complete the order.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WC_Order             $order           WooCommerce order.
+	 * @param array<string, mixed> $billing_request GoCardless Billing Request object.
+	 * @param string               $mandate_id      GoCardless VRP mandate (consent) ID.
+	 * @param string               $payment_id      GoCardless payment ID (may be empty).
+	 * @return void
+	 */
+	private function handle_vrp_fulfilled_return(
+		WC_Order $order,
+		array $billing_request,
+		string $mandate_id,
+		string $payment_id
+	): void {
+		$meta = array( 'payment_type' => 'vrp' );
+
+		if ( ! empty( $mandate_id ) ) {
+			$meta['mandate_id'] = $mandate_id;
+		}
+
+		if ( ! empty( $payment_id ) ) {
+			$meta['payment_id'] = $payment_id;
+		}
+
+		WC_GoCardless_Order_Helper::bulk_update_meta( $order, $meta );
+
+		$note = ! empty( $payment_id )
+			? sprintf(
+			/* translators: 1: Consent ID 2: Payment ID */
+				__( 'VRP consent authorised (Consent: %1$s, Initial Payment: %2$s). Awaiting payment confirmation.', 'wc-gocardless-payments' ),
+				esc_html( $mandate_id ),
+				esc_html( $payment_id )
+			)
+			: sprintf(
+			/* translators: %s: Consent ID */
+				__( 'VRP consent authorised (Consent: %s). Subscription renewals will be collected automatically.', 'wc-gocardless-payments' ),
+				esc_html( $mandate_id )
+			);
+
+		if ( $order->has_status( 'pending' ) ) {
+			$order->update_status( 'on-hold', $note );
+		} else {
+			$order->add_order_note( $note );
+		}
+
+		// For consent-only orders (no payment), complete immediately.
+		if ( empty( $payment_id ) && $order->get_total() <= 0 ) {
+			$order->payment_complete();
+		}
+
+		$this->logger->info(
+			sprintf(
+				'[Return][VRP] Order #%d — consent %s fulfilled (payment: %s).',
+				$order->get_id(),
+				$mandate_id,
+				$payment_id ?: 'none'
+			)
 		);
 	}
 
@@ -358,7 +431,7 @@ class WC_GoCardless_Redirect {
 				$order->payment_complete( $payment_id );
 				$order->add_order_note(
 					sprintf(
-						/* translators: %s: Payment ID */
+					/* translators: %s: Payment ID */
 						__( 'Instant Bank Pay confirmed on return (Payment ID: %s).', 'wc-gocardless-payments' ),
 						esc_html( $payment_id )
 					)
@@ -371,7 +444,7 @@ class WC_GoCardless_Redirect {
 				$order->update_status(
 					'failed',
 					sprintf(
-						/* translators: 1: Payment ID 2: Status */
+					/* translators: 1: Payment ID 2: Status */
 						__( 'Instant Bank Pay %2$s on return (Payment ID: %1$s).', 'wc-gocardless-payments' ),
 						esc_html( $payment_id ),
 						esc_html( $payment_status )
@@ -387,7 +460,7 @@ class WC_GoCardless_Redirect {
 					$order->update_status(
 						'on-hold',
 						sprintf(
-							/* translators: %s: Payment ID */
+						/* translators: %s: Payment ID */
 							__( 'Instant Bank Pay authorised (Payment ID: %s). Awaiting settlement confirmation.', 'wc-gocardless-payments' ),
 							esc_html( $payment_id )
 						)
