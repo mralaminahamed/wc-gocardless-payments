@@ -143,7 +143,7 @@ class WC_GoCardless_Webhook_Processor {
 			case 'created':
 				$order->add_order_note(
 					sprintf(
-						/* translators: %s: GoCardless payment ID */
+					/* translators: %s: GoCardless payment ID */
 						__( 'GoCardless payment created (Payment ID: %s). Awaiting bank confirmation.', 'wc-gocardless-payments' ),
 						esc_html( $payment_id )
 					)
@@ -153,7 +153,7 @@ class WC_GoCardless_Webhook_Processor {
 			case 'submitted':
 				$order->add_order_note(
 					sprintf(
-						/* translators: %s: GoCardless payment ID */
+					/* translators: %s: GoCardless payment ID */
 						__( 'GoCardless payment submitted to the bank (Payment ID: %s).', 'wc-gocardless-payments' ),
 						esc_html( $payment_id )
 					)
@@ -169,8 +169,22 @@ class WC_GoCardless_Webhook_Processor {
 
 						$order->add_order_note(
 							sprintf(
-								/* translators: %s: Payment ID */
+							/* translators: %s: Payment ID */
 								__( 'Instant Bank Pay confirmed via webhook (Payment ID: %s).', 'wc-gocardless-payments' ),
+								esc_html( $payment_id )
+							)
+						);
+					}
+				} elseif ( 'vrp' === WC_GoCardless_Order_Helper::get_payment_type( $order ) ) {
+					// VRP: open-banking confirmation — complete the order.
+					if ( ! $order->is_paid() ) {
+						$order->payment_complete( $payment_id );
+						wc_reduce_stock_levels( $order->get_id() );
+
+						$order->add_order_note(
+							sprintf(
+							/* translators: %s: Payment ID */
+								__( 'VRP payment confirmed via webhook (Payment ID: %s).', 'wc-gocardless-payments' ),
 								esc_html( $payment_id )
 							)
 						);
@@ -180,7 +194,7 @@ class WC_GoCardless_Webhook_Processor {
 					$order->update_status(
 						'processing',
 						sprintf(
-							/* translators: %s: GoCardless payment ID */
+						/* translators: %s: GoCardless payment ID */
 							__( 'GoCardless Direct Debit payment confirmed (Payment ID: %s).', 'wc-gocardless-payments' ),
 							esc_html( $payment_id )
 						)
@@ -199,7 +213,7 @@ class WC_GoCardless_Webhook_Processor {
 					}
 					$order->add_order_note(
 						sprintf(
-							/* translators: %s: Payment ID */
+						/* translators: %s: Payment ID */
 							__( 'Instant Bank Pay settled to merchant account (Payment ID: %s).', 'wc-gocardless-payments' ),
 							esc_html( $payment_id )
 						)
@@ -207,7 +221,7 @@ class WC_GoCardless_Webhook_Processor {
 				} else {
 					$order->add_order_note(
 						sprintf(
-							/* translators: %s: GoCardless payment ID */
+						/* translators: %s: GoCardless payment ID */
 							__( 'GoCardless payment paid out to merchant account (Payment ID: %s).', 'wc-gocardless-payments' ),
 							esc_html( $payment_id )
 						)
@@ -220,13 +234,13 @@ class WC_GoCardless_Webhook_Processor {
 
 			case 'failed':
 				$failure_reason = $event['details']['description']
-					?? __( 'Unknown reason', 'wc-gocardless-payments' );
+				                  ?? __( 'Unknown reason', 'wc-gocardless-payments' );
 				$failure_cause  = $event['details']['cause'] ?? '';
 
 				$order->update_status(
 					'failed',
 					sprintf(
-						/* translators: 1: Payment ID 2: Failure reason 3: Cause code */
+					/* translators: 1: Payment ID 2: Failure reason 3: Cause code */
 						__( 'GoCardless payment failed (Payment ID: %1$s). Reason: %2$s. Cause: %3$s', 'wc-gocardless-payments' ),
 						esc_html( $payment_id ),
 						esc_html( $failure_reason ),
@@ -250,7 +264,7 @@ class WC_GoCardless_Webhook_Processor {
 				$order->update_status(
 					'cancelled',
 					sprintf(
-						/* translators: %s: GoCardless payment ID */
+					/* translators: %s: GoCardless payment ID */
 						__( 'GoCardless payment cancelled (Payment ID: %s).', 'wc-gocardless-payments' ),
 						esc_html( $payment_id )
 					)
@@ -261,7 +275,7 @@ class WC_GoCardless_Webhook_Processor {
 				$order->update_status(
 					'on-hold',
 					sprintf(
-						/* translators: %s: GoCardless payment ID */
+					/* translators: %s: GoCardless payment ID */
 						__( 'GoCardless payment charged back (Payment ID: %s). Please review.', 'wc-gocardless-payments' ),
 						esc_html( $payment_id )
 					)
@@ -282,7 +296,7 @@ class WC_GoCardless_Webhook_Processor {
 				// A previously failed payment has been settled — rare edge case.
 				$order->add_order_note(
 					sprintf(
-						/* translators: %s: Payment ID */
+					/* translators: %s: Payment ID */
 						__( 'GoCardless late failure settled (Payment ID: %s).', 'wc-gocardless-payments' ),
 						esc_html( $payment_id )
 					)
@@ -292,7 +306,7 @@ class WC_GoCardless_Webhook_Processor {
 			case 'chargeback_settled':
 				$order->add_order_note(
 					sprintf(
-						/* translators: %s: Payment ID */
+					/* translators: %s: Payment ID */
 						__( 'GoCardless chargeback settled (Payment ID: %s).', 'wc-gocardless-payments' ),
 						esc_html( $payment_id )
 					)
@@ -336,7 +350,7 @@ class WC_GoCardless_Webhook_Processor {
 			case 'created':
 				$order->add_order_note(
 					sprintf(
-						/* translators: %s: GoCardless mandate ID */
+					/* translators: %s: GoCardless mandate ID */
 						__( 'GoCardless mandate created (Mandate ID: %s).', 'wc-gocardless-payments' ),
 						esc_html( $mandate_id )
 					)
@@ -346,7 +360,7 @@ class WC_GoCardless_Webhook_Processor {
 			case 'active':
 				$order->add_order_note(
 					sprintf(
-						/* translators: %s: GoCardless mandate ID */
+					/* translators: %s: GoCardless mandate ID */
 						__( 'GoCardless mandate is now active (Mandate ID: %s).', 'wc-gocardless-payments' ),
 						esc_html( $mandate_id )
 					)
@@ -359,7 +373,7 @@ class WC_GoCardless_Webhook_Processor {
 				// Update any active subscription to require a new payment method.
 				$order->add_order_note(
 					sprintf(
-						/* translators: 1: Mandate ID 2: Action */
+					/* translators: 1: Mandate ID 2: Action */
 						__( 'GoCardless mandate %2$s (Mandate ID: %1$s). Subscription may require new payment method.', 'wc-gocardless-payments' ),
 						esc_html( $mandate_id ),
 						esc_html( $action )
@@ -410,7 +424,7 @@ class WC_GoCardless_Webhook_Processor {
 			case 'fulfilled':
 				$order->add_order_note(
 					sprintf(
-						/* translators: %s: Billing request ID */
+					/* translators: %s: Billing request ID */
 						__( 'GoCardless Billing Request fulfilled (ID: %s).', 'wc-gocardless-payments' ),
 						esc_html( $billing_request_id )
 					)
@@ -421,7 +435,7 @@ class WC_GoCardless_Webhook_Processor {
 				$order->update_status(
 					'cancelled',
 					sprintf(
-						/* translators: %s: Billing request ID */
+					/* translators: %s: Billing request ID */
 						__( 'GoCardless Billing Request cancelled by customer (ID: %s).', 'wc-gocardless-payments' ),
 						esc_html( $billing_request_id )
 					)
@@ -457,7 +471,7 @@ class WC_GoCardless_Webhook_Processor {
 		if ( 'paid' === $action ) {
 			$order->add_order_note(
 				sprintf(
-					/* translators: %s: GoCardless refund ID */
+				/* translators: %s: GoCardless refund ID */
 					__( 'GoCardless refund processed successfully (Refund ID: %s).', 'wc-gocardless-payments' ),
 					esc_html( $refund_id )
 				)
