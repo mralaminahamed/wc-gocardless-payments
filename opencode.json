@@ -1,0 +1,16 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "razorpay": {
+      "enabled": true,
+      "command": [
+        "npx",
+        "mcp-remote",
+        "https://mcp.razorpay.com/mcp",
+        "--header",
+        "Authorization: Basic {RAZORPAY_KEY}"
+      ],
+      "type": "local"
+    }
+  }
+}
