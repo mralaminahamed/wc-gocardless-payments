@@ -222,6 +222,9 @@ class WC_GoCardless_Redirect {
 	/**
 	 * Handle a fulfilled Billing Request: extract mandate/payment IDs and store.
 	 *
+	 * Handles both Direct Debit (mandate + payment) and Instant Bank Pay
+	 * (payment only, no mandate) fulfilled returns.
+	 *
 	 * @since 1.0.0
 	 *
 	 * @param WC_Order             $order           WooCommerce order.
@@ -229,9 +232,11 @@ class WC_GoCardless_Redirect {
 	 * @return void
 	 */
 	private function handle_fulfilled_return( WC_Order $order, array $billing_request ): void {
-		$links      = $billing_request['links'] ?? array();
-		$mandate_id = $links['mandate'] ?? '';
-		$payment_id = $links['payment'] ?? '';
+		$links          = $billing_request['links'] ?? array();
+		$mandate_id     = $links['mandate'] ?? '';
+		$payment_id     = $links['payment'] ?? '';
+		$payment_method = $billing_request['metadata']['payment_method'] ?? '';
+		$is_ibp         = 'instant_bank_pay' === $payment_method;
 
 		// Store mandate and payment IDs on the order.
 		$meta = array();
@@ -244,26 +249,35 @@ class WC_GoCardless_Redirect {
 			$meta['payment_id'] = $payment_id;
 		}
 
+		if ( $is_ibp ) {
+			$meta['payment_type'] = 'instant_bank_pay';
+		}
+
 		if ( ! empty( $meta ) ) {
 			WC_GoCardless_Order_Helper::bulk_update_meta( $order, $meta );
 		}
 
-		// Attempt to save the mandate as a WC Payment Token for the customer.
-		if ( ! empty( $mandate_id ) && $order->get_customer_id() > 0 ) {
-			$this->maybe_save_mandate_token( $order, $mandate_id, $billing_request );
-		}
+		// For IBP: payment confirmation is near-instant; attempt immediate
+		// payment_complete() rather than waiting for webhook if status allows.
+		if ( $is_ibp ) {
+			$this->handle_ibp_fulfilled_return( $order, $billing_request, $payment_id );
+		} else {
+			// Direct Debit: store mandate token and set on-hold — webhook confirms.
+			if ( ! empty( $mandate_id ) && $order->get_customer_id() > 0 ) {
+				$this->maybe_save_mandate_token( $order, $mandate_id, $billing_request );
+			}
 
-		// Move order to on-hold pending webhook confirmation (unless already processing).
-		if ( $order->has_status( 'pending' ) ) {
-			$order->update_status(
-				'on-hold',
-				sprintf(
-					/* translators: 1: Mandate ID 2: Payment ID */
-					__( 'GoCardless mandate authorised (Mandate: %1$s, Payment: %2$s). Awaiting bank confirmation.', 'wc-gocardless-payments' ),
-					esc_html( $mandate_id ),
-					esc_html( $payment_id )
-				)
-			);
+			if ( $order->has_status( 'pending' ) ) {
+				$order->update_status(
+					'on-hold',
+					sprintf(
+						/* translators: 1: Mandate ID 2: Payment ID */
+						__( 'GoCardless mandate authorised (Mandate: %1$s, Payment: %2$s). Awaiting bank confirmation.', 'wc-gocardless-payments' ),
+						esc_html( $mandate_id ),
+						esc_html( $payment_id )
+					)
+				);
+			}
 		}
 
 		/**
@@ -273,7 +287,7 @@ class WC_GoCardless_Redirect {
 		 *
 		 * @param WC_Order             $order           WooCommerce order.
 		 * @param array<string, mixed> $billing_request GoCardless Billing Request object.
-		 * @param string               $mandate_id      GoCardless mandate ID.
+		 * @param string               $mandate_id      GoCardless mandate ID (empty for IBP).
 		 * @param string               $payment_id      GoCardless payment ID.
 		 */
 		do_action(
@@ -283,6 +297,104 @@ class WC_GoCardless_Redirect {
 			$mandate_id,
 			$payment_id
 		);
+	}
+
+	/**
+	 * Handle an IBP-fulfilled return.
+	 *
+	 * For Instant Bank Pay, GoCardless confirms the payment status within the
+	 * Billing Request object itself. We inspect the embedded payment status:
+	 *   - 'paid_out' / 'confirmed' → call payment_complete() immediately.
+	 *   - 'pending_submission' / 'submitted' → set on-hold; webhook will confirm.
+	 *   - 'failed' / 'cancelled' → set failed status.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WC_Order             $order           WooCommerce order.
+	 * @param array<string, mixed> $billing_request GoCardless Billing Request object.
+	 * @param string               $payment_id      GoCardless payment ID.
+	 * @return void
+	 */
+	private function handle_ibp_fulfilled_return(
+		WC_Order $order,
+		array $billing_request,
+		string $payment_id
+	): void {
+		// Retrieve the embedded payment status from the Billing Request resources.
+		$payment_status = '';
+
+		try {
+			if ( ! empty( $payment_id ) ) {
+				$payments_api   = new WC_GoCardless_API_Payments( wc_gocardless()->api );
+				$payment_resp   = $payments_api->get( $payment_id );
+				$payment_status = $payment_resp['payments']['status'] ?? '';
+
+				WC_GoCardless_Order_Helper::set_ibp_status( $order, $payment_status, false );
+				$order->save();
+			}
+		} catch ( WC_GoCardless_API_Exception $e ) {
+			$this->logger->warning(
+				sprintf(
+					'[Return][IBP] Could not fetch payment status for %s: %s',
+					$payment_id,
+					$e->getMessage()
+				)
+			);
+		}
+
+		$this->logger->info(
+			sprintf(
+				'[Return][IBP] Order #%d — payment %s status: %s',
+				$order->get_id(),
+				$payment_id,
+				$payment_status ?: 'unknown'
+			)
+		);
+
+		switch ( $payment_status ) {
+			case 'paid_out':
+			case 'confirmed':
+				// Payment already confirmed — complete immediately.
+				$order->payment_complete( $payment_id );
+				$order->add_order_note(
+					sprintf(
+						/* translators: %s: Payment ID */
+						__( 'Instant Bank Pay confirmed on return (Payment ID: %s).', 'wc-gocardless-payments' ),
+						esc_html( $payment_id )
+					)
+				);
+				wc_reduce_stock_levels( $order->get_id() );
+				break;
+
+			case 'failed':
+			case 'cancelled':
+				$order->update_status(
+					'failed',
+					sprintf(
+						/* translators: 1: Payment ID 2: Status */
+						__( 'Instant Bank Pay %2$s on return (Payment ID: %1$s).', 'wc-gocardless-payments' ),
+						esc_html( $payment_id ),
+						esc_html( $payment_status )
+					)
+				);
+				break;
+
+			case 'pending_submission':
+			case 'submitted':
+			default:
+				// Payment submitted but not yet confirmed — on-hold pending webhook.
+				if ( $order->has_status( array( 'pending', 'on-hold' ) ) ) {
+					$order->update_status(
+						'on-hold',
+						sprintf(
+							/* translators: %s: Payment ID */
+							__( 'Instant Bank Pay authorised (Payment ID: %s). Awaiting settlement confirmation.', 'wc-gocardless-payments' ),
+							esc_html( $payment_id )
+						)
+					);
+				}
+				break;
+		}
 	}
 
 	/**
