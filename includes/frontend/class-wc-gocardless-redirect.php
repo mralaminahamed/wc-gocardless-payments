@@ -187,7 +187,7 @@ class WC_GoCardless_Redirect {
 				$order->update_status(
 					'cancelled',
 					sprintf(
-					/* translators: %s: Billing Request ID */
+						/* translators: %s: Billing Request ID */
 						__( 'Customer cancelled GoCardless authorisation (Billing Request: %s).', 'wc-gocardless-payments' ),
 						esc_html( $billing_request_id )
 					)
@@ -208,7 +208,7 @@ class WC_GoCardless_Redirect {
 				// The webhook will transition the order when confirmed.
 				$order->add_order_note(
 					sprintf(
-					/* translators: %s: Billing Request ID */
+						/* translators: %s: Billing Request ID */
 						__( 'Customer returned from GoCardless. Awaiting bank confirmation (Billing Request: %s).', 'wc-gocardless-payments' ),
 						esc_html( $billing_request_id )
 					)
@@ -273,7 +273,7 @@ class WC_GoCardless_Redirect {
 				$order->update_status(
 					'on-hold',
 					sprintf(
-					/* translators: 1: Mandate ID 2: Payment ID */
+						/* translators: 1: Mandate ID 2: Payment ID */
 						__( 'GoCardless mandate authorised (Mandate: %1$s, Payment: %2$s). Awaiting bank confirmation.', 'wc-gocardless-payments' ),
 						esc_html( $mandate_id ),
 						esc_html( $payment_id )
@@ -340,13 +340,13 @@ class WC_GoCardless_Redirect {
 
 		$note = ! empty( $payment_id )
 			? sprintf(
-			/* translators: 1: Consent ID 2: Payment ID */
+				/* translators: 1: Consent ID 2: Payment ID */
 				__( 'VRP consent authorised (Consent: %1$s, Initial Payment: %2$s). Awaiting payment confirmation.', 'wc-gocardless-payments' ),
 				esc_html( $mandate_id ),
 				esc_html( $payment_id )
 			)
 			: sprintf(
-			/* translators: %s: Consent ID */
+				/* translators: %s: Consent ID */
 				__( 'VRP consent authorised (Consent: %s). Subscription renewals will be collected automatically.', 'wc-gocardless-payments' ),
 				esc_html( $mandate_id )
 			);
@@ -431,7 +431,7 @@ class WC_GoCardless_Redirect {
 				$order->payment_complete( $payment_id );
 				$order->add_order_note(
 					sprintf(
-					/* translators: %s: Payment ID */
+						/* translators: %s: Payment ID */
 						__( 'Instant Bank Pay confirmed on return (Payment ID: %s).', 'wc-gocardless-payments' ),
 						esc_html( $payment_id )
 					)
@@ -444,7 +444,7 @@ class WC_GoCardless_Redirect {
 				$order->update_status(
 					'failed',
 					sprintf(
-					/* translators: 1: Payment ID 2: Status */
+						/* translators: 1: Payment ID 2: Status */
 						__( 'Instant Bank Pay %2$s on return (Payment ID: %1$s).', 'wc-gocardless-payments' ),
 						esc_html( $payment_id ),
 						esc_html( $payment_status )
@@ -460,7 +460,7 @@ class WC_GoCardless_Redirect {
 					$order->update_status(
 						'on-hold',
 						sprintf(
-						/* translators: %s: Payment ID */
+							/* translators: %s: Payment ID */
 							__( 'Instant Bank Pay authorised (Payment ID: %s). Awaiting settlement confirmation.', 'wc-gocardless-payments' ),
 							esc_html( $payment_id )
 						)

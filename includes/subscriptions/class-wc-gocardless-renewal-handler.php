@@ -113,7 +113,7 @@ class WC_GoCardless_Renewal_Handler {
 				$this->fail_renewal(
 					$renewal_order,
 					sprintf(
-					/* translators: 1: Mandate ID 2: Mandate status */
+						/* translators: 1: Mandate ID 2: Mandate status */
 						__( 'Direct Debit mandate %1$s is not active (status: %2$s). Subscription placed on-hold.', 'wc-gocardless-payments' ),
 						$mandate_id,
 						$mandate_status
@@ -135,7 +135,7 @@ class WC_GoCardless_Renewal_Handler {
 			$this->fail_renewal(
 				$renewal_order,
 				sprintf(
-				/* translators: %s: API error message */
+					/* translators: %s: API error message */
 					__( 'GoCardless mandate verification failed: %s', 'wc-gocardless-payments' ),
 					$e->getMessage()
 				)
@@ -199,7 +199,7 @@ class WC_GoCardless_Renewal_Handler {
 				$this->fail_renewal(
 					$renewal_order,
 					sprintf(
-					/* translators: 1: Consent ID 2: Consent status */
+						/* translators: 1: Consent ID 2: Consent status */
 						__( 'VRP consent %1$s is not active (status: %2$s). Subscription placed on-hold.', 'wc-gocardless-payments' ),
 						$consent_id,
 						$consent_status
@@ -221,7 +221,7 @@ class WC_GoCardless_Renewal_Handler {
 			$this->fail_renewal(
 				$renewal_order,
 				sprintf(
-				/* translators: %s: Error message */
+					/* translators: %s: Error message */
 					__( 'VRP consent verification failed: %s', 'wc-gocardless-payments' ),
 					$e->getMessage()
 				)
@@ -285,7 +285,7 @@ class WC_GoCardless_Renewal_Handler {
 			$renewal_order->update_status(
 				'on-hold',
 				sprintf(
-				/* translators: 1: Payment ID 2: Mandate ID */
+					/* translators: 1: Payment ID 2: Mandate ID */
 					__( 'GoCardless renewal payment created (Payment ID: %1$s, Mandate: %2$s). Awaiting bank confirmation.', 'wc-gocardless-payments' ),
 					esc_html( $payment_id ),
 					esc_html( $mandate_id )
@@ -325,7 +325,7 @@ class WC_GoCardless_Renewal_Handler {
 			$this->fail_renewal(
 				$renewal_order,
 				sprintf(
-				/* translators: %s: API error message */
+					/* translators: %s: API error message */
 					__( 'GoCardless renewal payment failed: %s', 'wc-gocardless-payments' ),
 					$e->getMessage()
 				)
@@ -387,7 +387,7 @@ class WC_GoCardless_Renewal_Handler {
 			$renewal_order->update_status(
 				'on-hold',
 				sprintf(
-				/* translators: 1: Payment ID 2: Consent ID */
+					/* translators: 1: Payment ID 2: Consent ID */
 					__( 'GoCardless VRP renewal payment created (Payment ID: %1$s, Consent: %2$s). Awaiting settlement.', 'wc-gocardless-payments' ),
 					esc_html( $payment_id ),
 					esc_html( $consent_id )
@@ -427,12 +427,12 @@ class WC_GoCardless_Renewal_Handler {
 			// If GoCardless reports a consent constraint violation, surface clearly.
 			$note = $e->get_error_type() === 'mandate_payment_amount_over_limit'
 				? sprintf(
-				/* translators: %s: Constraint error */
+					/* translators: %s: Constraint error */
 					__( 'VRP renewal failed — amount exceeds consent limit: %s', 'wc-gocardless-payments' ),
 					$e->getMessage()
 				)
 				: sprintf(
-				/* translators: %s: API error message */
+					/* translators: %s: API error message */
 					__( 'GoCardless VRP renewal payment failed: %s', 'wc-gocardless-payments' ),
 					$e->getMessage()
 				);
@@ -576,7 +576,7 @@ class WC_GoCardless_Renewal_Handler {
 	private function get_renewal_description( WC_Order $renewal_order ): string {
 		return substr(
 			sprintf(
-			/* translators: 1: Site name 2: Order number */
+				/* translators: 1: Site name 2: Order number */
 				__( '%1$s — Renewal Order #%2$s', 'wc-gocardless-payments' ),
 				get_bloginfo( 'name' ),
 				$renewal_order->get_order_number()

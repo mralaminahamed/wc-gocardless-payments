@@ -170,8 +170,8 @@ class WC_GoCardless_Gateway_VRP extends WC_GoCardless_Gateway {
 
 		if ( $this->is_sandbox() ) {
 			$description .= ' <span class="wc-gocardless-sandbox-badge">'
-			                . esc_html__( 'Test Mode', 'wc-gocardless-payments' )
-			                . '</span>';
+				. esc_html__( 'Test Mode', 'wc-gocardless-payments' )
+				. '</span>';
 		}
 
 		echo '<div class="wc-gocardless-payment-box wc-gocardless-vrp-box">';
@@ -210,7 +210,7 @@ class WC_GoCardless_Gateway_VRP extends WC_GoCardless_Gateway {
 
 		echo '<p class="wc-gocardless-vrp-consent-summary">';
 		printf(
-		/* translators: 1: Max per payment 2: Max per month */
+			/* translators: 1: Max per payment 2: Max per month */
 			esc_html__( 'Consent limits: up to %1$s per payment, up to %2$s per month.', 'wc-gocardless-payments' ),
 			wp_kses_post( wc_price( $max_per_payment ) ),
 			wp_kses_post( wc_price( $max_per_month ) )
@@ -263,7 +263,7 @@ class WC_GoCardless_Gateway_VRP extends WC_GoCardless_Gateway {
 
 			wc_add_notice(
 				sprintf(
-				/* translators: %s: Error message */
+					/* translators: %s: Error message */
 					__( 'Variable Recurring Payment error: %s', 'wc-gocardless-payments' ),
 					esc_html( $e->getMessage() )
 				),
@@ -357,7 +357,7 @@ class WC_GoCardless_Gateway_VRP extends WC_GoCardless_Gateway {
 		$order->update_status(
 			'pending',
 			sprintf(
-			/* translators: %s: Billing Request ID */
+				/* translators: %s: Billing Request ID */
 				__( 'VRP consent Billing Request created (ID: %s). Customer redirected to GoCardless for consent authorisation.', 'wc-gocardless-payments' ),
 				esc_html( $billing_request_id )
 			)
@@ -408,9 +408,9 @@ class WC_GoCardless_Gateway_VRP extends WC_GoCardless_Gateway {
 			if ( $mandate_id ) {
 				echo '<p><small>' . sprintf(
 					/* translators: %s: Consent ID */
-						esc_html__( 'Consent reference: %s', 'wc-gocardless-payments' ),
-						'<code>' . esc_html( $mandate_id ) . '</code>'
-					) . '</small></p>';
+					esc_html__( 'Consent reference: %s', 'wc-gocardless-payments' ),
+					'<code>' . esc_html( $mandate_id ) . '</code>'
+				) . '</small></p>';
 			}
 
 			echo '</div>';

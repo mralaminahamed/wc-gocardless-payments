@@ -238,7 +238,7 @@ class WC_GoCardless_Subscriptions {
 
 			$subscription->add_order_note(
 				sprintf(
-				/* translators: %s: Mandate ID */
+					/* translators: %s: Mandate ID */
 					__( 'GoCardless mandate/consent %s cancelled on subscription cancellation.', 'wc-gocardless-payments' ),
 					esc_html( $mandate_id )
 				)
@@ -286,7 +286,7 @@ class WC_GoCardless_Subscriptions {
 
 		$subscription->add_order_note(
 			sprintf(
-			/* translators: 1: Old gateway 2: New gateway */
+				/* translators: 1: Old gateway 2: New gateway */
 				__( 'Payment method changed from %1$s to %2$s. A new mandate/consent will be collected on the next renewal checkout.', 'wc-gocardless-payments' ),
 				esc_html( $old_gateway ),
 				esc_html( $new_gateway )
@@ -335,7 +335,7 @@ class WC_GoCardless_Subscriptions {
 			$subscription->update_status(
 				'on-hold',
 				sprintf(
-				/* translators: 1: Mandate ID 2: Action type */
+					/* translators: 1: Mandate ID 2: Action type */
 					__( 'GoCardless mandate/consent %1$s %2$s. Subscription placed on-hold — new payment method required.', 'wc-gocardless-payments' ),
 					esc_html( $mandate_id ),
 					esc_html( $action )

@@ -226,8 +226,7 @@ class WC_GoCardless_API_VRP {
 		$status = $data['status'] ?? '';
 		$scheme = $data['scheme'] ?? '';
 
-		return self::SCHEME === $scheme
-		       && in_array( $status, array( 'active', 'submitted', 'pending_submission' ), true );
+		return self::SCHEME === $scheme && in_array( $status, array( 'active', 'submitted', 'pending_submission' ), true );
 	}
 
 	/**
