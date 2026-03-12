@@ -156,6 +156,8 @@ function wc_gocardless_payments_class_to_file( string $class_name ): ?string {
 		// Admin UI.
 		'wc-gocardless-admin-'           => 'admin/',
 		'wc-gocardless-admin'            => 'admin/',
+		// Email notifications (Phase 5).
+		'wc-gocardless-email-'           => 'emails/',
 		// Frontend: checkout rendering + redirect handler (Phase 2).
 		'wc-gocardless-checkout'         => 'frontend/',
 		'wc-gocardless-redirect'         => 'frontend/',
@@ -188,7 +190,7 @@ function wc_gocardless_payments_php_version_notice(): void {
 		'<div class="notice notice-error"><p>%s</p></div>',
 		wp_kses_post(
 			sprintf(
-				/* translators: 1: Required PHP version 2: Current PHP version */
+			/* translators: 1: Required PHP version 2: Current PHP version */
 				__( '<strong>WooCommerce GoCardless Payments</strong> requires PHP %1$s or higher. Your server is running PHP %2$s. Please upgrade PHP or contact your hosting provider.', 'wc-gocardless-payments' ),
 				WC_GOCARDLESS_MIN_PHP_VERSION,
 				PHP_VERSION
@@ -225,7 +227,7 @@ function wc_gocardless_payments_woocommerce_version_notice(): void {
 		'<div class="notice notice-error"><p>%s</p></div>',
 		wp_kses_post(
 			sprintf(
-				/* translators: 1: Required WooCommerce version 2: Current WooCommerce version */
+			/* translators: 1: Required WooCommerce version 2: Current WooCommerce version */
 				__( '<strong>WooCommerce GoCardless Payments</strong> requires WooCommerce %1$s or higher. You are running WooCommerce %2$s.', 'wc-gocardless-payments' ),
 				WC_GOCARDLESS_MIN_WC_VERSION,
 				defined( 'WC_VERSION' ) ? WC_VERSION : __( 'unknown', 'wc-gocardless-payments' )

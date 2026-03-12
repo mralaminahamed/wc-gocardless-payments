@@ -26,6 +26,9 @@ foreach ( $gateway_option_keys as $option_key ) {
 	delete_option( $option_key );
 }
 
+// Remove email notification settings (Phase 5).
+delete_option( 'woocommerce_wc_gocardless_mandate_confirmed_settings' );
+
 // Remove any plugin transients.
 delete_transient( 'wc_gocardless_activation_notice' );
 

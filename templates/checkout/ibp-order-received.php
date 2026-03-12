@@ -16,8 +16,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$payment_id = WC_GoCardless_Order_Helper::get_payment_id( $order );
-$ibp_status = WC_GoCardless_Order_Helper::get_ibp_status( $order );
+$payment_id   = WC_GoCardless_Order_Helper::get_payment_id( $order );
+$ibp_status   = WC_GoCardless_Order_Helper::get_ibp_status( $order );
 $is_confirmed = in_array( $ibp_status, array( 'confirmed', 'paid_out' ), true )
 	|| $order->is_paid()
 	|| $order->has_status( array( 'processing', 'completed' ) );

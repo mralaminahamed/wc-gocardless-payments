@@ -38,38 +38,25 @@
         <exclude name="WordPress.PHP.DontExtract.extract_extract"/>
 
         <!-- Additional specific rules -->
+        <exclude name="Squiz.PHP.CommentedOutCode.Found"/>
         <exclude name="Universal.Files.SeparateFunctionsFromOO.Mixed"/>
+        <exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.classFound"/>
+        <exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.defaultFound"/>
+        <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
+        <exclude name="Generic.CodeAnalysis.AssignmentInCondition.Found"/>
+        <exclude name="Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure"/>
+        <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed"/>
     </rule>
 
     <!-- Let's also check that everything is properly documented. -->
-    <rule ref="WordPress-Docs"/>
+    <rule ref="WordPress-Docs">
+        <!-- Exclude specific rules -->
+        <exclude name="Squiz.Commenting.FileComment.Missing"/>
+        <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+    </rule>
 
     <!-- Additional rules -->
     <rule ref="PHPCompatibility"/>
-    <rule ref="Generic.Arrays.DisallowShortArraySyntax.Found">
-        <exclude-pattern>*</exclude-pattern>
-    </rule>
-    <rule ref="Generic.CodeAnalysis.AssignmentInCondition.Found">
-        <exclude-pattern>*</exclude-pattern>
-    </rule>
-    <rule ref="Squiz.Commenting.FileComment.Missing">
-        <exclude-pattern>*</exclude-pattern>
-    </rule>
-    <rule ref="Squiz.PHP.CommentedOutCode.Found">
-        <exclude-pattern>*</exclude-pattern>
-    </rule>
-    <rule ref="Squiz.Commenting.InlineComment.InvalidEndChar">
-        <exclude-pattern>*</exclude-pattern>
-    </rule>
-    <rule ref="Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure">
-        <exclude-pattern>*</exclude-pattern>
-    </rule>
-    <rule ref="Universal.NamingConventions.NoReservedKeywordParameterNames.defaultFound">
-        <exclude-pattern>*</exclude-pattern>
-    </rule>
-    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed">
-        <exclude-pattern>*</exclude-pattern>
-    </rule>
     <rule ref="WordPress.Security.EscapeOutput.OutputNotEscaped">
         <exclude-pattern>*/views/*</exclude-pattern>
     </rule>
