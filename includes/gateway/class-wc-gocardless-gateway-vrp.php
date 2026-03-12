@@ -98,8 +98,10 @@ class WC_GoCardless_Gateway_VRP extends WC_GoCardless_Gateway {
 		);
 
 		// Register checkout display helper once (may already be registered by DD).
-		if ( ! has_filter( 'woocommerce_payment_token_class',
-			array( new WC_GoCardless_Checkout(), 'register_token_class' ) )
+		if ( ! has_filter(
+			'woocommerce_payment_token_class',
+			array( new WC_GoCardless_Checkout(), 'register_token_class' )
+		)
 		) {
 			new WC_GoCardless_Checkout();
 		}
@@ -114,41 +116,41 @@ class WC_GoCardless_Gateway_VRP extends WC_GoCardless_Gateway {
 	 */
 	protected function get_gateway_form_fields(): array {
 		return array(
-			'vrp_section'              => array(
+			'vrp_section'             => array(
 				'title'       => __( 'Variable Recurring Payment Settings', 'wc-gocardless-payments' ),
 				'type'        => 'title',
 				'description' => __( 'VRP is available for UK merchants only, using Faster Payments open-banking rails. Ensure your GoCardless account has VRP enabled.', 'wc-gocardless-payments' ),
 			),
-			'max_amount_per_payment'   => array(
-				'title'       => __( 'Maximum Amount per Payment (£)', 'wc-gocardless-payments' ),
-				'type'        => 'number',
-				'description' => __( 'Maximum single payment amount the VRP consent authorises (in £). GoCardless will reject payments over this limit.', 'wc-gocardless-payments' ),
-				'default'     => '500',
-				'desc_tip'    => true,
+			'max_amount_per_payment'  => array(
+				'title'             => __( 'Maximum Amount per Payment (£)', 'wc-gocardless-payments' ),
+				'type'              => 'number',
+				'description'       => __( 'Maximum single payment amount the VRP consent authorises (in £). GoCardless will reject payments over this limit.', 'wc-gocardless-payments' ),
+				'default'           => '500',
+				'desc_tip'          => true,
 				'custom_attributes' => array(
 					'min'  => '1',
 					'step' => '1',
 				),
 			),
-			'max_amount_per_month'     => array(
-				'title'       => __( 'Maximum Amount per Month (£)', 'wc-gocardless-payments' ),
-				'type'        => 'number',
-				'description' => __( 'Maximum total amount collectable per calendar month under the VRP consent (in £).', 'wc-gocardless-payments' ),
-				'default'     => '2000',
-				'desc_tip'    => true,
+			'max_amount_per_month'    => array(
+				'title'             => __( 'Maximum Amount per Month (£)', 'wc-gocardless-payments' ),
+				'type'              => 'number',
+				'description'       => __( 'Maximum total amount collectable per calendar month under the VRP consent (in £).', 'wc-gocardless-payments' ),
+				'default'           => '2000',
+				'desc_tip'          => true,
 				'custom_attributes' => array(
 					'min'  => '1',
 					'step' => '1',
 				),
 			),
-			'collect_initial_payment'  => array(
+			'collect_initial_payment' => array(
 				'title'       => __( 'Collect Initial Payment', 'wc-gocardless-payments' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Collect the initial order payment alongside the VRP consent (combined flow)', 'wc-gocardless-payments' ),
 				'default'     => 'yes',
 				'description' => __( 'When enabled, the first payment is collected during the consent authorisation flow. When disabled, only the consent is collected and the first payment is charged separately.', 'wc-gocardless-payments' ),
 			),
-			'statement_descriptor'     => array(
+			'statement_descriptor'    => array(
 				'title'       => __( 'Payment Reference', 'wc-gocardless-payments' ),
 				'type'        => 'text',
 				'description' => __( 'Reference shown in the customer\'s banking app (max 18 characters for Faster Payments).', 'wc-gocardless-payments' ),
@@ -237,7 +239,10 @@ class WC_GoCardless_Gateway_VRP extends WC_GoCardless_Gateway {
 				__( 'Order not found. Please try again.', 'wc-gocardless-payments' ),
 				'error'
 			);
-			return array( 'result' => 'failure', 'redirect' => '' );
+			return array(
+				'result'   => 'failure',
+				'redirect' => '',
+			);
 		}
 
 		$this->logger->info(
@@ -270,7 +275,10 @@ class WC_GoCardless_Gateway_VRP extends WC_GoCardless_Gateway {
 				'error'
 			);
 
-			return array( 'result' => 'failure', 'redirect' => '' );
+			return array(
+				'result'   => 'failure',
+				'redirect' => '',
+			);
 		}
 	}
 
@@ -289,9 +297,9 @@ class WC_GoCardless_Gateway_VRP extends WC_GoCardless_Gateway {
 		$idempotency     = new WC_GoCardless_Idempotency();
 		$idempotency_key = $idempotency->get_or_create_for_order( $order, 'vrp_consent' );
 
-		$currency         = $order->get_currency();
-		$max_per_payment  = (int) round( (float) $this->get_option( 'max_amount_per_payment', '500' ) * 100 );
-		$max_per_month    = (int) round( (float) $this->get_option( 'max_amount_per_month', '2000' ) * 100 );
+		$currency        = $order->get_currency();
+		$max_per_payment = (int) round( (float) $this->get_option( 'max_amount_per_payment', '500' ) * 100 );
+		$max_per_month   = (int) round( (float) $this->get_option( 'max_amount_per_month', '2000' ) * 100 );
 
 		$args = array(
 			'max_amount_per_payment' => $max_per_payment,

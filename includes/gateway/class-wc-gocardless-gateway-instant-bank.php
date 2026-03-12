@@ -117,10 +117,10 @@ class WC_GoCardless_Gateway_Instant_Bank extends WC_GoCardless_Gateway {
 				'desc_tip'    => true,
 			),
 			'show_bank_logos'      => array(
-				'title'       => __( 'Show Bank Logos at Checkout', 'wc-gocardless-payments' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Display bank logos below the payment method description', 'wc-gocardless-payments' ),
-				'default'     => 'yes',
+				'title'   => __( 'Show Bank Logos at Checkout', 'wc-gocardless-payments' ),
+				'type'    => 'checkbox',
+				'label'   => __( 'Display bank logos below the payment method description', 'wc-gocardless-payments' ),
+				'default' => 'yes',
 			),
 		);
 	}
@@ -214,7 +214,10 @@ class WC_GoCardless_Gateway_Instant_Bank extends WC_GoCardless_Gateway {
 				__( 'Order not found. Please try again.', 'wc-gocardless-payments' ),
 				'error'
 			);
-			return array( 'result' => 'failure', 'redirect' => '' );
+			return array(
+				'result'   => 'failure',
+				'redirect' => '',
+			);
 		}
 
 		$order_total = (float) $order->get_total();
@@ -235,7 +238,10 @@ class WC_GoCardless_Gateway_Instant_Bank extends WC_GoCardless_Gateway {
 				__( 'Instant Bank Pay is not available for zero-total orders. Please choose a different payment method.', 'wc-gocardless-payments' ),
 				'error'
 			);
-			return array( 'result' => 'failure', 'redirect' => '' );
+			return array(
+				'result'   => 'failure',
+				'redirect' => '',
+			);
 		}
 
 		try {
@@ -259,7 +265,10 @@ class WC_GoCardless_Gateway_Instant_Bank extends WC_GoCardless_Gateway {
 				'error'
 			);
 
-			return array( 'result' => 'failure', 'redirect' => '' );
+			return array(
+				'result'   => 'failure',
+				'redirect' => '',
+			);
 		}
 	}
 
@@ -279,19 +288,19 @@ class WC_GoCardless_Gateway_Instant_Bank extends WC_GoCardless_Gateway {
 		$collect_mandate     = 'yes' === $this->get_option( 'collect_mandate', 'no' );
 
 		$args = array(
-			'amount'           => $this->to_minor_units( (float) $order->get_total(), $order->get_currency() ),
-			'currency'         => $order->get_currency(),
-			'description'      => $this->get_payment_description( $order ),
-			'given_name'       => $order->get_billing_first_name(),
-			'family_name'      => $order->get_billing_last_name(),
-			'email'            => $order->get_billing_email(),
-			'address_line1'    => $order->get_billing_address_1(),
-			'city'             => $order->get_billing_city(),
-			'postal_code'      => $order->get_billing_postcode(),
-			'country_code'     => $order->get_billing_country(),
-			'wc_order_id'      => (string) $order->get_id(),
-			'idempotency_key'  => $idempotency_key,
-			'collect_mandate'  => $collect_mandate,
+			'amount'          => $this->to_minor_units( (float) $order->get_total(), $order->get_currency() ),
+			'currency'        => $order->get_currency(),
+			'description'     => $this->get_payment_description( $order ),
+			'given_name'      => $order->get_billing_first_name(),
+			'family_name'     => $order->get_billing_last_name(),
+			'email'           => $order->get_billing_email(),
+			'address_line1'   => $order->get_billing_address_1(),
+			'city'            => $order->get_billing_city(),
+			'postal_code'     => $order->get_billing_postcode(),
+			'country_code'    => $order->get_billing_country(),
+			'wc_order_id'     => (string) $order->get_id(),
+			'idempotency_key' => $idempotency_key,
+			'collect_mandate' => $collect_mandate,
 		);
 
 		$response           = $billing_request_api->create_for_instant_bank_pay( $args );

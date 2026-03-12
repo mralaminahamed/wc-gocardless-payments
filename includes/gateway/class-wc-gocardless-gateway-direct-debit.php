@@ -180,7 +180,10 @@ class WC_GoCardless_Gateway_Direct_Debit extends WC_GoCardless_Gateway {
 
 		if ( ! $order ) {
 			wc_add_notice( __( 'Order not found. Please try again.', 'wc-gocardless-payments' ), 'error' );
-			return array( 'result' => 'failure', 'redirect' => '' );
+			return array(
+				'result'   => 'failure',
+				'redirect' => '',
+			);
 		}
 
 		$this->logger->info(
@@ -224,7 +227,10 @@ class WC_GoCardless_Gateway_Direct_Debit extends WC_GoCardless_Gateway {
 				'error'
 			);
 
-			return array( 'result' => 'failure', 'redirect' => '' );
+			return array(
+				'result'   => 'failure',
+				'redirect' => '',
+			);
 		}
 	}
 
@@ -363,7 +369,10 @@ class WC_GoCardless_Gateway_Direct_Debit extends WC_GoCardless_Gateway {
 				__( 'Invalid saved payment method. Please try again or choose a different method.', 'wc-gocardless-payments' ),
 				'error'
 			);
-			return array( 'result' => 'failure', 'redirect' => '' );
+			return array(
+				'result'   => 'failure',
+				'redirect' => '',
+			);
 		}
 
 		if ( ! $token->is_active() ) {
@@ -371,13 +380,16 @@ class WC_GoCardless_Gateway_Direct_Debit extends WC_GoCardless_Gateway {
 				__( 'This Direct Debit mandate is no longer active. Please set up a new mandate.', 'wc-gocardless-payments' ),
 				'error'
 			);
-			return array( 'result' => 'failure', 'redirect' => '' );
+			return array(
+				'result'   => 'failure',
+				'redirect' => '',
+			);
 		}
 
-		$mandate_id  = $token->get_mandate_id();
-		$order_total = (float) $order->get_total();
-		$currency    = $order->get_currency();
-		$idempotency = new WC_GoCardless_Idempotency();
+		$mandate_id      = $token->get_mandate_id();
+		$order_total     = (float) $order->get_total();
+		$currency        = $order->get_currency();
+		$idempotency     = new WC_GoCardless_Idempotency();
 		$idempotency_key = $idempotency->get_or_create_for_order( $order, 'create_payment' );
 
 		$this->logger->info(

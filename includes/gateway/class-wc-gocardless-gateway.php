@@ -304,9 +304,9 @@ abstract class WC_GoCardless_Gateway extends WC_Payment_Gateway {
 				sprintf( '[Refund] Created refund %s for order #%d.', $refund['id'] ?? 'unknown', $order_id )
 			);
 
-			/* translators: 1: Refund ID 2: Amount with currency */
 			$order->add_order_note(
 				sprintf(
+				/* translators: 1: Refund ID 2: Amount with currency */
 					__( 'GoCardless refund created (Refund ID: %1$s, Amount: %2$s).', 'wc-gocardless-payments' ),
 					esc_html( $refund['id'] ?? '' ),
 					wc_price( $amount, array( 'currency' => $order->get_currency() ) )
