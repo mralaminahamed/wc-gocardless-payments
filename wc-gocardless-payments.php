@@ -143,28 +143,29 @@ function wc_gocardless_payments_class_to_file( string $class_name ): ?string {
 	// Sub-directory mapping based on class name segments.
 	$directory_map = array(
 		// API endpoint classes (Phase 1 + Phase 2).
-		'wc-gocardless-api-'             => 'api/',
+		'wc-gocardless-api-'           => 'api/',
 		// Gateway classes.
-		'wc-gocardless-gateway-'         => 'gateway/',
+		'wc-gocardless-gateway-'       => 'gateway/',
 		// Payment token.
-		'wc-gocardless-payment-token-'   => 'payment-token/',
+		'wc-gocardless-payment-token-' => 'payment-token/',
 		// Subscriptions integration.
-		'wc-gocardless-subscriptions'    => 'subscriptions/',
-		'wc-gocardless-renewal-'         => 'subscriptions/',
+		'wc-gocardless-subscriptions'  => 'subscriptions/',
+		'wc-gocardless-renewal-'       => 'subscriptions/',
 		// Webhook handling.
-		'wc-gocardless-webhook-'         => 'webhooks/',
+		'wc-gocardless-webhook-'       => 'webhooks/',
 		// Admin UI.
-		'wc-gocardless-admin-'           => 'admin/',
-		'wc-gocardless-admin'            => 'admin/',
+		'wc-gocardless-admin-'         => 'admin/',
+		'wc-gocardless-admin'          => 'admin/',
+		'wc-gocardless-blocks-'        => 'blocks/',
 		// Email notifications (Phase 5).
-		'wc-gocardless-email-'           => 'emails/',
+		'wc-gocardless-email-'         => 'emails/',
 		// Frontend: checkout rendering + redirect handler (Phase 2).
-		'wc-gocardless-checkout'         => 'frontend/',
-		'wc-gocardless-redirect'         => 'frontend/',
+		'wc-gocardless-checkout'       => 'frontend/',
+		'wc-gocardless-redirect'       => 'frontend/',
 		// Utilities.
-		'wc-gocardless-logger'           => 'utilities/',
-		'wc-gocardless-order-helper'     => 'utilities/',
-		'wc-gocardless-idempotency'      => 'utilities/',
+		'wc-gocardless-logger'         => 'utilities/',
+		'wc-gocardless-order-helper'   => 'utilities/',
+		'wc-gocardless-idempotency'    => 'utilities/',
 	);
 
 	$sub_dir = '';
