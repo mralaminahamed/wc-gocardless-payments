@@ -79,6 +79,7 @@
                 <element value="WC_GOCARDLESS"/>
                 <element value="wc_gocardless"/>
                 <element value="WC_GoCardless"/>
+                <element value="woocommerce"/>
             </property>
         </properties>
     </rule>
