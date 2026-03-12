@@ -178,7 +178,7 @@ class WC_GoCardless_Gateway_Direct_Debit extends WC_GoCardless_Gateway {
 	public function process_payment( $order_id ): array {
 		$order = WC_GoCardless_Order_Helper::get_order( $order_id );
 
-		if ( ! $order ) {
+		if ( ! $order instanceof WC_Order ) {
 			wc_add_notice( __( 'Order not found. Please try again.', 'wc-gocardless-payments' ), 'error' );
 			return array(
 				'result'   => 'failure',
@@ -198,9 +198,7 @@ class WC_GoCardless_Gateway_Direct_Debit extends WC_GoCardless_Gateway {
 		try {
 			// Check for a saved mandate selection.
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing
-			$wc_token_id = isset( $_POST['wc-gocardless_direct_debit-payment-token'] )
-				? absint( wp_unslash( $_POST['wc-gocardless_direct_debit-payment-token'] ) )
-				: 0;
+			$wc_token_id = isset( $_POST['wc-gocardless_direct_debit-payment-token'] ) ? absint( wp_unslash( $_POST['wc-gocardless_direct_debit-payment-token'] ) ) : 0;
 
 			if ( $wc_token_id && 'new' !== (string) $wc_token_id ) {
 				return $this->process_with_saved_mandate( $order, $wc_token_id );
