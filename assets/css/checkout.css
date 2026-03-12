@@ -32,3 +32,38 @@
 	font-size: 0.875em;
 	color: #555;
 }
+
+/* -------------------------------------------------------------------------
+   Saved mandate display — My Account & Checkout
+   ---------------------------------------------------------------------- */
+
+.wc-gocardless-saved-mandate {
+	font-weight: 500;
+}
+
+.wc-gocardless-mandate-status {
+	display: inline-block;
+	font-size: 0.8em;
+	padding: 2px 6px;
+	border-radius: 3px;
+	margin-left: 6px;
+	vertical-align: middle;
+}
+
+.wc-gocardless-mandate-inactive {
+	background: #f0f0f0;
+	color: #888;
+}
+
+/* Order received page — Direct Debit pending notice */
+.wc-gocardless-pending-notice {
+	background: #fff8e5;
+	border-left: 4px solid #f0ad4e;
+	padding: 1em 1.25em;
+	margin: 1em 0;
+	border-radius: 0 4px 4px 0;
+}
+
+.wc-gocardless-pending-notice p {
+	margin: 0;
+}
