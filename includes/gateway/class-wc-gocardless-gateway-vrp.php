@@ -284,7 +284,7 @@ class WC_GoCardless_Gateway_VRP extends WC_GoCardless_Gateway {
 	 * @throws WC_GoCardless_API_Exception On API error.
 	 */
 	private function create_vrp_consent_flow( WC_Order $order ): array {
-		$vrp_api         = new WC_GoCardless_API_VRP( wc_gocardless()->api );
+		$vrp_api         = new WC_GoCardless_API_VRP( wc_gocardless_payments()->api );
 		$billing_req_api = new WC_GoCardless_API_Billing_Requests( $this->api );
 		$idempotency     = new WC_GoCardless_Idempotency();
 		$idempotency_key = $idempotency->get_or_create_for_order( $order, 'vrp_consent' );

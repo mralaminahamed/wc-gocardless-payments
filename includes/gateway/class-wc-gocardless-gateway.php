@@ -85,8 +85,8 @@ abstract class WC_GoCardless_Gateway extends WC_Payment_Gateway {
 		$this->debug_logging = 'yes' === $this->get_option( 'debug_logging', 'no' );
 
 		// Retrieve shared services from the plugin singleton.
-		$this->api    = wc_gocardless()->api;
-		$this->logger = wc_gocardless()->logger;
+		$this->api    = wc_gocardless_payments()->api;
+		$this->logger = wc_gocardless_payments()->logger;
 
 		// Save settings hook for the admin screen.
 		add_action(
