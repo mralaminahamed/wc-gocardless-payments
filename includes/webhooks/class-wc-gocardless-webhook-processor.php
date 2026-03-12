@@ -109,6 +109,10 @@ class WC_GoCardless_Webhook_Processor {
 	/**
 	 * Handle payment resource events.
 	 *
+	 * Handles both Direct Debit and Instant Bank Pay payment events.
+	 * IBP payments are identified by the `payment_type` order meta set
+	 * during the Billing Request creation flow.
+	 *
 	 * @since 1.0.0
 	 *
 	 * @param string               $action Action identifier.
@@ -133,9 +137,10 @@ class WC_GoCardless_Webhook_Processor {
 			return;
 		}
 
+		$is_ibp = 'instant_bank_pay' === WC_GoCardless_Order_Helper::get_payment_type( $order );
+
 		switch ( $action ) {
 			case 'created':
-				// Payment object created — order remains on-hold pending confirmation.
 				$order->add_order_note(
 					sprintf(
 						/* translators: %s: GoCardless payment ID */
@@ -146,7 +151,6 @@ class WC_GoCardless_Webhook_Processor {
 				break;
 
 			case 'submitted':
-				// Payment submitted to the bank.
 				$order->add_order_note(
 					sprintf(
 						/* translators: %s: GoCardless payment ID */
@@ -157,45 +161,89 @@ class WC_GoCardless_Webhook_Processor {
 				break;
 
 			case 'confirmed':
-				// Payment confirmed by the bank — mark order as processing.
-				$order->update_status(
-					'processing',
-					sprintf(
-						/* translators: %s: GoCardless payment ID */
-						__( 'GoCardless payment confirmed (Payment ID: %s).', 'wc-gocardless-payments' ),
-						esc_html( $payment_id )
-					)
-				);
-				// Reduce stock levels now that payment is confirmed.
-				wc_reduce_stock_levels( $order->get_id() );
+				if ( $is_ibp ) {
+					// IBP: 'confirmed' means funds are secured — complete the order.
+					if ( ! $order->is_paid() ) {
+						$order->payment_complete( $payment_id );
+						wc_reduce_stock_levels( $order->get_id() );
+
+						$order->add_order_note(
+							sprintf(
+								/* translators: %s: Payment ID */
+								__( 'Instant Bank Pay confirmed via webhook (Payment ID: %s).', 'wc-gocardless-payments' ),
+								esc_html( $payment_id )
+							)
+						);
+					}
+				} else {
+					// Direct Debit: 'confirmed' means bank has accepted the collection.
+					$order->update_status(
+						'processing',
+						sprintf(
+							/* translators: %s: GoCardless payment ID */
+							__( 'GoCardless Direct Debit payment confirmed (Payment ID: %s).', 'wc-gocardless-payments' ),
+							esc_html( $payment_id )
+						)
+					);
+					wc_reduce_stock_levels( $order->get_id() );
+				}
 				break;
 
 			case 'paid_out':
-				// Funds have been paid out to the merchant account.
-				$order->add_order_note(
-					sprintf(
-						/* translators: %s: GoCardless payment ID */
-						__( 'GoCardless payment paid out to merchant account (Payment ID: %s).', 'wc-gocardless-payments' ),
-						esc_html( $payment_id )
-					)
-				);
-				// Transition to completed if currently processing.
-				if ( $order->has_status( 'processing' ) ) {
-					$order->update_status( 'completed' );
+				// Funds paid out to the merchant account.
+				if ( $is_ibp ) {
+					// IBP paid_out: definitive settlement — complete order if not already.
+					if ( ! $order->is_paid() ) {
+						$order->payment_complete( $payment_id );
+						wc_reduce_stock_levels( $order->get_id() );
+					}
+					$order->add_order_note(
+						sprintf(
+							/* translators: %s: Payment ID */
+							__( 'Instant Bank Pay settled to merchant account (Payment ID: %s).', 'wc-gocardless-payments' ),
+							esc_html( $payment_id )
+						)
+					);
+				} else {
+					$order->add_order_note(
+						sprintf(
+							/* translators: %s: GoCardless payment ID */
+							__( 'GoCardless payment paid out to merchant account (Payment ID: %s).', 'wc-gocardless-payments' ),
+							esc_html( $payment_id )
+						)
+					);
+					if ( $order->has_status( 'processing' ) ) {
+						$order->update_status( 'completed' );
+					}
 				}
 				break;
 
 			case 'failed':
-				$failure_reason = $event['details']['description'] ?? __( 'Unknown reason', 'wc-gocardless-payments' );
+				$failure_reason = $event['details']['description']
+					?? __( 'Unknown reason', 'wc-gocardless-payments' );
+				$failure_cause  = $event['details']['cause'] ?? '';
+
 				$order->update_status(
 					'failed',
 					sprintf(
-						/* translators: 1: Payment ID 2: Failure reason */
-						__( 'GoCardless payment failed (Payment ID: %1$s). Reason: %2$s', 'wc-gocardless-payments' ),
+						/* translators: 1: Payment ID 2: Failure reason 3: Cause code */
+						__( 'GoCardless payment failed (Payment ID: %1$s). Reason: %2$s. Cause: %3$s', 'wc-gocardless-payments' ),
 						esc_html( $payment_id ),
-						esc_html( $failure_reason )
+						esc_html( $failure_reason ),
+						esc_html( $failure_cause )
 					)
 				);
+
+				/**
+				 * Fires when a GoCardless payment fails.
+				 *
+				 * @since 1.0.0
+				 *
+				 * @param WC_Order             $order    WooCommerce order.
+				 * @param string               $payment_id GoCardless payment ID.
+				 * @param array<string, mixed> $event    Full GoCardless event object.
+				 */
+				do_action( 'wc_gocardless_payment_failed', $order, $payment_id, $event );
 				break;
 
 			case 'cancelled':
@@ -210,12 +258,42 @@ class WC_GoCardless_Webhook_Processor {
 				break;
 
 			case 'charged_back':
-				// Chargeback initiated — revert to on-hold for merchant review.
 				$order->update_status(
 					'on-hold',
 					sprintf(
 						/* translators: %s: GoCardless payment ID */
 						__( 'GoCardless payment charged back (Payment ID: %s). Please review.', 'wc-gocardless-payments' ),
+						esc_html( $payment_id )
+					)
+				);
+
+				/**
+				 * Fires when a GoCardless payment is charged back.
+				 *
+				 * @since 1.0.0
+				 *
+				 * @param WC_Order $order      WooCommerce order.
+				 * @param string   $payment_id GoCardless payment ID.
+				 */
+				do_action( 'wc_gocardless_payment_charged_back', $order, $payment_id );
+				break;
+
+			case 'late_failure_settled':
+				// A previously failed payment has been settled — rare edge case.
+				$order->add_order_note(
+					sprintf(
+						/* translators: %s: Payment ID */
+						__( 'GoCardless late failure settled (Payment ID: %s).', 'wc-gocardless-payments' ),
+						esc_html( $payment_id )
+					)
+				);
+				break;
+
+			case 'chargeback_settled':
+				$order->add_order_note(
+					sprintf(
+						/* translators: %s: Payment ID */
+						__( 'GoCardless chargeback settled (Payment ID: %s).', 'wc-gocardless-payments' ),
 						esc_html( $payment_id )
 					)
 				);
