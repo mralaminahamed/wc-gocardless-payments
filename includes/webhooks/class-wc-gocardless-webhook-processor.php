@@ -41,7 +41,7 @@ class WC_GoCardless_Webhook_Processor {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->logger = wc_gocardless()->logger;
+		$this->logger = wc_gocardless_payments()->logger;
 	}
 
 	/**

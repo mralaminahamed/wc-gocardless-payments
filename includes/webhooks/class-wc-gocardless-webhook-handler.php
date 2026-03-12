@@ -44,7 +44,7 @@ class WC_GoCardless_Webhook_Handler {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->logger = wc_gocardless()->logger;
+		$this->logger = wc_gocardless_payments()->logger;
 
 		// Register the WC API listener.
 		add_action( 'woocommerce_api_' . self::ENDPOINT, array( $this, 'handle_request' ) );
