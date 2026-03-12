@@ -1,5 +1,5 @@
 === WooCommerce GoCardless Payments ===
-Contributors: mralaminahamed, alaminahamed
+Contributors: mralaminahamed
 Tags: woocommerce, gocardless, payment gateway, direct debit, instant bank pay, subscriptions
 Requires at least: 6.2
 Tested up to: 6.7
