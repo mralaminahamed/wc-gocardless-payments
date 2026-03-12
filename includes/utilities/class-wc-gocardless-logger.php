@@ -161,7 +161,7 @@ class WC_GoCardless_Logger {
 
 		if ( ! empty( $context ) ) {
 			// Sanitise context before logging — redact sensitive values.
-			$context = $this->sanitise_context( $context );
+			$context  = $this->sanitise_context( $context );
 			$message .= ' | Context: ' . wp_json_encode( $context );
 		}
 

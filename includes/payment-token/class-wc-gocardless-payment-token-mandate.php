@@ -47,12 +47,12 @@ class WC_GoCardless_Payment_Token_Mandate extends WC_Payment_Token {
 	 * @var array<string, mixed>
 	 */
 	protected $extra_data = array(
-		'mandate_id'              => '',
-		'scheme'                  => '',
-		'bank_name'               => '',
-		'account_number_ending'   => '',
-		'customer_id'             => '',
-		'status'                  => 'active',
+		'mandate_id'            => '',
+		'scheme'                => '',
+		'bank_name'             => '',
+		'account_number_ending' => '',
+		'customer_id'           => '',
+		'status'                => 'active',
 	);
 
 	/**
@@ -278,15 +278,15 @@ class WC_GoCardless_Payment_Token_Mandate extends WC_Payment_Token {
 	 */
 	public function get_scheme_label(): string {
 		$labels = array(
-			'bacs_debit'         => __( 'BACS Direct Debit', 'wc-gocardless-payments' ),
-			'sepa_core'          => __( 'SEPA Direct Debit', 'wc-gocardless-payments' ),
-			'sepa_cor1'          => __( 'SEPA COR1 Direct Debit', 'wc-gocardless-payments' ),
-			'ach'                => __( 'ACH Direct Debit', 'wc-gocardless-payments' ),
-			'autogiro'           => __( 'Autogiro', 'wc-gocardless-payments' ),
-			'becs'               => __( 'BECS Direct Debit', 'wc-gocardless-payments' ),
-			'becs_nz'            => __( 'BECS NZ Direct Debit', 'wc-gocardless-payments' ),
-			'betalingsservice'   => __( 'Betalingsservice', 'wc-gocardless-payments' ),
-			'pad'                => __( 'PAD', 'wc-gocardless-payments' ),
+			'bacs_debit'       => __( 'BACS Direct Debit', 'wc-gocardless-payments' ),
+			'sepa_core'        => __( 'SEPA Direct Debit', 'wc-gocardless-payments' ),
+			'sepa_cor1'        => __( 'SEPA COR1 Direct Debit', 'wc-gocardless-payments' ),
+			'ach'              => __( 'ACH Direct Debit', 'wc-gocardless-payments' ),
+			'autogiro'         => __( 'Autogiro', 'wc-gocardless-payments' ),
+			'becs'             => __( 'BECS Direct Debit', 'wc-gocardless-payments' ),
+			'becs_nz'          => __( 'BECS NZ Direct Debit', 'wc-gocardless-payments' ),
+			'betalingsservice' => __( 'Betalingsservice', 'wc-gocardless-payments' ),
+			'pad'              => __( 'PAD', 'wc-gocardless-payments' ),
 		);
 
 		return $labels[ $this->get_scheme() ] ?? __( 'Direct Debit', 'wc-gocardless-payments' );

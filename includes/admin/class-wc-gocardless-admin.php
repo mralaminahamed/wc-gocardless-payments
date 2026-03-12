@@ -52,11 +52,9 @@ class WC_GoCardless_Admin {
 			return;
 		}
 
-		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-
 		wp_enqueue_script(
 			'wc-gocardless-admin',
-			WC_GOCARDLESS_URL . 'assets/js/admin' . $suffix . '.js',
+			WC_GOCARDLESS_URL . 'assets/js/admin.js',
 			array( 'jquery' ),
 			WC_GOCARDLESS_VERSION,
 			true
@@ -127,8 +125,8 @@ class WC_GoCardless_Admin {
 		) . '</p>';
 
 		// Display sandbox mode indicator.
-		$settings    = get_option( 'woocommerce_gocardless_direct_debit_settings', array() );
-		$is_sandbox  = isset( $settings['sandbox_mode'] ) && 'yes' === $settings['sandbox_mode'];
+		$settings   = get_option( 'woocommerce_gocardless_direct_debit_settings', array() );
+		$is_sandbox = isset( $settings['sandbox_mode'] ) && 'yes' === $settings['sandbox_mode'];
 
 		if ( $is_sandbox ) {
 			echo '<div class="notice notice-warning inline"><p>';
@@ -157,9 +155,9 @@ class WC_GoCardless_Admin {
 			return;
 		}
 
-		$settings    = get_option( 'woocommerce_gocardless_direct_debit_settings', array() );
-		$is_enabled  = isset( $settings['enabled'] ) && 'yes' === $settings['enabled'];
-		$is_sandbox  = isset( $settings['sandbox_mode'] ) && 'yes' === $settings['sandbox_mode'];
+		$settings   = get_option( 'woocommerce_gocardless_direct_debit_settings', array() );
+		$is_enabled = isset( $settings['enabled'] ) && 'yes' === $settings['enabled'];
+		$is_sandbox = isset( $settings['sandbox_mode'] ) && 'yes' === $settings['sandbox_mode'];
 
 		if ( ! $is_enabled ) {
 			return;

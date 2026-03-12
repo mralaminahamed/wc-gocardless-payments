@@ -206,7 +206,7 @@ class WC_GoCardless_Subscriptions {
 			return;
 		}
 
-		$mandate_id  = WC_GoCardless_Order_Helper::get_mandate_id( $parent_order );
+		$mandate_id   = WC_GoCardless_Order_Helper::get_mandate_id( $parent_order );
 		$payment_type = WC_GoCardless_Order_Helper::get_payment_type( $parent_order );
 
 		if ( empty( $mandate_id ) ) {

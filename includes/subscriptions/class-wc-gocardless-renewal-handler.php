@@ -95,8 +95,8 @@ class WC_GoCardless_Renewal_Handler {
 
 		// Verify the mandate is still active before attempting payment.
 		try {
-			$mandates_api  = new WC_GoCardless_API_Mandates( wc_gocardless_payments()->api );
-			$mandate_resp  = $mandates_api->get( $mandate_id );
+			$mandates_api = new WC_GoCardless_API_Mandates( wc_gocardless_payments()->api );
+			$mandate_resp = $mandates_api->get( $mandate_id );
 
 			if ( ! $mandates_api->is_active( $mandate_resp ) ) {
 				$mandate_status = $mandate_resp['mandates']['status'] ?? 'unknown';
@@ -600,7 +600,20 @@ class WC_GoCardless_Renewal_Handler {
 	 */
 	private function to_minor_units( float $amount, string $currency ): int {
 		$zero_decimal = array(
-			'JPY', 'BIF', 'CLP', 'GNF', 'KMF', 'MGA', 'PYG', 'RWF', 'UGX', 'VND', 'VUV', 'XAF', 'XOF', 'XPF',
+			'JPY',
+			'BIF',
+			'CLP',
+			'GNF',
+			'KMF',
+			'MGA',
+			'PYG',
+			'RWF',
+			'UGX',
+			'VND',
+			'VUV',
+			'XAF',
+			'XOF',
+			'XPF',
 		);
 
 		if ( in_array( strtoupper( $currency ), $zero_decimal, true ) ) {

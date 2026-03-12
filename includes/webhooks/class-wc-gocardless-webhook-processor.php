@@ -53,10 +53,10 @@ class WC_GoCardless_Webhook_Processor {
 	 * @return void
 	 */
 	public function process( array $event ): void {
-		$event_id       = $event['id'] ?? '';
-		$resource_type  = $event['resource_type'] ?? '';
-		$action         = $event['action'] ?? '';
-		$links          = $event['links'] ?? array();
+		$event_id      = $event['id'] ?? '';
+		$resource_type = $event['resource_type'] ?? '';
+		$action        = $event['action'] ?? '';
+		$links         = $event['links'] ?? array();
 
 		$this->logger->info(
 			sprintf( '[Webhook] Processing event %s: %s.%s', $event_id, $resource_type, $action )
@@ -233,7 +233,8 @@ class WC_GoCardless_Webhook_Processor {
 				break;
 
 			case 'failed':
-				$failure_reason = $event['details']['description'] ?? __( 'Unknown reason', 'wc-gocardless-payments' );
+				$failure_reason = $event['details']['description']
+					?? __( 'Unknown reason', 'wc-gocardless-payments' );
 				$failure_cause  = $event['details']['cause'] ?? '';
 
 				$order->update_status(
