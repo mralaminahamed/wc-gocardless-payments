@@ -161,6 +161,17 @@ final class WC_GoCardless {
 	}
 
 	/**
+	 * Phase 4 accessor: VRP API endpoint.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return WC_GoCardless_API_VRP
+	 */
+	public function vrp(): WC_GoCardless_API_VRP {
+		return new WC_GoCardless_API_VRP( $this->api );
+	}
+
+	/**
 	 * Instantiate core utility classes.
 	 *
 	 * @since 1.0.0
@@ -169,7 +180,6 @@ final class WC_GoCardless {
 	 */
 	private function init_utilities(): void {
 		$this->logger = new WC_GoCardless_Logger();
-		new WC_GoCardless_Order_Helper();
 	}
 
 	/**
@@ -301,7 +311,7 @@ final class WC_GoCardless {
 			'<div class="notice notice-success is-dismissible"><p>%s</p></div>',
 			wp_kses_post(
 				sprintf(
-					/* translators: %s: Settings page URL */
+				/* translators: %s: Settings page URL */
 					__( '<strong>WooCommerce GoCardless Payments</strong> is active. <a href="%s">Configure your settings</a> to get started.', 'wc-gocardless-payments' ),
 					esc_url( $settings_url )
 				)
@@ -397,7 +407,7 @@ final class WC_GoCardless {
 	 */
 	public function is_subscriptions_active(): bool {
 		return class_exists( 'WC_Subscriptions' )
-			|| class_exists( 'WC_Subscriptions_Core_Plugin' );
+		       || class_exists( 'WC_Subscriptions_Core_Plugin' );
 	}
 
 	/**
