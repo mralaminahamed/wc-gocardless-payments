@@ -73,6 +73,20 @@ final class WC_GoCardless_Payments {
 	}
 
 	/**
+	 * Convenience accessor for the global plugin instance.
+	 *
+	 * Equivalent to calling WC_GoCardless::instance() but useful in
+	 * contexts where method chaining from the global function is preferred.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return WC_GoCardless_Payments
+	 */
+	public static function get_instance(): WC_GoCardless_Payments {
+		return self::instance();
+	}
+
+	/**
 	 * Private constructor — use ::instance().
 	 *
 	 * @since 1.0.0
@@ -331,7 +345,7 @@ final class WC_GoCardless_Payments {
 		$plugin_links = array(
 			'settings' => sprintf(
 				'<a href="%s">%s</a>',
-				esc_url( admin_url( 'admin.php?page=wc-settings&tab=checkout&section=gocardless' ) ),
+				esc_url( admin_url( 'admin.php?page=wc-settings&tab=checkout&section=gocardless_direct_debit' ) ),
 				esc_html__( 'Settings', 'wc-gocardless-payments' )
 			),
 			'docs'     => sprintf(
@@ -406,22 +420,7 @@ final class WC_GoCardless_Payments {
 	 * @return bool True if a compatible subscriptions plugin is active.
 	 */
 	public function is_subscriptions_active(): bool {
-		return class_exists( 'WC_Subscriptions' )
-		       || class_exists( 'WC_Subscriptions_Core_Plugin' );
-	}
-
-	/**
-	 * Convenience accessor for the global plugin instance.
-	 *
-	 * Equivalent to calling WC_GoCardless::instance() but useful in
-	 * contexts where method chaining from the global function is preferred.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return WC_GoCardless_Payments
-	 */
-	public static function get_instance(): WC_GoCardless_Payments {
-		return self::instance();
+		return class_exists( 'WC_Subscriptions' ) || class_exists( 'WC_Subscriptions_Core_Plugin' );
 	}
 }
 
