@@ -73,18 +73,18 @@ class WC_GoCardless_API_Billing_Requests {
 	public function create_for_direct_debit( array $args ): array {
 		$body = array(
 			'billing_requests' => array(
-				'mandate_request'  => array(
+				'mandate_request'    => array(
 					'scheme'      => $args['scheme'] ?? '',
 					'constraints' => array(),
 					'metadata'    => array(),
 				),
-				'payment_request'  => array(
+				'payment_request'    => array(
 					'amount'      => $args['amount'],
 					'currency'    => strtoupper( $args['currency'] ),
 					'description' => $args['description'] ?? '',
 				),
 				'prefilled_customer' => $this->build_prefilled_customer( $args ),
-				'metadata'         => array(
+				'metadata'           => array(
 					'wc_order_id' => $args['wc_order_id'] ?? '',
 				),
 			),
@@ -141,10 +141,10 @@ class WC_GoCardless_API_Billing_Requests {
 		$collect_mandate = ! empty( $args['collect_mandate'] );
 
 		$payment_request = array(
-			'amount'             => $args['amount'],
-			'currency'           => strtoupper( $args['currency'] ),
-			'description'        => $args['description'] ?? '',
-			'funds_settlement'   => 'instant',
+			'amount'           => $args['amount'],
+			'currency'         => strtoupper( $args['currency'] ),
+			'description'      => $args['description'] ?? '',
+			'funds_settlement' => 'instant',
 		);
 
 		$body = array(
@@ -281,11 +281,11 @@ class WC_GoCardless_API_Billing_Requests {
 		$body = array(
 			'billing_request_flows' => array_merge(
 				array(
-					'redirect_uri'       => $redirect_uri,
-					'exit_uri'           => $exit_uri ?: $redirect_uri,
-					'show_redirect_buttons' => false,
+					'redirect_uri'                 => $redirect_uri,
+					'exit_uri'                     => $exit_uri ?: $redirect_uri,
+					'show_redirect_buttons'        => false,
 					'show_success_redirect_button' => true,
-					'links'              => array(
+					'links'                        => array(
 						'billing_request' => $billing_request_id,
 					),
 				),

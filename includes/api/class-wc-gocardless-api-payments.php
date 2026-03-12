@@ -105,10 +105,10 @@ class WC_GoCardless_API_Payments {
 	): array {
 		$body = array(
 			'refunds' => array(
-				'amount'                   => $amount,
+				'amount'                    => $amount,
 				'total_amount_confirmation' => $amount,
-				'reference'                => $reason,
-				'links'                    => array(
+				'reference'                 => $reason,
+				'links'                     => array(
 					'payment' => $payment_id,
 				),
 			),

@@ -241,12 +241,12 @@ class WC_GoCardless_API_VRP {
 		$customer = array();
 
 		$map = array(
-			'given_name'   => 'given_name',
-			'family_name'  => 'family_name',
-			'email'        => 'email',
+			'given_name'    => 'given_name',
+			'family_name'   => 'family_name',
+			'email'         => 'email',
 			'address_line1' => 'address_line1',
-			'city'         => 'city',
-			'postal_code'  => 'postal_code',
+			'city'          => 'city',
+			'postal_code'   => 'postal_code',
 		);
 
 		foreach ( $map as $arg_key => $field ) {

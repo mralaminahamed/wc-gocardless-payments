@@ -70,16 +70,16 @@ class WC_GoCardless_API_Customers {
 	public function create_from_order( WC_Order $order ): array {
 		$body = array(
 			'customers' => array(
-				'email'          => sanitize_email( $order->get_billing_email() ),
-				'given_name'     => sanitize_text_field( $order->get_billing_first_name() ),
-				'family_name'    => sanitize_text_field( $order->get_billing_last_name() ),
-				'address_line1'  => sanitize_text_field( $order->get_billing_address_1() ),
-				'address_line2'  => sanitize_text_field( $order->get_billing_address_2() ),
-				'city'           => sanitize_text_field( $order->get_billing_city() ),
-				'postal_code'    => sanitize_text_field( $order->get_billing_postcode() ),
-				'country_code'   => strtoupper( sanitize_text_field( $order->get_billing_country() ) ),
-				'phone_number'   => sanitize_text_field( $order->get_billing_phone() ),
-				'metadata'       => array(
+				'email'         => sanitize_email( $order->get_billing_email() ),
+				'given_name'    => sanitize_text_field( $order->get_billing_first_name() ),
+				'family_name'   => sanitize_text_field( $order->get_billing_last_name() ),
+				'address_line1' => sanitize_text_field( $order->get_billing_address_1() ),
+				'address_line2' => sanitize_text_field( $order->get_billing_address_2() ),
+				'city'          => sanitize_text_field( $order->get_billing_city() ),
+				'postal_code'   => sanitize_text_field( $order->get_billing_postcode() ),
+				'country_code'  => strtoupper( sanitize_text_field( $order->get_billing_country() ) ),
+				'phone_number'  => sanitize_text_field( $order->get_billing_phone() ),
+				'metadata'      => array(
 					'wc_customer_id' => (string) $order->get_customer_id(),
 					'wc_order_id'    => (string) $order->get_id(),
 				),
