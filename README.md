@@ -7,7 +7,7 @@ A production-ready WooCommerce payment gateway integrating GoCardless for Direct
 ## Features
 
 - **Direct Debit** — ACH, BACS, and SEPA payment methods
-- **Instant Bank Pay** — Real-time bank payments
+- **Instant Bank Pay** — Real-time bank payments via Open Banking
 - **Variable Recurring Payments (VRP)** — Open banking recurring payments
 - **Full & Partial Refunds** — Through WooCommerce refund UI
 - **Subscription Support** — WooCommerce Subscriptions integration
@@ -57,14 +57,18 @@ Go to **Plugins → Installed Plugins** and activate **WooCommerce GoCardless Pa
 wc-gocardless-payments/
 ├── wc-gocardless-payments.php              # Main plugin file / bootstrap
 ├── includes/
-│   ├── class-wc-gocardless.php             # Main plugin class
+│   ├── class-wc-gocardless-payments.php    # Main plugin class
 │   ├── utilities/
 │   │   ├── class-wc-gocardless-logger.php
 │   │   ├── class-wc-gocardless-order-helper.php
 │   │   └── class-wc-gocardless-idempotency.php
 │   ├── api/
 │   │   ├── class-wc-gocardless-api-client.php
-│   │   └── class-wc-gocardless-api-payments.php
+│   │   ├── class-wc-gocardless-api-payments.php
+│   │   ├── class-wc-gocardless-api-mandates.php
+│   │   ├── class-wc-gocardless-api-customers.php
+│   │   ├── class-wc-gocardless-api-billing-requests.php
+│   │   └── class-wc-gocardless-api-vrp.php
 │   ├── admin/
 │   │   └── class-wc-gocardless-admin.php
 │   ├── gateway/
@@ -72,14 +76,28 @@ wc-gocardless-payments/
 │   │   ├── class-wc-gocardless-gateway-direct-debit.php
 │   │   ├── class-wc-gocardless-gateway-instant-bank.php
 │   │   └── class-wc-gocardless-gateway-vrp.php
+│   ├── frontend/
+│   │   ├── class-wc-gocardless-checkout.php
+│   │   └── class-wc-gocardless-redirect.php
 │   ├── webhooks/
 │   │   ├── class-wc-gocardless-webhook-handler.php
 │   │   └── class-wc-gocardless-webhook-processor.php
-│   └── subscriptions/
-│       └── class-wc-gocardless-subscriptions.php
+│   ├── subscriptions/
+│   │   ├── class-wc-gocardless-subscriptions.php
+│   │   └── class-wc-gocardless-renewal-handler.php
+│   └── payment-token/
+│       └── class-wc-gocardless-payment-token-mandate.php
 ├── templates/
 │   ├── admin/
 │   └── checkout/
+│       └── ibp-order-received.php
+├── assets/
+│   ├── css/
+│   │   ├── admin.css
+│   │   └── checkout.css
+│   └── js/
+│       ├── admin.js
+│       └── checkout.js
 └── languages/
     └── wc-gocardless-payments.pot
 ```
