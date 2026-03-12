@@ -187,7 +187,7 @@ class WC_GoCardless_Webhook_Handler {
 	 * @param string $message     Response body message.
 	 * @return never
 	 */
-	private function respond( int $status_code, string $message ): never {
+	private function respond( int $status_code, string $message ) {
 		http_response_code( $status_code );
 		header( 'Content-Type: text/plain' );
 		echo esc_html( $message );

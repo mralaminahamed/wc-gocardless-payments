@@ -312,7 +312,7 @@ class WC_GoCardless_API_Client {
 	 * @return never
 	 * @throws WC_GoCardless_API_Exception Always throws.
 	 */
-	private function throw_api_exception( int $status_code, ?array $body, string $endpoint ): never {
+	private function throw_api_exception( int $status_code, ?array $body, string $endpoint ) {
 		$error   = $body['error'] ?? array();
 		$message = $error['message'] ?? sprintf( 'Unexpected HTTP %d from %s', $status_code, $endpoint );
 		$type    = $error['type'] ?? 'unknown_error';

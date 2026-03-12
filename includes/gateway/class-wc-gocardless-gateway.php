@@ -269,7 +269,7 @@ abstract class WC_GoCardless_Gateway extends WC_Payment_Gateway {
 	 * @param string     $reason   Refund reason.
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
-	public function process_refund( $order_id, $amount = null, $reason = '' ): bool|WP_Error {
+	public function process_refund( $order_id, $amount = null, $reason = '' ) {
 		$order = WC_GoCardless_Order_Helper::get_order( $order_id );
 
 		if ( ! $order ) {
