@@ -10,9 +10,9 @@
         <env name="WP_PHPUNIT__TESTS_CONFIG" value="tests/php/phpunit-wp-config.php" />
     </php>
 	<testsuites>
-		<testsuite name="WC Affiliate Test Suite">
+		<testsuite name="GoCardless Test Suite">
 			<directory prefix="" suffix=".php">./tests/php/src</directory>
-            <exclude>./tests/php/phpunit-wp-config.php</exclude>
+			<exclude>./tests/php/phpunit-wp-config.php</exclude>
 		</testsuite>
 	</testsuites>
 </phpunit>
