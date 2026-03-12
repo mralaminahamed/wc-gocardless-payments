@@ -128,6 +128,39 @@ final class WC_GoCardless {
 	}
 
 	/**
+	 * Phase 2 accessor: Billing Requests API endpoint.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return WC_GoCardless_API_Billing_Requests
+	 */
+	public function billing_requests(): WC_GoCardless_API_Billing_Requests {
+		return new WC_GoCardless_API_Billing_Requests( $this->api );
+	}
+
+	/**
+	 * Phase 2 accessor: Mandates API endpoint.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return WC_GoCardless_API_Mandates
+	 */
+	public function mandates(): WC_GoCardless_API_Mandates {
+		return new WC_GoCardless_API_Mandates( $this->api );
+	}
+
+	/**
+	 * Phase 2 accessor: Customers API endpoint.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return WC_GoCardless_API_Customers
+	 */
+	public function customers(): WC_GoCardless_API_Customers {
+		return new WC_GoCardless_API_Customers( $this->api );
+	}
+
+	/**
 	 * Instantiate core utility classes.
 	 *
 	 * @since 1.0.0
