@@ -51,7 +51,7 @@ class WC_GoCardless_Redirect {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->logger = wc_gocardless()->logger;
+		$this->logger = wc_gocardless_payments()->logger;
 		add_action( 'woocommerce_api_' . self::RETURN_ENDPOINT, array( $this, 'handle_return' ) );
 	}
 
@@ -163,7 +163,7 @@ class WC_GoCardless_Redirect {
 	 * @throws WC_GoCardless_API_Exception On API error.
 	 */
 	private function process_billing_request_return( WC_Order $order, string $billing_request_id ): void {
-		$billing_request_api = new WC_GoCardless_API_Billing_Requests( wc_gocardless()->api );
+		$billing_request_api = new WC_GoCardless_API_Billing_Requests( wc_gocardless_payments()->api );
 		$response            = $billing_request_api->get( $billing_request_id );
 		$billing_request     = $response['billing_requests'] ?? array();
 		$status              = $billing_request['status'] ?? '';
@@ -398,7 +398,7 @@ class WC_GoCardless_Redirect {
 
 		try {
 			if ( ! empty( $payment_id ) ) {
-				$payments_api   = new WC_GoCardless_API_Payments( wc_gocardless()->api );
+				$payments_api   = new WC_GoCardless_API_Payments( wc_gocardless_payments()->api );
 				$payment_resp   = $payments_api->get( $payment_id );
 				$payment_status = $payment_resp['payments']['status'] ?? '';
 
@@ -489,7 +489,7 @@ class WC_GoCardless_Redirect {
 		array $billing_request
 	): void {
 		try {
-			$mandate_api  = new WC_GoCardless_API_Mandates( wc_gocardless()->api );
+			$mandate_api  = new WC_GoCardless_API_Mandates( wc_gocardless_payments()->api );
 			$mandate_resp = $mandate_api->get( $mandate_id );
 			$mandate_data = $mandate_resp['mandates'] ?? array();
 
@@ -515,7 +515,7 @@ class WC_GoCardless_Redirect {
 			$bank_account_data = array();
 
 			if ( ! empty( $bank_account_id ) ) {
-				$ba_response       = wc_gocardless()->api->get(
+				$ba_response       = wc_gocardless_payments()->api->get(
 					'/customer_bank_accounts/' . rawurlencode( $bank_account_id )
 				);
 				$bank_account_data = $ba_response['customer_bank_accounts'] ?? array();
