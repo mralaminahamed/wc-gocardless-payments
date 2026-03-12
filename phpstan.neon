@@ -1,4 +1,4 @@
-# PHPStan configuration for Razorpay OAuth2 for WooCommerce
+# PHPStan configuration for GoCardless Payments for WooCommerce
 parameters:
   level: 4
   phpVersion: 70400
@@ -11,8 +11,6 @@ parameters:
     - vendor/
     - node_modules/
     - tests/
-    - legacy/
-    - build/
     - views/
 
   bootstrapFiles:
@@ -31,16 +29,16 @@ parameters:
 
   ignoreErrors:
     # Plugin constants (defined at runtime)
-    - '#Constant WC_RAZORPAY_OAUTH_[A-Z_]* not found#'
+    - '#Constant WC_GOCARDLESS_[A-Z_]* not found#'
 
     # WooCommerce stub property access issues
     - '#Access to an undefined property WC_Meta_Data::\$.*#'
 
   dynamicConstantNames:
-    - WC_RAZORPAY_OAUTH_VERSION
-    - WC_RAZORPAY_OAUTH_FILE
-    - WC_RAZORPAY_OAUTH_PATH
-    - WC_RAZORPAY_OAUTH_URL
+    - WC_GOCARDLESS_VERSION
+    - WC_GOCARDLESS_FILE
+    - WC_GOCARDLESS_PATH
+    - WC_GOCARDLESS_URL
 
   universalObjectCratesClasses:
     - WP_Post
