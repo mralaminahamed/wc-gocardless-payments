@@ -1,0 +1,1068 @@
+# Copyright (C) 2026 Al Amin Ahamed
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce GoCardless Payments 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-gocardless-payments\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-03-12T10:43:08+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: wc-gocardless-payments\n"
+
+#. Plugin Name of the plugin
+#: wc-gocardless-payments.php
+msgid "WooCommerce GoCardless Payments"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: wc-gocardless-payments.php
+msgid "https://github.com/mralaminahamed/wc-gocardless-payments"
+msgstr ""
+
+#. Description of the plugin
+#: wc-gocardless-payments.php
+msgid "A production-ready WooCommerce payment gateway integrating GoCardless for Direct Debit (ACH/BACS/SEPA), Instant Bank Pay, Variable Recurring Payments (VRP), and Payment Intentions."
+msgstr ""
+
+#. Author of the plugin
+#: wc-gocardless-payments.php
+msgid "Al Amin Ahamed"
+msgstr ""
+
+#. Author URI of the plugin
+#: wc-gocardless-payments.php
+msgid "https://github.com/mralaminahamed"
+msgstr ""
+
+#: includes/admin/class-wc-gocardless-admin.php:72
+msgid "Connection successful."
+msgstr ""
+
+#: includes/admin/class-wc-gocardless-admin.php:73
+msgid "Connection failed. Please check your access token."
+msgstr ""
+
+#: includes/admin/class-wc-gocardless-admin.php:99
+msgid "GoCardless"
+msgstr ""
+
+#: includes/admin/class-wc-gocardless-admin.php:120
+msgid "GoCardless Payment Methods"
+msgstr ""
+
+#. translators: %s: GoCardless dashboard URL
+#: includes/admin/class-wc-gocardless-admin.php:124
+#, php-format
+msgid "Configure Direct Debit, Instant Bank Pay, and Variable Recurring Payments via GoCardless. <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Visit your GoCardless dashboard</a> to obtain API credentials."
+msgstr ""
+
+#: includes/admin/class-wc-gocardless-admin.php:135
+msgid "Sandbox Mode Active"
+msgstr ""
+
+#: includes/admin/class-wc-gocardless-admin.php:136
+msgid "GoCardless is currently in test mode. No real transactions will be processed."
+msgstr ""
+
+#. translators: %s: Settings page URL
+#: includes/admin/class-wc-gocardless-admin.php:177
+#, php-format
+msgid "<strong>WooCommerce GoCardless Payments:</strong> Your gateway is enabled but no %1$s access token is configured. <a href=\"%2$s\">Add your credentials</a>."
+msgstr ""
+
+#: includes/admin/class-wc-gocardless-admin.php:178
+msgid "sandbox"
+msgstr ""
+
+#: includes/admin/class-wc-gocardless-admin.php:178
+msgid "live"
+msgstr ""
+
+#: includes/api/class-wc-gocardless-api-client.php:233
+msgid "GoCardless API access token is not configured."
+msgstr ""
+
+#. translators: %s: WordPress error message
+#: includes/api/class-wc-gocardless-api-client.php:276
+#, php-format
+msgid "HTTP transport error: %s"
+msgstr ""
+
+#: includes/class-wc-gocardless-payments.php:104
+msgid "Cloning is forbidden."
+msgstr ""
+
+#: includes/class-wc-gocardless-payments.php:115
+msgid "Unserializing is forbidden."
+msgstr ""
+
+#. translators: %s: Settings page URL
+#: includes/class-wc-gocardless-payments.php:362
+#, php-format
+msgid "<strong>WooCommerce GoCardless Payments</strong> is active. <a href=\"%s\">Configure your settings</a> to get started."
+msgstr ""
+
+#: includes/class-wc-gocardless-payments.php:382
+msgid "Settings"
+msgstr ""
+
+#: includes/class-wc-gocardless-payments.php:387
+msgid "API Docs"
+msgstr ""
+
+#: includes/class-wc-gocardless-payments.php:433
+msgid "Processing payment…"
+msgstr ""
+
+#: includes/class-wc-gocardless-payments.php:434
+msgid "An error occurred. Please try again."
+msgstr ""
+
+#: includes/emails/class-wc-gocardless-email-mandate-confirmed.php:64
+msgid "GoCardless — Mandate/Consent Confirmed"
+msgstr ""
+
+#: includes/emails/class-wc-gocardless-email-mandate-confirmed.php:65
+msgid "Sent to the customer when their GoCardless Direct Debit mandate or VRP consent is successfully authorised."
+msgstr ""
+
+#: includes/emails/class-wc-gocardless-email-mandate-confirmed.php:96
+msgid "Your Direct Debit mandate has been set up — {site_title}"
+msgstr ""
+
+#: includes/emails/class-wc-gocardless-email-mandate-confirmed.php:107
+msgid "Your payment mandate is confirmed"
+msgstr ""
+
+#: includes/emails/class-wc-gocardless-email-mandate-confirmed.php:238
+msgid "Include Mandate Reference"
+msgstr ""
+
+#: includes/emails/class-wc-gocardless-email-mandate-confirmed.php:240
+msgid "Include the GoCardless mandate reference number in the email body"
+msgstr ""
+
+#: includes/frontend/class-wc-gocardless-checkout.php:84
+msgid "(Inactive)"
+msgstr ""
+
+#: includes/frontend/class-wc-gocardless-checkout.php:106
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:142
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:173
+msgid "Test Mode"
+msgstr ""
+
+#: includes/frontend/class-wc-gocardless-checkout.php:117
+msgid "You will be securely redirected to authorise your payment via GoCardless."
+msgstr ""
+
+#: includes/frontend/class-wc-gocardless-redirect.php:122
+msgid "Your payment was cancelled. Please try again or choose a different payment method."
+msgstr ""
+
+#: includes/frontend/class-wc-gocardless-redirect.php:141
+msgid "There was an error confirming your payment. Please contact us if payment was deducted."
+msgstr ""
+
+#. translators: %s: Billing Request ID
+#: includes/frontend/class-wc-gocardless-redirect.php:191
+#, php-format
+msgid "Customer cancelled GoCardless authorisation (Billing Request: %s)."
+msgstr ""
+
+#: includes/frontend/class-wc-gocardless-redirect.php:197
+msgid "Payment cancelled. You may try again with a different payment method."
+msgstr ""
+
+#. translators: %s: Billing Request ID
+#: includes/frontend/class-wc-gocardless-redirect.php:212
+#, php-format
+msgid "Customer returned from GoCardless. Awaiting bank confirmation (Billing Request: %s)."
+msgstr ""
+
+#. translators: 1: Mandate ID 2: Payment ID
+#: includes/frontend/class-wc-gocardless-redirect.php:277
+#, php-format
+msgid "GoCardless mandate authorised (Mandate: %1$s, Payment: %2$s). Awaiting bank confirmation."
+msgstr ""
+
+#. translators: 1: Consent ID 2: Payment ID
+#: includes/frontend/class-wc-gocardless-redirect.php:344
+#, php-format
+msgid "VRP consent authorised (Consent: %1$s, Initial Payment: %2$s). Awaiting payment confirmation."
+msgstr ""
+
+#. translators: %s: Consent ID
+#: includes/frontend/class-wc-gocardless-redirect.php:350
+#, php-format
+msgid "VRP consent authorised (Consent: %s). Subscription renewals will be collected automatically."
+msgstr ""
+
+#. translators: %s: Payment ID
+#: includes/frontend/class-wc-gocardless-redirect.php:435
+#, php-format
+msgid "Instant Bank Pay confirmed on return (Payment ID: %s)."
+msgstr ""
+
+#. translators: 1: Payment ID 2: Status
+#: includes/frontend/class-wc-gocardless-redirect.php:448
+#, php-format
+msgid "Instant Bank Pay %2$s on return (Payment ID: %1$s)."
+msgstr ""
+
+#. translators: %s: Payment ID
+#: includes/frontend/class-wc-gocardless-redirect.php:464
+#, php-format
+msgid "Instant Bank Pay authorised (Payment ID: %s). Awaiting settlement confirmation."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:46
+msgid "GoCardless — Direct Debit"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:47
+msgid "Accept Direct Debit payments via GoCardless (BACS, SEPA, ACH). Customers authorise a mandate and payments are collected automatically."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:100
+msgid "Direct Debit Settings"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:104
+msgid "Preferred Scheme"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:106
+msgid "Leave blank to let GoCardless auto-detect based on the customer's country."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:109
+msgid "Auto-detect based on customer country"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:110
+msgid "BACS Direct Debit (UK)"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:111
+msgid "SEPA Core Direct Debit (Eurozone)"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:112
+msgid "ACH Direct Debit (USA)"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:113
+msgid "Autogiro (Sweden)"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:114
+msgid "BECS (Australia)"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:115
+msgid "BECS NZ (New Zealand)"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:116
+msgid "PAD (Canada)"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:121
+msgid "Statement Descriptor"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:123
+msgid "Text appearing on customer's bank statement. Max 10 chars for BACS, 140 for SEPA."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:128
+msgid "Save Mandate for Future Payments"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:130
+msgid "Allow customers to save their mandate for faster checkout"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:132
+msgid "Saved mandates allow repeat customers to pay without re-authorising their bank account."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:135
+msgid "Mandate-Only for Zero-Total Orders"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:137
+msgid "Create mandate without payment for free-trial / £0 orders"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:139
+msgid "When enabled, orders with a £0 total (e.g. free trials) create a mandate without an immediate charge."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:182
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:214
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:237
+msgid "Order not found. Please try again."
+msgstr ""
+
+#. translators: %s: API error message
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:221
+#, php-format
+msgid "Payment error: %s"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:284
+msgid "GoCardless returned an invalid Billing Request response."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:306
+msgid "Failed to obtain GoCardless authorisation URL."
+msgstr ""
+
+#. translators: %s: Billing Request ID
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:316
+#, php-format
+msgid "Billing Request created (ID: %s). Customer redirected to GoCardless for authorisation."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:363
+msgid "Invalid saved payment method. Please try again or choose a different method."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:371
+msgid "This Direct Debit mandate is no longer active. Please set up a new mandate."
+msgstr ""
+
+#. translators: %s: Mandate ID
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:405
+#, php-format
+msgid "Zero-total order completed. Existing mandate: %s."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:432
+msgid "Invalid payment response from GoCardless — missing payment ID."
+msgstr ""
+
+#. translators: 1: Payment ID 2: Mandate ID
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:450
+#, php-format
+msgid "GoCardless payment created (Payment ID: %1$s) against mandate %2$s. Awaiting bank confirmation."
+msgstr ""
+
+#. translators: 1: Mandate ID 2: Action
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:523
+#, php-format
+msgid "Subscription placed on-hold: GoCardless mandate %1$s %2$s. New payment method required."
+msgstr ""
+
+#. translators: 1: Site name 2: Order number
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:551
+#, php-format
+msgid "%1$s — Order #%2$s"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:588
+#: includes/payment-token/class-wc-gocardless-payment-token-mandate.php:292
+msgid "Direct Debit"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-direct-debit.php:599
+msgid "Pay via Direct Debit. You will be securely redirected to authorise your bank mandate with GoCardless."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:58
+msgid "GoCardless — Instant Bank Pay"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:59
+msgid "Accept instant open-banking payments via GoCardless. Payment is confirmed in minutes using Faster Payments (UK) or SEPA Instant (EU). No card details required."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:101
+msgid "Instant Bank Pay Settings"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:103
+msgid "Instant Bank Pay is available in the UK (Faster Payments) and select EU markets (SEPA Instant). Ensure your GoCardless account has IBP enabled."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:106
+msgid "Collect Mandate Alongside Payment"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:108
+msgid "Also collect a Direct Debit mandate during the IBP flow (IBP + mandate combo)"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:110
+msgid "When enabled, customers authorise both an instant payment and a Direct Debit mandate in a single flow. Useful for subscription products requiring both immediate payment and future collections."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:113
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:152
+msgid "Payment Reference"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:115
+msgid "Payment reference shown in the customer's banking app (max 18 characters for Faster Payments)."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:120
+msgid "Show Bank Logos at Checkout"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:122
+msgid "Display bank logos below the payment method description"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:153
+msgid "You will be redirected to select your bank and approve the payment securely via GoCardless."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:178
+msgid "Barclays"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:179
+msgid "HSBC"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:180
+msgid "Lloyds"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:181
+msgid "NatWest"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:182
+msgid "Santander"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:183
+msgid "+ more"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:187
+msgid "Supported banks"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:235
+msgid "Instant Bank Pay is not available for zero-total orders. Please choose a different payment method."
+msgstr ""
+
+#. translators: %s: Error message
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:256
+#, php-format
+msgid "Instant Bank Pay error: %s"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:303
+msgid "GoCardless returned an invalid IBP Billing Request response."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:336
+msgid "Failed to obtain GoCardless IBP authorisation URL."
+msgstr ""
+
+#. translators: %s: Billing Request ID
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:346
+#, php-format
+msgid "IBP Billing Request created (ID: %s). Customer redirected to GoCardless for bank authorisation."
+msgstr ""
+
+#. translators: 1: Order number
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:394
+#, php-format
+msgid "Order #%s"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:473
+msgid "Instant Bank Pay"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-instant-bank.php:484
+msgid "Pay instantly and securely from your bank account. No card details required — funds confirmed in minutes."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:62
+msgid "GoCardless — Variable Recurring Payments"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:63
+msgid "Variable Recurring Payments (VRP) via GoCardless open banking. Customers authorise a consent for flexible subscription amounts — UK only (Faster Payments)."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:118
+msgid "Variable Recurring Payment Settings"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:120
+msgid "VRP is available for UK merchants only, using Faster Payments open-banking rails. Ensure your GoCardless account has VRP enabled."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:123
+msgid "Maximum Amount per Payment (£)"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:125
+msgid "Maximum single payment amount the VRP consent authorises (in £). GoCardless will reject payments over this limit."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:134
+msgid "Maximum Amount per Month (£)"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:136
+msgid "Maximum total amount collectable per calendar month under the VRP consent (in £)."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:145
+msgid "Collect Initial Payment"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:147
+msgid "Collect the initial order payment alongside the VRP consent (combined flow)"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:149
+msgid "When enabled, the first payment is collected during the consent authorisation flow. When disabled, only the consent is collected and the first payment is charged separately."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:154
+msgid "Reference shown in the customer's banking app (max 18 characters for Faster Payments)."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:184
+msgid "You will be redirected to authorise a Variable Recurring Payment consent with your bank via GoCardless."
+msgstr ""
+
+#. translators: 1: Max per payment 2: Max per month
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:214
+#, php-format
+msgid "Consent limits: up to %1$s per payment, up to %2$s per month."
+msgstr ""
+
+#. translators: %s: Error message
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:267
+#, php-format
+msgid "Variable Recurring Payment error: %s"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:323
+msgid "GoCardless returned an invalid VRP Billing Request response."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:352
+msgid "Failed to obtain GoCardless VRP authorisation URL."
+msgstr ""
+
+#. translators: %s: Billing Request ID
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:361
+#, php-format
+msgid "VRP consent Billing Request created (ID: %s). Customer redirected to GoCardless for consent authorisation."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:405
+msgid "VRP Consent Authorised"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:406
+msgid "Your Variable Recurring Payment consent has been authorised. Your subscription will be processed automatically on each renewal date."
+msgstr ""
+
+#. translators: %s: Consent ID
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:411
+#, php-format
+msgid "Consent reference: %s"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:473
+msgid "Variable Recurring Payment"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway-vrp.php:484
+msgid "Flexible recurring bank payments via GoCardless open banking. Authorise once — we collect each subscription renewal automatically."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:147
+msgid "Enable/Disable"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:149
+msgid "Enable this payment method"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:153
+msgid "Title"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:155
+msgid "Payment method title displayed to customers at checkout."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:160
+msgid "Description"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:162
+msgid "Payment method description displayed to customers at checkout."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:166
+msgid "API Credentials"
+msgstr ""
+
+#. translators: %s: GoCardless developer portal URL
+#: includes/gateway/class-wc-gocardless-gateway.php:170
+#, php-format
+msgid "Obtain your API credentials from the <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">GoCardless developer portal</a>."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:175
+msgid "Sandbox Mode"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:177
+msgid "Enable sandbox (test) mode"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:179
+msgid "Use the GoCardless sandbox environment for testing. Disable for live transactions."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:182
+msgid "Live Access Token"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:184
+msgid "Your GoCardless live API access token."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:189
+msgid "Sandbox Access Token"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:191
+msgid "Your GoCardless sandbox API access token for testing."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:196
+msgid "Webhook Secret"
+msgstr ""
+
+#. translators: %s: Webhook endpoint URL
+#: includes/gateway/class-wc-gocardless-gateway.php:200
+#, php-format
+msgid "Webhook secret from GoCardless. Configure your endpoint at: <code>%s</code>"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:206
+msgid "Advanced"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:210
+msgid "Debug Logging"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:212
+msgid "Enable debug logging"
+msgstr ""
+
+#. translators: %s: WooCommerce logs URL
+#: includes/gateway/class-wc-gocardless-gateway.php:216
+#, php-format
+msgid "Log plugin events for debugging. <a href=\"%s\">View logs</a>."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:245
+msgid "Bank Payment (GoCardless)"
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:256
+msgid "Pay securely via bank payment using GoCardless."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:278
+msgid "Order not found."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:287
+msgid "No GoCardless payment ID found for this order. Refunds can only be processed for orders paid via GoCardless."
+msgstr ""
+
+#: includes/gateway/class-wc-gocardless-gateway.php:310
+#, php-format
+msgid "GoCardless refund created (Refund ID: %1$s, Amount: %2$s)."
+msgstr ""
+
+#. translators: %s: API error message
+#: includes/gateway/class-wc-gocardless-gateway.php:327
+#, php-format
+msgid "GoCardless refund failed: %s"
+msgstr ""
+
+#. translators: 1: Scheme label 2: Bank name 3: Account ending
+#: includes/payment-token/class-wc-gocardless-payment-token-mandate.php:249
+#, php-format
+msgid "%1$s — %2$s (account ending %3$s)"
+msgstr ""
+
+#. translators: 1: Scheme label 2: Bank name
+#: includes/payment-token/class-wc-gocardless-payment-token-mandate.php:259
+#, php-format
+msgid "%1$s — %2$s"
+msgstr ""
+
+#. translators: %s: Mandate ID
+#: includes/payment-token/class-wc-gocardless-payment-token-mandate.php:267
+#, php-format
+msgid "Direct Debit mandate (%s)"
+msgstr ""
+
+#: includes/payment-token/class-wc-gocardless-payment-token-mandate.php:281
+msgid "BACS Direct Debit"
+msgstr ""
+
+#: includes/payment-token/class-wc-gocardless-payment-token-mandate.php:282
+msgid "SEPA Direct Debit"
+msgstr ""
+
+#: includes/payment-token/class-wc-gocardless-payment-token-mandate.php:283
+msgid "SEPA COR1 Direct Debit"
+msgstr ""
+
+#: includes/payment-token/class-wc-gocardless-payment-token-mandate.php:284
+msgid "ACH Direct Debit"
+msgstr ""
+
+#: includes/payment-token/class-wc-gocardless-payment-token-mandate.php:285
+msgid "Autogiro"
+msgstr ""
+
+#: includes/payment-token/class-wc-gocardless-payment-token-mandate.php:286
+msgid "BECS Direct Debit"
+msgstr ""
+
+#: includes/payment-token/class-wc-gocardless-payment-token-mandate.php:287
+msgid "BECS NZ Direct Debit"
+msgstr ""
+
+#: includes/payment-token/class-wc-gocardless-payment-token-mandate.php:288
+msgid "Betalingsservice"
+msgstr ""
+
+#: includes/payment-token/class-wc-gocardless-payment-token-mandate.php:289
+msgid "PAD"
+msgstr ""
+
+#: includes/subscriptions/class-wc-gocardless-renewal-handler.php:91
+msgid "No Direct Debit mandate found for renewal. Customer must re-authorise."
+msgstr ""
+
+#. translators: 1: Mandate ID 2: Mandate status
+#: includes/subscriptions/class-wc-gocardless-renewal-handler.php:117
+#, php-format
+msgid "Direct Debit mandate %1$s is not active (status: %2$s). Subscription placed on-hold."
+msgstr ""
+
+#. translators: %s: API error message
+#: includes/subscriptions/class-wc-gocardless-renewal-handler.php:139
+#, php-format
+msgid "GoCardless mandate verification failed: %s"
+msgstr ""
+
+#: includes/subscriptions/class-wc-gocardless-renewal-handler.php:177
+msgid "No VRP consent found for renewal. Customer must re-authorise."
+msgstr ""
+
+#. translators: 1: Consent ID 2: Consent status
+#: includes/subscriptions/class-wc-gocardless-renewal-handler.php:203
+#, php-format
+msgid "VRP consent %1$s is not active (status: %2$s). Subscription placed on-hold."
+msgstr ""
+
+#. translators: %s: Error message
+#: includes/subscriptions/class-wc-gocardless-renewal-handler.php:225
+#, php-format
+msgid "VRP consent verification failed: %s"
+msgstr ""
+
+#: includes/subscriptions/class-wc-gocardless-renewal-handler.php:271
+msgid "GoCardless returned an invalid payment response — missing ID."
+msgstr ""
+
+#. translators: 1: Payment ID 2: Mandate ID
+#: includes/subscriptions/class-wc-gocardless-renewal-handler.php:289
+#, php-format
+msgid "GoCardless renewal payment created (Payment ID: %1$s, Mandate: %2$s). Awaiting bank confirmation."
+msgstr ""
+
+#. translators: %s: API error message
+#: includes/subscriptions/class-wc-gocardless-renewal-handler.php:329
+#, php-format
+msgid "GoCardless renewal payment failed: %s"
+msgstr ""
+
+#: includes/subscriptions/class-wc-gocardless-renewal-handler.php:371
+msgid "GoCardless returned an invalid VRP payment response — missing ID."
+msgstr ""
+
+#. translators: 1: Payment ID 2: Consent ID
+#: includes/subscriptions/class-wc-gocardless-renewal-handler.php:391
+#, php-format
+msgid "GoCardless VRP renewal payment created (Payment ID: %1$s, Consent: %2$s). Awaiting settlement."
+msgstr ""
+
+#. translators: %s: Constraint error
+#: includes/subscriptions/class-wc-gocardless-renewal-handler.php:431
+#, php-format
+msgid "VRP renewal failed — amount exceeds consent limit: %s"
+msgstr ""
+
+#. translators: %s: API error message
+#: includes/subscriptions/class-wc-gocardless-renewal-handler.php:436
+#, php-format
+msgid "GoCardless VRP renewal payment failed: %s"
+msgstr ""
+
+#. translators: 1: Site name 2: Order number
+#: includes/subscriptions/class-wc-gocardless-renewal-handler.php:580
+#, php-format
+msgid "%1$s — Renewal Order #%2$s"
+msgstr ""
+
+#. translators: %s: Mandate ID
+#: includes/subscriptions/class-wc-gocardless-subscriptions.php:242
+#, php-format
+msgid "GoCardless mandate/consent %s cancelled on subscription cancellation."
+msgstr ""
+
+#. translators: 1: Old gateway 2: New gateway
+#: includes/subscriptions/class-wc-gocardless-subscriptions.php:290
+#, php-format
+msgid "Payment method changed from %1$s to %2$s. A new mandate/consent will be collected on the next renewal checkout."
+msgstr ""
+
+#. translators: 1: Mandate ID 2: Action type
+#: includes/subscriptions/class-wc-gocardless-subscriptions.php:339
+#, php-format
+msgid "GoCardless mandate/consent %1$s %2$s. Subscription placed on-hold — new payment method required."
+msgstr ""
+
+#. translators: %s: GoCardless payment ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:147
+#, php-format
+msgid "GoCardless payment created (Payment ID: %s). Awaiting bank confirmation."
+msgstr ""
+
+#. translators: %s: GoCardless payment ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:157
+#, php-format
+msgid "GoCardless payment submitted to the bank (Payment ID: %s)."
+msgstr ""
+
+#. translators: %s: Payment ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:173
+#, php-format
+msgid "Instant Bank Pay confirmed via webhook (Payment ID: %s)."
+msgstr ""
+
+#. translators: %s: Payment ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:187
+#, php-format
+msgid "VRP payment confirmed via webhook (Payment ID: %s)."
+msgstr ""
+
+#. translators: %s: GoCardless payment ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:198
+#, php-format
+msgid "GoCardless Direct Debit payment confirmed (Payment ID: %s)."
+msgstr ""
+
+#. translators: %s: Payment ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:217
+#, php-format
+msgid "Instant Bank Pay settled to merchant account (Payment ID: %s)."
+msgstr ""
+
+#. translators: %s: GoCardless payment ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:225
+#, php-format
+msgid "GoCardless payment paid out to merchant account (Payment ID: %s)."
+msgstr ""
+
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:237
+msgid "Unknown reason"
+msgstr ""
+
+#. translators: 1: Payment ID 2: Failure reason 3: Cause code
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:244
+#, php-format
+msgid "GoCardless payment failed (Payment ID: %1$s). Reason: %2$s. Cause: %3$s"
+msgstr ""
+
+#. translators: %s: GoCardless payment ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:268
+#, php-format
+msgid "GoCardless payment cancelled (Payment ID: %s)."
+msgstr ""
+
+#. translators: %s: GoCardless payment ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:279
+#, php-format
+msgid "GoCardless payment charged back (Payment ID: %s). Please review."
+msgstr ""
+
+#. translators: %s: Payment ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:300
+#, php-format
+msgid "GoCardless late failure settled (Payment ID: %s)."
+msgstr ""
+
+#. translators: %s: Payment ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:310
+#, php-format
+msgid "GoCardless chargeback settled (Payment ID: %s)."
+msgstr ""
+
+#. translators: %s: GoCardless mandate ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:354
+#, php-format
+msgid "GoCardless mandate created (Mandate ID: %s)."
+msgstr ""
+
+#. translators: %s: GoCardless mandate ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:364
+#, php-format
+msgid "GoCardless mandate is now active (Mandate ID: %s)."
+msgstr ""
+
+#. translators: 1: Mandate ID 2: Action
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:377
+#, php-format
+msgid "GoCardless mandate %2$s (Mandate ID: %1$s). Subscription may require new payment method."
+msgstr ""
+
+#. translators: %s: Billing request ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:428
+#, php-format
+msgid "GoCardless Billing Request fulfilled (ID: %s)."
+msgstr ""
+
+#. translators: %s: Billing request ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:439
+#, php-format
+msgid "GoCardless Billing Request cancelled by customer (ID: %s)."
+msgstr ""
+
+#. translators: %s: GoCardless refund ID
+#: includes/webhooks/class-wc-gocardless-webhook-processor.php:475
+#, php-format
+msgid "GoCardless refund processed successfully (Refund ID: %s)."
+msgstr ""
+
+#: templates/checkout/ibp-order-received.php:28
+msgid "Payment Confirmed"
+msgstr ""
+
+#. translators: %s: payment ID
+#: templates/checkout/ibp-order-received.php:33
+#, php-format
+msgid "Your Instant Bank Pay payment has been confirmed. Reference: %s"
+msgstr ""
+
+#: templates/checkout/ibp-order-received.php:42
+msgid "Payment Authorised — Awaiting Settlement"
+msgstr ""
+
+#: templates/checkout/ibp-order-received.php:44
+msgid "Your bank has authorised the payment and it is being processed by GoCardless. You will receive an email confirmation once settlement is complete — typically within a few minutes."
+msgstr ""
+
+#. translators: %s: Payment reference
+#: templates/checkout/ibp-order-received.php:52
+#, php-format
+msgid "Payment reference: %s"
+msgstr ""
+
+#: templates/checkout/ibp-order-received.php:64
+msgid "Your Instant Bank Pay payment is being processed. You will receive a confirmation email once payment is confirmed."
+msgstr ""
+
+#. translators: %s: Customer first name
+#: templates/emails/mandate-confirmation.php:32
+#: templates/emails/plain/mandate-confirmation.php:28
+#, php-format
+msgid "Hello %s,"
+msgstr ""
+
+#: templates/emails/mandate-confirmation.php:39
+#: templates/emails/plain/mandate-confirmation.php:33
+msgid "Your Variable Recurring Payment (VRP) consent has been successfully authorised with your bank via GoCardless. Your subscription payments will be collected automatically on each renewal date — no further action is needed."
+msgstr ""
+
+#: templates/emails/mandate-confirmation.php:44
+#: templates/emails/plain/mandate-confirmation.php:38
+msgid "Your Direct Debit mandate has been successfully set up with your bank via GoCardless. Future payments for your order will be collected automatically — no further action is needed from you."
+msgstr ""
+
+#: templates/emails/mandate-confirmation.php:63
+#: templates/emails/plain/mandate-confirmation.php:52
+msgid "VRP Consent Reference:"
+msgstr ""
+
+#: templates/emails/mandate-confirmation.php:65
+#: templates/emails/plain/mandate-confirmation.php:54
+msgid "Mandate Reference:"
+msgstr ""
+
+#: templates/emails/mandate-confirmation.php:75
+#: templates/emails/plain/mandate-confirmation.php:57
+msgid "Order Number:"
+msgstr ""
+
+#: templates/emails/mandate-confirmation.php:83
+#: templates/emails/plain/mandate-confirmation.php:58
+msgid "Authorised On:"
+msgstr ""
+
+#. translators: %s: Site name
+#: templates/emails/mandate-confirmation.php:98
+#: templates/emails/plain/mandate-confirmation.php:65
+#, php-format
+msgid "To cancel or modify your VRP consent, please contact %s or manage your consent directly via your banking app."
+msgstr ""
+
+#. translators: %s: Site name
+#: templates/emails/mandate-confirmation.php:104
+#: templates/emails/plain/mandate-confirmation.php:71
+#, php-format
+msgid "To cancel your Direct Debit mandate, please contact %s. You can also cancel directly with your bank."
+msgstr ""
+
+#. translators: 1: Required PHP version 2: Current PHP version
+#: wc-gocardless-payments.php:194
+#, php-format
+msgid "<strong>WooCommerce GoCardless Payments</strong> requires PHP %1$s or higher. Your server is running PHP %2$s. Please upgrade PHP or contact your hosting provider."
+msgstr ""
+
+#: wc-gocardless-payments.php:213
+msgid "<strong>WooCommerce GoCardless Payments</strong> requires WooCommerce to be installed and active."
+msgstr ""
+
+#. translators: 1: Required WooCommerce version 2: Current WooCommerce version
+#: wc-gocardless-payments.php:231
+#, php-format
+msgid "<strong>WooCommerce GoCardless Payments</strong> requires WooCommerce %1$s or higher. You are running WooCommerce %2$s."
+msgstr ""
+
+#: wc-gocardless-payments.php:233
+msgid "unknown"
+msgstr ""
