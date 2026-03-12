@@ -43,7 +43,7 @@ class WC_GoCardless_Order_Helper {
 	 * @param mixed    $default  Default value when key is absent.
 	 * @return mixed Meta value or $default.
 	 */
-	public static function get_meta( WC_Order $order, string $key, mixed $default = '' ): mixed {
+	public static function get_meta( WC_Order $order, string $key, $default = '' ) {
 		$value = $order->get_meta( self::META_PREFIX . $key, true );
 
 		return ( '' !== $value && null !== $value ) ? $value : $default;
@@ -63,7 +63,7 @@ class WC_GoCardless_Order_Helper {
 	 * @param bool     $save  Whether to call $order->save() immediately.
 	 * @return void
 	 */
-	public static function update_meta( WC_Order $order, string $key, mixed $value, bool $save = true ): void {
+	public static function update_meta( WC_Order $order, string $key, $value, bool $save = true ): void {
 		$order->update_meta_data( self::META_PREFIX . $key, $value );
 
 		if ( $save ) {
@@ -363,63 +363,6 @@ class WC_GoCardless_Order_Helper {
 	}
 
 	/**
-	 * Retrieve the VRP consent ID stored on an order.
-	 *
-	 * The VRP consent ID is the GoCardless mandate ID for a VRP-scheme mandate.
-	 * It is stored under the same `mandate_id` key as Direct Debit mandates,
-	 * but additionally mirrored here for explicit access.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WC_Order $order WooCommerce order.
-	 * @return string GoCardless VRP consent mandate ID or empty string.
-	 */
-	public static function get_vrp_consent_id( WC_Order $order ): string {
-		// VRP consent is stored as the mandate_id; this accessor is an alias
-		// that makes intent explicit in the renewal handler context.
-		return self::get_mandate_id( $order );
-	}
-
-	/**
-	 * Store the VRP consent (mandate) ID on an order.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WC_Order $order      WooCommerce order.
-	 * @param string   $consent_id GoCardless VRP mandate ID.
-	 * @return void
-	 */
-	public static function set_vrp_consent_id( WC_Order $order, string $consent_id ): void {
-		// Store under mandate_id for webhook processor compatibility.
-		self::set_mandate_id( $order, $consent_id );
-	}
-
-	/**
-	 * Retrieve the VRP maximum per-payment amount stored on an order (minor units).
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WC_Order $order WooCommerce order.
-	 * @return int Maximum per-payment amount in minor units, or 0.
-	 */
-	public static function get_vrp_max_amount( WC_Order $order ): int {
-		return (int) self::get_meta( $order, 'vrp_max_amount', 0 );
-	}
-
-	/**
-	 * Store the VRP maximum per-payment amount on an order (minor units).
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WC_Order $order  WooCommerce order.
-	 * @param int      $amount Maximum per-payment amount in minor units.
-	 * @return void
-	 */
-	public static function set_vrp_max_amount( WC_Order $order, int $amount ): void {
-		self::update_meta( $order, 'vrp_max_amount', $amount );
-	}
-
-	/**
 	 * Retrieve a WC_Order instance safely, supporting both integer IDs and
 	 * existing WC_Order objects.
 	 *
@@ -428,7 +371,7 @@ class WC_GoCardless_Order_Helper {
 	 * @param int|WC_Order $order Order ID or WC_Order object.
 	 * @return WC_Order|null WC_Order instance, or null on failure.
 	 */
-	public static function get_order( int|WC_Order $order ): ?WC_Order {
+	public static function get_order( $order ): ?WC_Order {
 		if ( $order instanceof WC_Order ) {
 			return $order;
 		}
