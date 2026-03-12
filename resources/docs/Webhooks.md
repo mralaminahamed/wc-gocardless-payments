@@ -75,6 +75,13 @@ $is_valid  = hash_equals( $signature, $request_signature );
 | `billing_request_failed` | Billing request failed |
 | `billing_request_cancelled` | Billing request cancelled |
 
+### Refund Events
+
+| Event | Description |
+|-------|-------------|
+| `refund_created` | Refund created |
+| `refund_paid` | Refund settled |
+
 ## Troubleshooting
 
 ### Webhooks Not Received

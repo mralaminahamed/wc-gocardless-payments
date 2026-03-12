@@ -11,6 +11,8 @@ WooCommerce payment gateway integrating GoCardless for Direct Debit (ACH/BACS/SE
 - **Subscription Support** — WooCommerce Subscriptions integration
 - **Webhook Handling** — HMAC-SHA256 signature verification
 - **HPOS Compatible** — High-Performance Order Storage support
+- **WooCommerce Blocks** — Cart & Checkout block support
+- **Email Notifications** — Mandate confirmation emails
 
 ## Requirements
 

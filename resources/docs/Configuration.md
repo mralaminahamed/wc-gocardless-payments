@@ -74,3 +74,29 @@ Enable debug mode to log API requests and responses. Logs appear in **WooCommerc
 ### HPOS Support
 
 The plugin is compatible with WooCommerce High-Performance Order Storage (HPOS).
+
+## WooCommerce Blocks Support
+
+The plugin supports the new WooCommerce Cart and Checkout blocks:
+
+- **Direct Debit** — Available in block checkout
+- **Instant Bank Pay** — Available in block checkout
+- **VRP** — Available in block checkout
+
+### Enabling Blocks
+
+1. Go to **WooCommerce → Settings → Payments**
+2. Ensure payment methods are enabled
+3. Blocks will automatically appear when using the block-based checkout
+
+## Email Notifications
+
+The plugin includes email notifications for:
+
+- **Mandate Confirmed** — Sent when a Direct Debit mandate or VRP consent is authorized
+
+### Configuring Emails
+
+1. Go to **WooCommerce → Settings → Emails**
+2. Find **GoCardless Mandate Confirmed**
+3. Enable/disable and customize as needed

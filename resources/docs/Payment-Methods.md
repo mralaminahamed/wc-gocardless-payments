@@ -120,6 +120,23 @@ All payment methods support full and partial refunds via WooCommerce refund UI.
 
 ---
 
+## WooCommerce Blocks Support
+
+All payment methods support the WooCommerce Cart and Checkout blocks:
+
+- **Direct Debit** — Full support with saved mandate management
+- **Instant Bank Pay** — Redirect to bank flow
+- **VRP** — Consent authorization flow
+
+### Block Features
+
+- Saved payment token management
+- New payment method entry
+- Sandbox/test mode notices
+- Responsive design
+
+---
+
 ## Webhook Events
 
 The plugin processes the following GoCardless webhook events:
@@ -136,3 +153,5 @@ The plugin processes the following GoCardless webhook events:
 - `billing_request_completed`
 - `billing_request_failed`
 - `billing_request_cancelled`
+- `refund_created`
+- `refund_paid`
