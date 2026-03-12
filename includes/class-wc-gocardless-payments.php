@@ -22,15 +22,15 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-final class WC_GoCardless {
+final class WC_GoCardless_Payments {
 
 	/**
 	 * Singleton instance.
 	 *
 	 * @since 1.0.0
-	 * @var WC_GoCardless|null
+	 * @var WC_GoCardless_Payments|null
 	 */
-	private static ?WC_GoCardless $instance = null;
+	private static ?WC_GoCardless_Payments $instance = null;
 
 	/**
 	 * Plugin version.
@@ -61,9 +61,9 @@ final class WC_GoCardless {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return WC_GoCardless
+	 * @return WC_GoCardless_Payments
 	 */
-	public static function instance(): WC_GoCardless {
+	public static function instance(): WC_GoCardless_Payments {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 			self::$instance->init();
@@ -331,7 +331,7 @@ final class WC_GoCardless {
 		$plugin_links = array(
 			'settings' => sprintf(
 				'<a href="%s">%s</a>',
-				esc_url( admin_url( 'admin.php?page=wc-settings&tab=checkout&section=gocardless_direct_debit' ) ),
+				esc_url( admin_url( 'admin.php?page=wc-settings&tab=checkout&section=gocardless' ) ),
 				esc_html__( 'Settings', 'wc-gocardless-payments' )
 			),
 			'docs'     => sprintf(
@@ -418,9 +418,9 @@ final class WC_GoCardless {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return WC_GoCardless
+	 * @return WC_GoCardless_Payments
 	 */
-	public static function get_instance(): WC_GoCardless {
+	public static function get_instance(): WC_GoCardless_Payments {
 		return self::instance();
 	}
 }
@@ -433,8 +433,8 @@ final class WC_GoCardless {
  *
  * @since 1.0.0
  *
- * @return WC_GoCardless
+ * @return WC_GoCardless_Payments
  */
-function wc_gocardless(): WC_GoCardless {
-	return WC_GoCardless::instance();
+function wc_gocardless_payments(): WC_GoCardless_Payments {
+	return WC_GoCardless_Payments::instance();
 }

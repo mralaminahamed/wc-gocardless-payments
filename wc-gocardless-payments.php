@@ -22,47 +22,14 @@ declare( strict_types=1 );
 
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Plugin version constant.
- *
- * @since 1.0.0
- */
 define( 'WC_GOCARDLESS_VERSION', '1.0.0' );
-
-/**
- * Absolute path to the plugin root directory (with trailing slash).
- *
- * @since 1.0.0
- */
 define( 'WC_GOCARDLESS_PATH', plugin_dir_path( __FILE__ ) );
-
-/**
- * Public URL to the plugin root directory (with trailing slash).
- *
- * @since 1.0.0
- */
 define( 'WC_GOCARDLESS_URL', plugin_dir_url( __FILE__ ) );
-
-/**
- * Absolute path to the main plugin file.
- *
- * @since 1.0.0
- */
 define( 'WC_GOCARDLESS_FILE', __FILE__ );
-
-/**
- * Minimum required WooCommerce version.
- *
- * @since 1.0.0
- */
 define( 'WC_GOCARDLESS_MIN_WC_VERSION', '8.0' );
-
-/**
- * Minimum required PHP version.
- *
- * @since 1.0.0
- */
 define( 'WC_GOCARDLESS_MIN_PHP_VERSION', '8.0' );
+
+require_once __DIR__ . '/vendor/autoload.php';
 
 // Declare HPOS (High-Performance Order Storage) compatibility.
 add_action(
@@ -122,10 +89,10 @@ function wc_gocardless_init(): void {
 	);
 
 	// Autoload all plugin classes.
-	wc_gocardless_autoload();
+	// wc_gocardless_autoload();
 
 	// Boot the core plugin singleton.
-	WC_GoCardless::instance();
+	WC_GoCardless_Payments::instance();
 }
 add_action( 'plugins_loaded', 'wc_gocardless_init' );
 
