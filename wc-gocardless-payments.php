@@ -62,22 +62,22 @@ add_action(
  *
  * @return void
  */
-function wc_gocardless_init(): void {
+function wc_gocardless_payments_init(): void {
 	// PHP version gate.
 	if ( version_compare( PHP_VERSION, WC_GOCARDLESS_MIN_PHP_VERSION, '<' ) ) {
-		add_action( 'admin_notices', 'wc_gocardless_php_version_notice' );
+		add_action( 'admin_notices', 'wc_gocardless_payments_php_version_notice' );
 		return;
 	}
 
 	// WooCommerce availability gate.
 	if ( ! class_exists( 'WooCommerce' ) ) {
-		add_action( 'admin_notices', 'wc_gocardless_woocommerce_missing_notice' );
+		add_action( 'admin_notices', 'wc_gocardless_payments_woocommerce_missing_notice' );
 		return;
 	}
 
 	// WooCommerce version gate.
 	if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, WC_GOCARDLESS_MIN_WC_VERSION, '<' ) ) {
-		add_action( 'admin_notices', 'wc_gocardless_woocommerce_version_notice' );
+		add_action( 'admin_notices', 'wc_gocardless_payments_woocommerce_version_notice' );
 		return;
 	}
 
@@ -89,12 +89,12 @@ function wc_gocardless_init(): void {
 	);
 
 	// Autoload all plugin classes.
-	// wc_gocardless_autoload();
+	// wc_gocardless_payments_autoload();
 
 	// Boot the core plugin singleton.
 	WC_GoCardless_Payments::instance();
 }
-add_action( 'plugins_loaded', 'wc_gocardless_init' );
+add_action( 'plugins_loaded', 'wc_gocardless_payments_init' );
 
 /**
  * Register a simple PSR-4-style autoloader for the plugin namespace.
@@ -109,7 +109,7 @@ add_action( 'plugins_loaded', 'wc_gocardless_init' );
  *
  * @return void
  */
-function wc_gocardless_autoload(): void {
+function wc_gocardless_payments_autoload(): void {
 	spl_autoload_register(
 		static function ( string $class_name ): void {
 			// Only handle classes belonging to this plugin.
@@ -118,7 +118,7 @@ function wc_gocardless_autoload(): void {
 			}
 
 			// Convert class name to a file path.
-			$file = wc_gocardless_class_to_file( $class_name );
+			$file = wc_gocardless_payments_class_to_file( $class_name );
 
 			if ( $file && file_exists( $file ) ) {
 				require_once $file;
@@ -135,7 +135,7 @@ function wc_gocardless_autoload(): void {
  * @param string $class_name Fully-qualified class name.
  * @return string|null Absolute file path, or null if unresolvable.
  */
-function wc_gocardless_class_to_file( string $class_name ): ?string {
+function wc_gocardless_payments_class_to_file( string $class_name ): ?string {
 	// Convert underscores to hyphens and lowercase for file naming.
 	$base      = strtolower( str_replace( '_', '-', $class_name ) );
 	$base_path = WC_GOCARDLESS_PATH . 'includes/';
@@ -183,7 +183,7 @@ function wc_gocardless_class_to_file( string $class_name ): ?string {
  *
  * @return void
  */
-function wc_gocardless_php_version_notice(): void {
+function wc_gocardless_payments_php_version_notice(): void {
 	printf(
 		'<div class="notice notice-error"><p>%s</p></div>',
 		wp_kses_post(
@@ -204,7 +204,7 @@ function wc_gocardless_php_version_notice(): void {
  *
  * @return void
  */
-function wc_gocardless_woocommerce_missing_notice(): void {
+function wc_gocardless_payments_woocommerce_missing_notice(): void {
 	printf(
 		'<div class="notice notice-error"><p>%s</p></div>',
 		wp_kses_post(
@@ -220,7 +220,7 @@ function wc_gocardless_woocommerce_missing_notice(): void {
  *
  * @return void
  */
-function wc_gocardless_woocommerce_version_notice(): void {
+function wc_gocardless_payments_woocommerce_version_notice(): void {
 	printf(
 		'<div class="notice notice-error"><p>%s</p></div>',
 		wp_kses_post(
@@ -244,11 +244,11 @@ function wc_gocardless_woocommerce_version_notice(): void {
  *
  * @return void
  */
-function wc_gocardless_activate(): void {
+function wc_gocardless_payments_activate(): void {
 	set_transient( 'wc_gocardless_activation_notice', true, 30 );
 	flush_rewrite_rules();
 }
-register_activation_hook( __FILE__, 'wc_gocardless_activate' );
+register_activation_hook( __FILE__, 'wc_gocardless_payments_activate' );
 
 /**
  * Deactivation hook handler.
@@ -257,7 +257,7 @@ register_activation_hook( __FILE__, 'wc_gocardless_activate' );
  *
  * @return void
  */
-function wc_gocardless_deactivate(): void {
+function wc_gocardless_payments_deactivate(): void {
 	flush_rewrite_rules();
 }
-register_deactivation_hook( __FILE__, 'wc_gocardless_deactivate' );
+register_deactivation_hook( __FILE__, 'wc_gocardless_payments_deactivate' );
