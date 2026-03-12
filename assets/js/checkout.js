@@ -59,13 +59,17 @@
 		/**
 		 * Toggle the "new mandate" notice visibility when payment method changes.
 		 *
+		 * Also shows/hides IBP-specific bank list and notices.
+		 *
 		 * @return {void}
 		 */
 		onPaymentMethodSelected: function () {
 			var selectedMethod = $( 'input[name="payment_method"]:checked' ).val();
 			var isGoCardless   = selectedMethod && selectedMethod.indexOf( 'gocardless' ) === 0;
+			var isIBP          = 'gocardless_instant_bank' === selectedMethod;
 
 			$( '.wc-gocardless-redirect-notice' ).toggle( isGoCardless );
+			$( '.wc-gocardless-bank-list' ).toggle( isIBP );
 		},
 
 		/**

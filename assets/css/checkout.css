@@ -67,3 +67,55 @@
 .wc-gocardless-pending-notice p {
 	margin: 0;
 }
+
+/* -------------------------------------------------------------------------
+   Instant Bank Pay — checkout presentation
+   ---------------------------------------------------------------------- */
+
+.wc-gocardless-ibp-box {
+	border-color: #0073aa;
+	background: #f0f7ff;
+}
+
+/* Bank badge grid */
+.wc-gocardless-bank-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-top: 0.75em;
+}
+
+.wc-gocardless-bank-badge {
+	display: inline-block;
+	font-size: 0.78em;
+	font-weight: 500;
+	color: #444;
+	background: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 3px 8px;
+	white-space: nowrap;
+}
+
+/* IBP order-received: pending settlement notice */
+.wc-gocardless-ibp-pending {
+	background: #e8f4fb;
+	border-left: 4px solid #0073aa;
+	padding: 1em 1.25em;
+	margin: 1em 0;
+	border-radius: 0 4px 4px 0;
+}
+
+.wc-gocardless-ibp-pending strong {
+	display: block;
+	margin-bottom: 0.4em;
+}
+
+/* IBP confirmed badge on thank-you page */
+.wc-gocardless-ibp-confirmed {
+	background: #ecfdf5;
+	border-left: 4px solid #22c55e;
+	padding: 1em 1.25em;
+	margin: 1em 0;
+	border-radius: 0 4px 4px 0;
+}
