@@ -139,6 +139,7 @@ final class WC_GoCardless_Payments {
 		$this->init_admin();
 		$this->init_subscriptions();
 		$this->init_emails();
+		$this->init_blocks();
 		$this->register_hooks();
 	}
 
@@ -315,6 +316,52 @@ final class WC_GoCardless_Payments {
 		$email_classes['WC_GoCardless_Email_Mandate_Confirmed'] = new WC_GoCardless_Email_Mandate_Confirmed();
 
 		return $email_classes;
+	}
+
+	/**
+	 * Initialise WooCommerce Blocks payment method integrations.
+	 *
+	 * Hooks into `woocommerce_blocks_payment_method_type_registration` which
+	 * is fired by WC Blocks when it collects payment method types for the
+	 * Cart and Checkout blocks. Registration must occur after WooCommerce
+	 * is fully loaded and payment gateways are initialised.
+	 *
+	 * Guard: only registers when the AbstractPaymentMethodType class is
+	 * available (WC Blocks 7.6.0+ / WooCommerce 8.0+).
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	private function init_blocks(): void {
+		if ( ! class_exists( '\Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType' ) ) {
+			return;
+		}
+
+		add_action(
+			'woocommerce_blocks_payment_method_type_registration',
+			array( $this, 'register_block_payment_methods' )
+		);
+	}
+
+	/**
+	 * Register all three GoCardless payment methods with the WC Blocks registry.
+	 *
+	 * Each concrete integration class extends WC_GoCardless_Blocks_Integration
+	 * which extends AbstractPaymentMethodType. The registry calls initialize()
+	 * and get_payment_method_data() at render time.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param \Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry $registry WC Blocks payment registry.
+	 * @return void
+	 */
+	public function register_block_payment_methods(
+		\Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry $registry
+	): void {
+		$registry->register( new WC_GoCardless_Blocks_Direct_Debit() );
+		$registry->register( new WC_GoCardless_Blocks_Instant_Bank() );
+		$registry->register( new WC_GoCardless_Blocks_VRP() );
 	}
 
 	/**
