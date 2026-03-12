@@ -103,6 +103,82 @@ class WC_GoCardless_API_Billing_Requests {
 	}
 
 	/**
+	 * Create a Billing Request for an Instant Bank Pay (IBP) one-off payment.
+	 *
+	 * IBP uses GoCardless open-banking rails to confirm payment immediately
+	 * (or near-immediately) rather than via the traditional 3–5 day Direct
+	 * Debit clearing cycle. No mandate is created; this is a single-use
+	 * payment authorisation.
+	 *
+	 * Key difference from Direct Debit: the `payment_request` carries
+	 * `funds_settlement: instant` and there is NO `mandate_request` block.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array<string, mixed> $args {
+	 *     Request arguments.
+	 *
+	 *     @type int    $amount            Order amount in minor units (e.g. 2500 for £25.00).
+	 *     @type string $currency          ISO 4217 currency code.
+	 *     @type string $description       Payment description shown to the customer.
+	 *     @type string $given_name        Customer first name.
+	 *     @type string $family_name       Customer last name.
+	 *     @type string $email             Customer email address.
+	 *     @type string $address_line1     Billing address line 1.
+	 *     @type string $city              Billing city.
+	 *     @type string $postal_code       Billing postcode.
+	 *     @type string $country_code      ISO 3166-1 alpha-2 country code.
+	 *     @type string $wc_order_id       WooCommerce order ID for metadata.
+	 *     @type string $idempotency_key   Unique key to prevent duplicate requests.
+	 *     @type bool   $collect_mandate   Whether to also collect a mandate alongside
+	 *                                     the payment (IBP + mandate combo flow).
+	 *                                     Defaults to false for pure IBP.
+	 * }
+	 * @return array<string, mixed> Billing Request object.
+	 * @throws WC_GoCardless_API_Exception On API error.
+	 */
+	public function create_for_instant_bank_pay( array $args ): array {
+		$collect_mandate = ! empty( $args['collect_mandate'] );
+
+		$payment_request = array(
+			'amount'             => $args['amount'],
+			'currency'           => strtoupper( $args['currency'] ),
+			'description'        => $args['description'] ?? '',
+			'funds_settlement'   => 'instant',
+		);
+
+		$body = array(
+			'billing_requests' => array(
+				'payment_request'    => $payment_request,
+				'prefilled_customer' => $this->build_prefilled_customer( $args ),
+				'metadata'           => array(
+					'wc_order_id'    => $args['wc_order_id'] ?? '',
+					'payment_method' => 'instant_bank_pay',
+				),
+			),
+		);
+
+		// Optionally attach a mandate_request for IBP + mandate combo flows.
+		// This allows the merchant to collect a mandate alongside the payment
+		// so future renewals can be processed without redirect.
+		if ( $collect_mandate ) {
+			$body['billing_requests']['mandate_request'] = array(
+				'scheme' => $args['scheme'] ?? null,
+			);
+
+			if ( empty( $body['billing_requests']['mandate_request']['scheme'] ) ) {
+				unset( $body['billing_requests']['mandate_request']['scheme'] );
+			}
+		}
+
+		return $this->client->post(
+			'/billing_requests',
+			$body,
+			$args['idempotency_key'] ?? null
+		);
+	}
+
+	/**
 	 * Create a Billing Request for a mandate-only authorisation (no initial payment).
 	 *
 	 * Used when setting up a mandate for future subscription renewals without
