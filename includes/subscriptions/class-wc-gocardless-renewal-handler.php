@@ -58,7 +58,7 @@ class WC_GoCardless_Renewal_Handler {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->logger = wc_gocardless()->logger;
+		$this->logger = wc_gocardless_payments()->logger;
 	}
 
 	/**
@@ -95,7 +95,7 @@ class WC_GoCardless_Renewal_Handler {
 
 		// Verify the mandate is still active before attempting payment.
 		try {
-			$mandates_api  = new WC_GoCardless_API_Mandates( wc_gocardless()->api );
+			$mandates_api  = new WC_GoCardless_API_Mandates( wc_gocardless_payments()->api );
 			$mandate_resp  = $mandates_api->get( $mandate_id );
 
 			if ( ! $mandates_api->is_active( $mandate_resp ) ) {
@@ -181,7 +181,7 @@ class WC_GoCardless_Renewal_Handler {
 
 		// Verify the VRP consent is active.
 		try {
-			$vrp_api      = new WC_GoCardless_API_VRP( wc_gocardless()->api );
+			$vrp_api      = new WC_GoCardless_API_VRP( wc_gocardless_payments()->api );
 			$consent_resp = $vrp_api->get_consent( $consent_id );
 
 			if ( ! $vrp_api->is_consent_active( $consent_resp ) ) {
@@ -254,7 +254,7 @@ class WC_GoCardless_Renewal_Handler {
 		$description     = $this->get_renewal_description( $renewal_order );
 
 		try {
-			$payments_api     = new WC_GoCardless_API_Payments( wc_gocardless()->api );
+			$payments_api     = new WC_GoCardless_API_Payments( wc_gocardless_payments()->api );
 			$payment_response = $payments_api->create(
 				$mandate_id,
 				$this->to_minor_units( $amount_to_charge, $currency ),
@@ -354,7 +354,7 @@ class WC_GoCardless_Renewal_Handler {
 		$description     = $this->get_renewal_description( $renewal_order );
 
 		try {
-			$vrp_api          = new WC_GoCardless_API_VRP( wc_gocardless()->api );
+			$vrp_api          = new WC_GoCardless_API_VRP( wc_gocardless_payments()->api );
 			$payment_response = $vrp_api->create_payment(
 				$consent_id,
 				$this->to_minor_units( $amount_to_charge, $currency ),

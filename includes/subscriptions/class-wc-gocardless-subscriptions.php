@@ -215,20 +215,20 @@ class WC_GoCardless_Subscriptions {
 
 		try {
 			if ( 'vrp' === $payment_type ) {
-				$vrp_api = new WC_GoCardless_API_VRP( wc_gocardless()->api );
+				$vrp_api = new WC_GoCardless_API_VRP( wc_gocardless_payments()->api );
 				$vrp_api->cancel_consent(
 					$mandate_id,
 					sprintf( 'WooCommerce subscription #%d cancelled', $subscription->get_id() )
 				);
 			} else {
-				$mandates_api = new WC_GoCardless_API_Mandates( wc_gocardless()->api );
+				$mandates_api = new WC_GoCardless_API_Mandates( wc_gocardless_payments()->api );
 				$mandates_api->cancel(
 					$mandate_id,
 					sprintf( 'WooCommerce subscription #%d cancelled', $subscription->get_id() )
 				);
 			}
 
-			wc_gocardless()->logger->info(
+			wc_gocardless_payments()->logger->info(
 				sprintf(
 					'[Subscriptions] Mandate %s cancelled on subscription #%d cancellation.',
 					$mandate_id,
@@ -246,7 +246,7 @@ class WC_GoCardless_Subscriptions {
 
 		} catch ( WC_GoCardless_API_Exception $e ) {
 			// Non-fatal — mandate may already be cancelled or not found.
-			wc_gocardless()->logger->warning(
+			wc_gocardless_payments()->logger->warning(
 				sprintf(
 					'[Subscriptions] Could not cancel mandate %s for subscription #%d: %s',
 					$mandate_id,
@@ -293,7 +293,7 @@ class WC_GoCardless_Subscriptions {
 			)
 		);
 
-		wc_gocardless()->logger->info(
+		wc_gocardless_payments()->logger->info(
 			sprintf(
 				'[Subscriptions] Payment method updated for subscription #%d: %s → %s',
 				$subscription->get_id(),
@@ -342,7 +342,7 @@ class WC_GoCardless_Subscriptions {
 				)
 			);
 
-			wc_gocardless()->logger->warning(
+			wc_gocardless_payments()->logger->warning(
 				sprintf(
 					'[Subscriptions] Subscription #%d placed on-hold: mandate %s %s.',
 					$subscription->get_id(),
@@ -384,7 +384,7 @@ class WC_GoCardless_Subscriptions {
 		}
 
 		try {
-			$mandates_api = new WC_GoCardless_API_Mandates( wc_gocardless()->api );
+			$mandates_api = new WC_GoCardless_API_Mandates( wc_gocardless_payments()->api );
 			$mandate_resp = $mandates_api->get( $mandate_id );
 
 			if ( ! $mandates_api->is_active( $mandate_resp ) ) {
@@ -393,7 +393,7 @@ class WC_GoCardless_Subscriptions {
 			}
 		} catch ( WC_GoCardless_API_Exception $e ) {
 			// On API error, allow reactivation — do not silently block.
-			wc_gocardless()->logger->warning(
+			wc_gocardless_payments()->logger->warning(
 				sprintf(
 					'[Subscriptions] Could not verify mandate %s for reactivation gate: %s',
 					$mandate_id,
@@ -503,7 +503,7 @@ class WC_GoCardless_Subscriptions {
 		if ( ! empty( $meta_to_set ) ) {
 			WC_GoCardless_Order_Helper::bulk_update_meta( $destination, $meta_to_set );
 
-			wc_gocardless()->logger->debug(
+			wc_gocardless_payments()->logger->debug(
 				sprintf(
 					'[Subscriptions] Propagated meta (%s) from order #%d to renewal #%d.',
 					implode( ', ', array_keys( $meta_to_set ) ),
