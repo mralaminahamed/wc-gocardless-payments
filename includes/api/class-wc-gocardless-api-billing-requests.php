@@ -54,6 +54,7 @@ class WC_GoCardless_API_Billing_Requests {
 	 * pays the initial order amount.
 	 *
 	 * @since 1.0.0
+	 * @href https://developer.gocardless.com/api-reference/#billing-requests-create-a-billing-request
 	 *
 	 * @param array<string, mixed> $args {
 	 *     Request arguments.
@@ -73,18 +74,23 @@ class WC_GoCardless_API_Billing_Requests {
 	public function create_for_direct_debit( array $args ): array {
 		$body = array(
 			'billing_requests' => array(
-				'mandate_request'    => array(
+				'mandate_request' => array(
 					'scheme'      => $args['scheme'] ?? '',
 					'constraints' => array(),
-					'metadata'    => array(),
+					'metadata'    => array(
+						'wc_order_id'     => $args['wc_order_id'] ?? '',
+						'idempotency_key' => $args['idempotency_key'] ?? '',
+						'user_email'      => $args['email'] ?? '',
+					),
 				),
-				'payment_request'    => array(
-					'amount'      => $args['amount'],
-					'currency'    => strtoupper( $args['currency'] ),
-					'description' => $args['description'] ?? '',
+				'payment_request' => array(
+					'amount'           => $args['amount'],
+					'currency'         => strtoupper( $args['currency'] ),
+					'description'      => $args['description'] ?? '',
+					'funds_settlement' => 'direct',
 				),
-				'prefilled_customer' => $this->build_prefilled_customer( $args ),
-				'metadata'           => array(
+				// 'prefilled_customer' => $this->build_prefilled_customer( $args ),
+				'metadata'        => array(
 					'wc_order_id' => $args['wc_order_id'] ?? '',
 				),
 			),
@@ -93,6 +99,11 @@ class WC_GoCardless_API_Billing_Requests {
 		// Remove empty mandate scheme so GoCardless auto-selects based on customer country.
 		if ( empty( $body['billing_requests']['mandate_request']['scheme'] ) ) {
 			unset( $body['billing_requests']['mandate_request']['scheme'] );
+		}
+
+		// Remove empty mandate constraints.
+		if ( empty( $body['billing_requests']['mandate_request']['constraints'] ) ) {
+			unset( $body['billing_requests']['mandate_request']['constraints'] );
 		}
 
 		return $this->client->post(
@@ -138,20 +149,20 @@ class WC_GoCardless_API_Billing_Requests {
 	 * @throws WC_GoCardless_API_Exception On API error.
 	 */
 	public function create_for_instant_bank_pay( array $args ): array {
-		$collect_mandate = ! empty( $args['collect_mandate'] );
+		$collect_mandate = ! empty( $args['collect_mandate'] ) || in_array( $args['scheme'] ?? null, array( 'ACH', 'PAD' ), true );
 
 		$payment_request = array(
 			'amount'           => $args['amount'],
 			'currency'         => strtoupper( $args['currency'] ),
 			'description'      => $args['description'] ?? '',
-			'funds_settlement' => 'instant',
+			'funds_settlement' => 'direct',
 		);
 
 		$body = array(
 			'billing_requests' => array(
-				'payment_request'    => $payment_request,
-				'prefilled_customer' => $this->build_prefilled_customer( $args ),
-				'metadata'           => array(
+				'payment_request' => $payment_request,
+				// 'prefilled_customer' => $this->build_prefilled_customer( $args ),
+				'metadata'        => array(
 					'wc_order_id'    => $args['wc_order_id'] ?? '',
 					'payment_method' => 'instant_bank_pay',
 				),
