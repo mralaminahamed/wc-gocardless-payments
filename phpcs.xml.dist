@@ -36,6 +36,9 @@
         <exclude name="WordPress.DB.PreparedSQL.NotPrepared"/>
         <exclude name="WordPress.PHP.DevelopmentFunctions.error_log_error_log"/>
         <exclude name="WordPress.PHP.DontExtract.extract_extract"/>
+
+        <!-- Additional specific rules -->
+        <exclude name="Universal.Files.SeparateFunctionsFromOO.Mixed"/>
     </rule>
 
     <!-- Let's also check that everything is properly documented. -->
@@ -86,7 +89,9 @@
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
             <property name="prefixes" type="array">
-                <element value="WC_RAZORPAY_OAUTH_"/>
+                <element value="WC_GOCARDLESS"/>
+                <element value="wc_gocardless"/>
+                <element value="WC_GoCardless"/>
             </property>
         </properties>
     </rule>
