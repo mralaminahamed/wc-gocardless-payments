@@ -1,0 +1,15 @@
+/**
+ * WooCommerce GoCardless Payments — Admin Styles
+ *
+ * @package WC_GoCardless_Payments
+ * @since   1.0.0
+ */
+
+.wc-gocardless-section-header {
+	margin-bottom: 1.5em;
+}
+
+.wc-gocardless-section-header h2 {
+	font-size: 1.3em;
+	font-weight: 600;
+}

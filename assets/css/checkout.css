@@ -1,0 +1,34 @@
+/**
+ * WooCommerce GoCardless Payments — Checkout Styles
+ *
+ * @package WC_GoCardless_Payments
+ * @since   1.0.0
+ */
+
+.wc-gocardless-payment-box {
+	padding: 1em;
+	background: #f9f9f9;
+	border: 1px solid #e5e5e5;
+	border-radius: 4px;
+	margin-top: 0.5em;
+}
+
+.wc-gocardless-sandbox-badge {
+	display: inline-block;
+	background: #f0ad4e;
+	color: #fff;
+	font-size: 0.75em;
+	font-weight: 600;
+	padding: 2px 8px;
+	border-radius: 3px;
+	margin-left: 8px;
+	vertical-align: middle;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.wc-gocardless-redirect-notice {
+	margin-top: 0.75em;
+	font-size: 0.875em;
+	color: #555;
+}
