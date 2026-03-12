@@ -10,14 +10,22 @@
 ( function ( $, params ) {
 	'use strict';
 
+	var gateways = [
+		'gocardless_direct_debit',
+		'gocardless_instant_bank',
+		'gocardless_vrp',
+	];
+
 	var WCGoCardlessAdmin = {
 
 		init: function () {
-			// Toggle field visibility based on sandbox mode checkbox.
-			$( '#woocommerce_gocardless_direct_debit_sandbox_mode' ).on(
-				'change',
-				WCGoCardlessAdmin.toggleApiFields
-			).trigger( 'change' );
+			gateways.forEach( function ( gateway ) {
+				// Toggle field visibility based on sandbox mode checkbox.
+				$( '#woocommerce_' + gateway + '_sandbox_mode' ).on(
+					'change',
+					WCGoCardlessAdmin.toggleApiFields
+				).trigger( 'change' );
+			} );
 		},
 
 		/**
@@ -27,12 +35,13 @@
 		 */
 		toggleApiFields: function () {
 			var isSandbox = $( this ).is( ':checked' );
+			var gateway   = this.id.replace( 'woocommerce_', '' ).replace( '_sandbox_mode', '' );
 
-			$( '#woocommerce_gocardless_direct_debit_live_access_token' )
+			$( '#woocommerce_' + gateway + '_live_access_token' )
 				.closest( 'tr' )
 				.toggle( ! isSandbox );
 
-			$( '#woocommerce_gocardless_direct_debit_sandbox_access_token' )
+			$( '#woocommerce_' + gateway + '_sandbox_access_token' )
 				.closest( 'tr' )
 				.toggle( isSandbox );
 		},
