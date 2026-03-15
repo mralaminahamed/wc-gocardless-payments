@@ -155,7 +155,7 @@ class WC_GoCardless_API_Billing_Requests {
 			'amount'           => $args['amount'],
 			'currency'         => strtoupper( $args['currency'] ),
 			'description'      => $args['description'] ?? '',
-			'funds_settlement' => 'direct',
+			'funds_settlement' => 'instant',
 		);
 
 		$body = array(
