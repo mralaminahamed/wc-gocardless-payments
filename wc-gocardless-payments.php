@@ -11,11 +11,13 @@
  * Text Domain:       wc-gocardless-payments
  * Domain Path:       /languages
  * Requires at least: 6.2
+ * Tested up to:      6.9
  * Requires PHP:      7.4
  * WC requires at least: 8.0
  * WC tested up to:   9.9
  *
  * @package WC_GoCardless_Payments
+ * @wordpress-plugin
  */
 
 declare( strict_types=1 );
@@ -95,89 +97,6 @@ function wc_gocardless_payments_init(): void {
 	WC_GoCardless_Payments::instance();
 }
 add_action( 'plugins_loaded', 'wc_gocardless_payments_init' );
-
-/**
- * Register a simple PSR-4-style autoloader for the plugin namespace.
- *
- * Maps class names following the convention:
- *   WC_GoCardless_*  →  includes/class-wc-gocardless-*.php
- *   WC_GoCardless_API_*  →  includes/api/class-wc-gocardless-api-*.php
- *   WC_GoCardless_Gateway_*  →  includes/gateway/class-wc-gocardless-gateway-*.php
- *   etc.
- *
- * @since 1.0.0
- *
- * @return void
- */
-function wc_gocardless_payments_autoload(): void {
-	spl_autoload_register(
-		static function ( string $class_name ): void {
-			// Only handle classes belonging to this plugin.
-			if ( 0 !== strpos( $class_name, 'WC_GoCardless' ) ) {
-				return;
-			}
-
-			// Convert class name to a file path.
-			$file = wc_gocardless_payments_class_to_file( $class_name );
-
-			if ( $file && file_exists( $file ) ) {
-				require_once $file;
-			}
-		}
-	);
-}
-
-/**
- * Resolve a WC_GoCardless class name to its file path.
- *
- * @since 1.0.0
- *
- * @param string $class_name Fully-qualified class name.
- * @return string|null Absolute file path, or null if unresolvable.
- */
-function wc_gocardless_payments_class_to_file( string $class_name ): ?string {
-	// Convert underscores to hyphens and lowercase for file naming.
-	$base      = strtolower( str_replace( '_', '-', $class_name ) );
-	$base_path = WC_GOCARDLESS_PATH . 'includes/';
-
-	// Sub-directory mapping based on class name segments.
-	$directory_map = array(
-		// API endpoint classes (Phase 1 + Phase 2).
-		'wc-gocardless-api-'           => 'api/',
-		// Gateway classes.
-		'wc-gocardless-gateway-'       => 'gateway/',
-		// Payment token.
-		'wc-gocardless-payment-token-' => 'payment-token/',
-		// Subscriptions integration.
-		'wc-gocardless-subscriptions'  => 'subscriptions/',
-		'wc-gocardless-renewal-'       => 'subscriptions/',
-		// Webhook handling.
-		'wc-gocardless-webhook-'       => 'webhooks/',
-		// Admin UI.
-		'wc-gocardless-admin-'         => 'admin/',
-		'wc-gocardless-admin'          => 'admin/',
-		'wc-gocardless-blocks-'        => 'blocks/',
-		// Email notifications (Phase 5).
-		'wc-gocardless-email-'         => 'emails/',
-		// Frontend: checkout rendering + redirect handler (Phase 2).
-		'wc-gocardless-checkout'       => 'frontend/',
-		'wc-gocardless-redirect'       => 'frontend/',
-		// Utilities.
-		'wc-gocardless-logger'         => 'utilities/',
-		'wc-gocardless-order-helper'   => 'utilities/',
-		'wc-gocardless-idempotency'    => 'utilities/',
-	);
-
-	$sub_dir = '';
-	foreach ( $directory_map as $prefix => $dir ) {
-		if ( 0 === strpos( $base, $prefix ) ) {
-			$sub_dir = $dir;
-			break;
-		}
-	}
-
-	return $base_path . $sub_dir . 'class-' . $base . '.php';
-}
 
 /**
  * Admin notice: PHP version requirement not met.
