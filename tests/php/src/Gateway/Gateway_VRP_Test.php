@@ -9,6 +9,7 @@ namespace WC_GoCardless_Payments\Tests\Gateway;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
+use WC_GoCardless_Gateway_VRP;
 
 /**
  * Gateway_VRP_Test.

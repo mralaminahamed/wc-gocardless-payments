@@ -9,6 +9,8 @@ namespace WC_GoCardless_Payments\Tests\Api;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
+use WC_GoCardless_API_Client;
+use WC_GoCardless_API_Payments;
 
 /**
  * Payments_Test.
@@ -36,7 +38,7 @@ class Payments_Test extends TestCase {
      */
     public function test_create_payment() {
         $mock_client = $this->createMock( WC_GoCardless_API_Client::class );
-        
+
         $mock_client->expects( $this->once() )
             ->method( 'post' )
             ->willReturn( [
@@ -58,7 +60,7 @@ class Payments_Test extends TestCase {
      */
     public function test_get_payment() {
         $mock_client = $this->createMock( WC_GoCardless_API_Client::class );
-        
+
         $mock_client->expects( $this->once() )
             ->method( 'get' )
             ->willReturn( [
@@ -79,7 +81,7 @@ class Payments_Test extends TestCase {
      */
     public function test_create_refund() {
         $mock_client = $this->createMock( WC_GoCardless_API_Client::class );
-        
+
         $mock_client->expects( $this->once() )
             ->method( 'post' )
             ->willReturn( [
@@ -100,7 +102,7 @@ class Payments_Test extends TestCase {
      */
     public function test_cancel_payment() {
         $mock_client = $this->createMock( WC_GoCardless_API_Client::class );
-        
+
         $mock_client->expects( $this->once() )
             ->method( 'post' )
             ->willReturn( [

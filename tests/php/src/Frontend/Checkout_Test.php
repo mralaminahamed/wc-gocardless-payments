@@ -9,6 +9,7 @@ namespace WC_GoCardless_Payments\Tests\Frontend;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
+use WC_GoCardless_Checkout;
 
 /**
  * Checkout_Test.
@@ -44,7 +45,7 @@ class Checkout_Test extends TestCase {
      */
     public function test_checkout_has_required_methods() {
         $checkout = new WC_GoCardless_Checkout();
-        
+
         $this->assertTrue( method_exists( $checkout, 'enqueue_checkout_scripts' ) );
         $this->assertTrue( method_exists( $checkout, 'render_payment_fields' ) );
     }

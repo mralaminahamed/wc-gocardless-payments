@@ -9,6 +9,7 @@ namespace WC_GoCardless_Payments\Tests\Api;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
+use WC_GoCardless_API_Client;
 
 /**
  * API_Client_Test.

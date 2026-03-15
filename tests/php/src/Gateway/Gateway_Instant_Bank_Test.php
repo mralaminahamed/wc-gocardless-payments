@@ -2,7 +2,8 @@
  namespace WC_GoCardless_Payments\Tests\Gateway;
 
 use PHPUnit\Framework\TestCase;
-use function Brain\Monkey;
+use WC_GoCardless_Gateway_Instant_Bank;
+use Brain\Monkey;
 
 /**
  * Gateway_Instant_Bank_Test.

@@ -2,7 +2,8 @@
  namespace WC_GoCardless_Payments\Tests\Blocks;
 
 use PHPUnit\Framework\TestCase;
-use function Brain\Monkey;
+use Brain\Monkey;
+use WC_GoCardless_Blocks_Instant_Bank;
 
 /**
  * Test case for Instant Bank Blocks.

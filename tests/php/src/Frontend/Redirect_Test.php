@@ -9,6 +9,7 @@ namespace WC_GoCardless_Payments\Tests\Frontend;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
+use WC_GoCardless_Redirect;
 
 /**
  * Redirect_Test.

@@ -9,6 +9,7 @@ namespace WC_GoCardless_Payments\Tests\Webhooks;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
+use WC_GoCardless_Webhook_Handler;
 
 /**
  * Webhook_Handler_Test.
@@ -44,7 +45,7 @@ class Webhook_Handler_Test extends TestCase {
      */
     public function test_webhook_handler_has_required_methods() {
         $handler = new WC_GoCardless_Webhook_Handler();
-        
+
         $this->assertTrue( method_exists( $handler, 'register_routes' ) );
         $this->assertTrue( method_exists( $handler, 'handle_webhook' ) );
     }

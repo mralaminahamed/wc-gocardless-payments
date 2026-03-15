@@ -9,7 +9,6 @@ namespace WC_GoCardless_Payments\Tests\Subscriptions;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
-use WC_GoCardless\Subscriptions\Subscriptions;
 
 /**
  * Subscriptions_Test.
@@ -36,8 +35,8 @@ class Subscriptions_Test extends TestCase {
      * Test subscriptions class is instantiated correctly.
      */
     public function test_subscriptions_instantiation() {
-        $subscriptions = new Subscriptions();
-        $this->assertInstanceOf( Subscriptions::class, $subscriptions );
+        $subscriptions = new WC_GoCardless_Subscriptions();
+        $this->assertInstanceOf( WC_GoCardless_Subscriptions::class, $subscriptions );
     }
 
     /**
@@ -69,7 +68,7 @@ class Subscriptions_Test extends TestCase {
                 ]
             );
 
-        $subscriptions = new Subscriptions();
+        $subscriptions = new WC_GoCardless_Subscriptions();
         $result        = $subscriptions->process_subscription_payment( $order_id, $amount );
 
         $this->assertTrue( $result );
@@ -100,7 +99,7 @@ class Subscriptions_Test extends TestCase {
                 ]
             );
 
-        $subscriptions = new Subscriptions();
+        $subscriptions = new WC_GoCardless_Subscriptions();
         $result        = $subscriptions->process_subscription_payment( $order_id, 1000 );
 
         $this->assertFalse( $result );
@@ -134,7 +133,7 @@ class Subscriptions_Test extends TestCase {
                 ]
             );
 
-        $subscriptions = new Subscriptions();
+        $subscriptions = new WC_GoCardless_Subscriptions();
         $result        = $subscriptions->cancel_subscription( $order_id );
 
         $this->assertTrue( $result );
@@ -163,7 +162,7 @@ class Subscriptions_Test extends TestCase {
                 ]
             );
 
-        $subscriptions = new Subscriptions();
+        $subscriptions = new WC_GoCardless_Subscriptions();
         $status        = $subscriptions->get_subscription_status( 'sub_123' );
 
         $this->assertEquals( 'active', $status );

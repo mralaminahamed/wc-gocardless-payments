@@ -9,6 +9,8 @@ namespace WC_GoCardless_Payments\Tests\Api;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
+use WC_GoCardless_API_Billing_Requests;
+use WC_GoCardless_API_Client;
 
 /**
  * Billing_Requests_Test.
@@ -36,7 +38,7 @@ class Billing_Requests_Test extends TestCase {
      */
     public function test_create_for_direct_debit() {
         $mock_client = $this->createMock( WC_GoCardless_API_Client::class );
-        
+
         $mock_client->expects( $this->once() )
             ->method( 'post' )
             ->with(
@@ -72,7 +74,7 @@ class Billing_Requests_Test extends TestCase {
      */
     public function test_create_for_instant_bank_pay() {
         $mock_client = $this->createMock( WC_GoCardless_API_Client::class );
-        
+
         $mock_client->expects( $this->once() )
             ->method( 'post' )
             ->with(
@@ -107,7 +109,7 @@ class Billing_Requests_Test extends TestCase {
      */
     public function test_create_for_mandate_only() {
         $mock_client = $this->createMock( WC_GoCardless_API_Client::class );
-        
+
         $mock_client->expects( $this->once() )
             ->method( 'post' )
             ->with(
@@ -140,7 +142,7 @@ class Billing_Requests_Test extends TestCase {
      */
     public function test_create_flow() {
         $mock_client = $this->createMock( WC_GoCardless_API_Client::class );
-        
+
         $mock_client->expects( $this->once() )
             ->method( 'post' )
             ->willReturn( [
@@ -162,7 +164,7 @@ class Billing_Requests_Test extends TestCase {
      */
     public function test_cancel_billing_request() {
         $mock_client = $this->createMock( WC_GoCardless_API_Client::class );
-        
+
         $mock_client->expects( $this->once() )
             ->method( 'post' )
             ->willReturn( [

@@ -9,6 +9,9 @@ namespace WC_GoCardless_Payments\Tests\Utilities;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
+use WC_GoCardless_Idempotency;
+use WC_GoCardless_Logger;
+use WC_GoCardless_Order_Helper;
 
 /**
  * Utilities_Test.
@@ -76,10 +79,10 @@ class Utilities_Test extends TestCase {
      */
     public function test_idempotency_generates_unique_keys() {
         $idempotency = new WC_GoCardless_Idempotency();
-        
+
         $key1 = $idempotency->generate();
         $key2 = $idempotency->generate();
-        
+
         $this->assertNotEquals( $key1, $key2 );
         $this->assertIsString( $key1 );
     }
@@ -89,9 +92,9 @@ class Utilities_Test extends TestCase {
      */
     public function test_idempotency_format() {
         $idempotency = new WC_GoCardless_Idempotency();
-        
+
         $key = $idempotency->generate();
-        
+
         // Key should be alphanumeric
         $this->assertTrue( ctype_alnum( $key ) );
         // Key should have reasonable length
@@ -103,7 +106,7 @@ class Utilities_Test extends TestCase {
      */
     public function test_order_helper_has_required_methods() {
         $helper = new WC_GoCardless_Order_Helper();
-        
+
         $this->assertTrue( method_exists( $helper, 'get_order' ) );
         $this->assertTrue( method_exists( $helper, 'get_payment_id' ) );
         $this->assertTrue( method_exists( $helper, 'set_payment_id' ) );

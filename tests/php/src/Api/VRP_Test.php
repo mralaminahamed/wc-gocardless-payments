@@ -9,6 +9,8 @@ namespace WC_GoCardless_Payments\Tests\Api;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
+use WC_GoCardless_API_Client;
+use WC_GoCardless_API_VRP;
 
 /**
  * VRP_Test.
@@ -36,7 +38,7 @@ class VRP_Test extends TestCase {
      */
     public function test_create_consent_billing_request() {
         $mock_client = $this->createMock( WC_GoCardless_API_Client::class );
-        
+
         $mock_client->expects( $this->once() )
             ->method( 'post' )
             ->willReturn( [
@@ -65,7 +67,7 @@ class VRP_Test extends TestCase {
      */
     public function test_create_payment() {
         $mock_client = $this->createMock( WC_GoCardless_API_Client::class );
-        
+
         $mock_client->expects( $this->once() )
             ->method( 'post' )
             ->willReturn( [
@@ -86,7 +88,7 @@ class VRP_Test extends TestCase {
      */
     public function test_get_consent() {
         $mock_client = $this->createMock( WC_GoCardless_API_Client::class );
-        
+
         $mock_client->expects( $this->once() )
             ->method( 'get' )
             ->willReturn( [
@@ -107,7 +109,7 @@ class VRP_Test extends TestCase {
      */
     public function test_cancel_consent() {
         $mock_client = $this->createMock( WC_GoCardless_API_Client::class );
-        
+
         $mock_client->expects( $this->once() )
             ->method( 'post' )
             ->willReturn( [
@@ -128,7 +130,7 @@ class VRP_Test extends TestCase {
      */
     public function test_is_consent_active() {
         $mock_client = $this->createMock( WC_GoCardless_API_Client::class );
-        
+
         $api = new WC_GoCardless_API_VRP( $mock_client );
 
         // Active VRP mandate should return true

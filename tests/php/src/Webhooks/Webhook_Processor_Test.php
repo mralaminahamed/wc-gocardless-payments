@@ -10,6 +10,7 @@ namespace WC_GoCardless_Payments\Tests\Webhooks;
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
 use WC_GoCardless\Webhooks\Webhook_Processor;
+use WC_GoCardless_Webhook_Processor;
 
 /**
  * Webhook_Processor_Test.
@@ -47,7 +48,7 @@ class Webhook_Processor_Test extends TestCase {
         $payload    = '{"events": [{"id": "EV123"}]}';
         $signature = $this->generate_valid_signature( $payload );
 
-        $processor = new Webhook_Processor();
+        $processor = new WC_GoCardless_Webhook_Processor();
         $result    = $processor->verify_signature( $payload, $signature );
 
         $this->assertTrue( $result );
@@ -60,7 +61,7 @@ class Webhook_Processor_Test extends TestCase {
         $payload    = '{"events": [{"id": "EV123"}]}';
         $signature = 'invalid_signature';
 
-        $processor = new Webhook_Processor();
+        $processor = new WC_GoCardless_Webhook_Processor();
         $result    = $processor->verify_signature( $payload, $signature );
 
         $this->assertFalse( $result );
@@ -86,7 +87,7 @@ class Webhook_Processor_Test extends TestCase {
             ->once()
             ->with( 123, 'processing' );
 
-        $processor = new Webhook_Processor();
+        $processor = new WC_GoCardless_Webhook_Processor();
         $processor->process_event( $event );
     }
 
@@ -107,7 +108,7 @@ class Webhook_Processor_Test extends TestCase {
             ->once()
             ->with( 123, 'failed' );
 
-        $processor = new Webhook_Processor();
+        $processor = new WC_GoCardless_Webhook_Processor();
         $processor->process_event( $event );
     }
 
@@ -123,7 +124,7 @@ class Webhook_Processor_Test extends TestCase {
             ],
         ] );
 
-        $processor = new Webhook_Processor();
+        $processor = new WC_GoCardless_Webhook_Processor();
         $result    = $processor->process_event( $event );
 
         $this->assertTrue( $result );
@@ -153,7 +154,7 @@ class Webhook_Processor_Test extends TestCase {
             ->andReturn( true );
 
         $event     = $this->create_mock_event( 'payment_confirmed', [ 'id' => 'payment_123' ] );
-        $processor = new Webhook_Processor();
+        $processor = new WC_GoCardless_Webhook_Processor();
 
         // Process twice
         $processor->process_event( $event );
@@ -166,7 +167,7 @@ class Webhook_Processor_Test extends TestCase {
     public function test_unsupported_event_handled() {
         $event = $this->create_mock_event( 'unknown_event', [] );
 
-        $processor = new Webhook_Processor();
+        $processor = new WC_GoCardless_Webhook_Processor();
         $result    = $processor->process_event( $event );
 
         $this->assertTrue( $result ); // Should return true, just skip

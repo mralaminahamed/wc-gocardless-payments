@@ -9,6 +9,7 @@ namespace WC_GoCardless_Payments\Tests\Blocks;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
+use WC_GoCardless_Blocks_VRP;
 
 /**
  * Test case for VRP Blocks.

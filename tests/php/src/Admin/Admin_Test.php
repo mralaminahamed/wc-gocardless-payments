@@ -9,6 +9,7 @@ namespace WC_GoCardless_Payments\Tests\Admin;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
+use WC_GoCardless_Admin;
 
 /**
  * Admin_Test.
@@ -44,7 +45,7 @@ class Admin_Test extends TestCase {
      */
     public function test_admin_has_required_methods() {
         $admin = new WC_GoCardless_Admin();
-        
+
         $this->assertTrue( method_exists( $admin, 'init' ) );
         $this->assertTrue( method_exists( $admin, 'enqueue_scripts' ) );
         $this->assertTrue( method_exists( $admin, 'add_meta_boxes' ) );

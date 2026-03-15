@@ -34,6 +34,11 @@
 			"includes/"
 		]
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"WC_GoCardless_Payments\\Tests\\": "tests/php/src"
+		}
+	},
 	"scripts": {
 		"makepot": "wp i18n make-pot . languages/wc-gocardless-payments.pot --exclude=node_modules,vendor,docs,release,tests",
 		"release": [

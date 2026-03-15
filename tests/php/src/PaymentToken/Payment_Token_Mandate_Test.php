@@ -9,6 +9,7 @@ namespace WC_GoCardless_Payments\Tests\PaymentToken;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
+use WC_GoCardless_Payment_Token_Mandate;
 
 /**
  * Payment_Token_Mandate_Test.

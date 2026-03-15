@@ -2,7 +2,8 @@
  namespace WC_GoCardless_Payments\Tests\Blocks;
 
 use PHPUnit\Framework\TestCase;
-use function Brain\Monkey;
+use Brain\Monkey;
+use WC_GoCardless_Blocks_Direct_Debit;
 
 /**
  * Test case for Direct Debit Blocks.

@@ -2,7 +2,8 @@
  namespace WC_GoCardless_Payments\Tests\Gateway;
 
 use PHPUnit\Framework\TestCase;
-use function Brain\Monkey;
+use Brain\Monkey;
+use WC_GoCardless_Gateway_Direct_Debit;
 
 /**
  * Gateway_Direct_Debit_Test.
