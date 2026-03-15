@@ -1,23 +1,31 @@
 <?php
 /**
+ * WooCommerce GoCardless Payments
+ *
+ * A production-ready WooCommerce payment gateway integrating GoCardless for
+ * Direct Debit (ACH/BACS/SEPA), Instant Bank Pay, Variable Recurring Payments
+ * (VRP), and Payment Intentions.
+ *
+ * @link              https://github.com/mralaminahamed/wc-gocardless-payments
+ * @since             1.0.0
+ * @package           WC_GoCardless_Payments
+ *
+ * @wordpress-plugin
  * Plugin Name:       WooCommerce GoCardless Payments
  * Plugin URI:        https://github.com/mralaminahamed/wc-gocardless-payments
  * Description:       A production-ready WooCommerce payment gateway integrating GoCardless for Direct Debit (ACH/BACS/SEPA), Instant Bank Pay, Variable Recurring Payments (VRP), and Payment Intentions.
- * Version:           1.0.0
- * Author:            Al Amin Ahamed
- * Author URI:        https://github.com/mralaminahamed
- * License:           GPL-2.0-or-later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       wc-gocardless-payments
- * Domain Path:       /languages
+ * Version:          1.0.0
+ * Author:           Al Amin Ahamed
+ * Author URI:       https://github.com/mralaminahamed
+ * License:          GPL-2.0-or-later
+ * License URI:      https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:      wc-gocardless-payments
+ * Domain Path:      /languages
  * Requires at least: 6.2
- * Tested up to:      6.9
- * Requires PHP:      7.4
+ * Tested up to:     6.9
+ * Requires PHP:     7.4
  * WC requires at least: 8.0
- * WC tested up to:   9.9
- *
- * @package WC_GoCardless_Payments
- * @wordpress-plugin
+ * WC tested up to:  9.9
  */
 
 declare( strict_types=1 );
