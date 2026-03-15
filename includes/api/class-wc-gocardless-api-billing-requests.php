@@ -145,21 +145,26 @@ class WC_GoCardless_API_Billing_Requests {
 	 */
 	public function create_for_instant_bank_pay( array $args ): array {
 		$collect_mandate = ! empty( $args['collect_mandate'] ) || in_array( $args['scheme'] ?? null, array( 'ACH', 'PAD' ), true );
+		$currency        = strtoupper( $args['currency'] ?? 'GBP' );
+
+		// Determine payment scheme based on currency for instant payments.
+		$payment_scheme = $this->get_instant_payment_scheme( $currency );
 
 		$payment_request = array(
 			'amount'           => $args['amount'],
-			'currency'         => strtoupper( $args['currency'] ),
+			'currency'         => $currency,
 			'description'      => $args['description'] ?? '',
-			'funds_settlement' => 'instant',
+			'funds_settlement' => 'direct',
+			'scheme'          => $payment_scheme,
 		);
 
 		$body = array(
 			'billing_requests' => array(
-				'payment_request'      => $payment_request,
+				'payment_request'     => $payment_request,
 				'prefilled_customer'  => $this->build_prefilled_customer( $args ),
-				'metadata'             => array(
+				'metadata'           => array(
 					'wc_order_id'    => $args['wc_order_id'] ?? '',
-					'payment_method' => 'instant_bank_pay',
+					'payment_method'  => 'instant_bank_pay',
 				),
 			),
 		);
@@ -366,5 +371,22 @@ class WC_GoCardless_API_Billing_Requests {
 		}
 
 		return $customer;
+	}
+
+	/**
+	 * Get the appropriate payment scheme for instant payments based on currency.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $currency ISO 4217 currency code.
+	 * @return string Payment scheme for instant payments.
+	 */
+	private function get_instant_payment_scheme( string $currency ): string {
+		$scheme_map = array(
+			'GBP' => 'faster_payments',
+			'EUR' => 'sepa_instant_credit_transfer',
+		);
+
+		return $scheme_map[ $currency ] ?? '';
 	}
 }

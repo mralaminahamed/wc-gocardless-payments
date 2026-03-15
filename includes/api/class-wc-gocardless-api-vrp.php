@@ -99,23 +99,23 @@ class WC_GoCardless_API_VRP {
 	 * @throws WC_GoCardless_API_Exception On API error.
 	 */
 	public function create_consent_billing_request( array $args ): array {
-		$vrp_constraints = array(
+		$constraints = array(
 			'max_amount_per_payment' => (int) ( $args['max_amount_per_payment'] ?? 0 ),
-			'currency'               => strtoupper( $args['currency'] ?? 'GBP' ),
+			'currency'              => strtoupper( $args['currency'] ?? 'GBP' ),
 		);
 
 		if ( ! empty( $args['periodic_limits'] ) && is_array( $args['periodic_limits'] ) ) {
-			$vrp_constraints['periodic_limits'] = $args['periodic_limits'];
+			$constraints['periodic_limits'] = $args['periodic_limits'];
 		}
 
 		$body = array(
 			'billing_requests' => array(
-				'mandate_request'    => array(
-					'scheme'          => self::SCHEME,
-					'vrp_constraints' => $vrp_constraints,
+				'mandate_request'     => array(
+					'scheme'     => self::SCHEME,
+					'constraints' => $constraints,
 				),
-				'prefilled_customer' => $this->build_prefilled_customer( $args ),
-				'metadata'           => array(
+				'prefilled_customer'  => $this->build_prefilled_customer( $args ),
+				'metadata'            => array(
 					'wc_order_id'        => (string) ( $args['wc_order_id'] ?? '' ),
 					'wc_subscription_id' => (string) ( $args['wc_subscription_id'] ?? '' ),
 					'payment_method'     => 'vrp',
