@@ -98,15 +98,38 @@ The plugin supports the new WooCommerce Cart and Checkout blocks:
 
 ## Email Notifications
 
-The plugin includes email notifications for:
+The plugin includes email notifications for both customers and admins:
 
-- **Mandate Confirmed** — Sent when a Direct Debit mandate or VRP consent is authorized
+### Customer Emails
+
+| Email | Description | Trigger |
+|-------|-------------|---------|
+| **Mandate Confirmed** | Sent when a Direct Debit mandate or VRP consent is authorized | `wc_gocardless_billing_request_fulfilled` |
+| **Payment Success** | Sent when a payment is successfully confirmed | `wc_gocardless_payment_confirmed` |
+| **Payment Failed** | Sent when a payment fails | `wc_gocardless_payment_failed` |
+| **Refund Processed** | Sent when a refund is processed | `wc_gocardless_refund_processed` |
+| **Subscription Renewal** | Sent when a subscription renewal payment is processed | `wc_gocardless_subscription_renewal_processed` |
+
+### Admin Emails
+
+| Email | Description | Trigger |
+|-------|-------------|---------|
+| **Payment Failed** | Alert when a payment fails | `wc_gocardless_payment_failed` |
+| **Webhook Error** | Alert when webhook processing fails | `wc_gocardless_webhook_error` |
 
 ### Configuring Emails
 
 1. Go to **WooCommerce → Settings → Emails**
-2. Find **GoCardless Mandate Confirmed**
+2. Find the desired GoCardless email
 3. Enable/disable and customize as needed
+
+### Email Settings
+
+Each email supports the following settings:
+- **Enable/Disable** — Toggle email on/off
+- **Subject** — Email subject line
+- **Heading** — Email heading
+- **Email type** — Choose HTML, Plain text, or Multipart
 
 ## Subscriptions Integration
 

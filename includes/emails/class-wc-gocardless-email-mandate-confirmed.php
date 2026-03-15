@@ -74,12 +74,7 @@ class WC_GoCardless_Email_Mandate_Confirmed extends WC_Email {
 		$this->heading = $this->get_default_heading();
 
 		// Bind the trigger action.
-		add_action(
-			'wc_gocardless_billing_request_fulfilled',
-			array( $this, 'trigger' ),
-			10,
-			4
-		);
+		add_action( 'wc_gocardless_billing_request_fulfilled', array( $this, 'trigger' ), 10, 4 );
 
 		// Call parent constructor — this loads settings from the DB.
 		parent::__construct();

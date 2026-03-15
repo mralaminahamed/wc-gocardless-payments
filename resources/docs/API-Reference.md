@@ -223,3 +223,102 @@ WooCommerce Subscriptions integration.
 Handles subscription renewal payments.
 
 **File:** `includes/subscriptions/class-wc-gocardless-renewal-handler.php`
+
+## Emails
+
+All email classes extend `WC_Email` and are registered via the `woocommerce_email_classes` filter.
+
+### Customer Emails
+
+#### WC_GoCardless_Email_Mandate_Confirmed
+
+Sent when a Direct Debit mandate or VRP consent is authorized.
+
+**File:** `includes/emails/class-wc-gocardless-email-mandate-confirmed.php`
+
+**Email ID:** `wc_gocardless_mandate_confirmed`
+**Trigger:** `wc_gocardless_billing_request_fulfilled`
+
+**Properties:**
+- `$mandate_id` - GoCardless mandate ID
+- `$payment_type` - Payment method type ('direct_debit' or 'vrp')
+
+#### WC_GoCardless_Email_Payment_Success
+
+Sent when a payment is successfully confirmed.
+
+**File:** `includes/emails/class-wc-gocardless-email-payment-success.php`
+
+**Email ID:** `wc_gocardless_payment_success`
+**Trigger:** `wc_gocardless_payment_confirmed`
+
+**Properties:**
+- `$payment_id` - GoCardless payment ID
+
+#### WC_GoCardless_Email_Payment_Failed
+
+Sent when a payment fails.
+
+**File:** `includes/emails/class-wc-gocardless-email-payment-failed.php`
+
+**Email ID:** `wc_gocardless_payment_failed`
+**Trigger:** `wc_gocardless_payment_failed`
+
+**Properties:**
+- `$payment_id` - GoCardless payment ID
+- `$failure_reason` - Human-readable failure reason
+
+#### WC_GoCardless_Email_Refund_Processed
+
+Sent when a refund is processed.
+
+**File:** `includes/emails/class-wc-gocardless-email-refund-processed.php`
+
+**Email ID:** `wc_gocardless_refund_processed`
+**Trigger:** `wc_gocardless_refund_processed`
+
+**Properties:**
+- `$refund_id` - GoCardless refund ID
+- `$refund_amount` - Refund amount (formatted)
+
+#### WC_GoCardless_Email_Subscription_Renewal
+
+Sent when a subscription renewal payment is processed.
+
+**File:** `includes/emails/class-wc-gocardless-email-subscription-renewal.php`
+
+**Email ID:** `wc_gocardless_subscription_renewal`
+**Trigger:** `wc_gocardless_subscription_renewal_processed`
+
+**Properties:**
+- `$payment_id` - GoCardless payment ID
+- `$subscription_id` - WooCommerce subscription ID
+
+### Admin Emails
+
+#### WC_GoCardless_Email_Admin_Payment_Failed
+
+Sent to admin when a payment fails.
+
+**File:** `includes/emails/class-wc-gocardless-email-admin-payment-failed.php`
+
+**Email ID:** `wc_gocardless_admin_payment_failed`
+**Trigger:** `wc_gocardless_payment_failed`
+
+**Properties:**
+- `$payment_id` - GoCardless payment ID
+- `$failure_reason` - Human-readable failure reason
+
+#### WC_GoCardless_Email_Admin_Webhook_Error
+
+Sent to admin when webhook processing fails.
+
+**File:** `includes/emails/class-wc-gocardless-email-admin-webhook-error.php`
+
+**Email ID:** `wc_gocardless_admin_webhook_error`
+**Trigger:** `wc_gocardless_webhook_error`
+
+**Properties:**
+- `$event_type` - GoCardless event type
+- `$error_message` - Error description
+- `$event_data` - Sanitized event payload

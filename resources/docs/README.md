@@ -12,7 +12,7 @@ WooCommerce payment gateway integrating GoCardless for Direct Debit (ACH/BACS/SE
 - **Webhook Handling** — HMAC-SHA256 signature verification
 - **HPOS Compatible** — High-Performance Order Storage support
 - **WooCommerce Blocks** — Cart & Checkout block support
-- **Email Notifications** — Mandate confirmation emails
+- **Email Notifications** — Transactional emails for payments, refunds, subscriptions, and admin alerts
 
 ## Requirements
 
@@ -51,8 +51,15 @@ includes/
 ├── subscriptions/          # WooCommerce Subscriptions integration
 ├── utilities/              # Helper classes
 ├── admin/                  # Admin settings
-├── emails/                 # Email notifications
-└── payment-token/          # Payment token handling
+├── emails/                   # Email notifications
+│   ├── Mandate_Confirmed     # Mandate/VRP consent confirmation
+│   ├── Payment_Success      # Payment confirmed
+│   ├── Payment_Failed       # Payment failed
+│   ├── Refund_Processed    # Refund processed
+│   ├── Subscription_Renewal # Subscription renewal
+│   ├── Admin_Payment_Failed # Admin payment failure alert
+│   └── Admin_Webhook_Error  # Admin webhook error alert
+└── payment-token/            # Payment token handling
 ```
 
 ### Core Components
