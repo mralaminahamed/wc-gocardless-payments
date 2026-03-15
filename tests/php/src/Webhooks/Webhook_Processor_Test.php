@@ -36,8 +36,8 @@ class Webhook_Processor_Test extends TestCase {
      * Test webhook processor is instantiated correctly.
      */
     public function test_processor_instantiation() {
-        $processor = new Webhook_Processor();
-        $this->assertInstanceOf( Webhook_Processor::class, $processor );
+        $processor = new WC_GoCardless_Webhook_Processor();
+        $this->assertInstanceOf( WC_GoCardless_Webhook_Processor::class, $processor );
     }
 
     /**
