@@ -65,15 +65,22 @@ Add this URL in GoCardless Dashboard:
 
 ### Idempotency
 
-The plugin uses idempotency keys to prevent duplicate payments. This is handled automatically.
+The plugin uses idempotency keys to prevent duplicate payments. This is handled automatically via the `WC_GoCardless_Idempotency` utility class.
 
 ### Logging
 
-Enable debug mode to log API requests and responses. Logs appear in **WooCommerce → Status → Logs**.
+Enable debug mode to log API requests and responses. Logs appear in **WooCommerce → Status → Logs**. The `WC_GoCardless_Logger` class provides structured logging.
 
 ### HPOS Support
 
 The plugin is compatible with WooCommerce High-Performance Order Storage (HPOS).
+
+### Order Helper
+
+The `WC_GoCardless_Order_Helper` utility provides helpers for:
+- Calculating order amounts
+- Managing order notes
+- Handling refund logic
 
 ## WooCommerce Blocks Support
 
@@ -100,3 +107,41 @@ The plugin includes email notifications for:
 1. Go to **WooCommerce → Settings → Emails**
 2. Find **GoCardless Mandate Confirmed**
 3. Enable/disable and customize as needed
+
+## Subscriptions Integration
+
+The plugin integrates with WooCommerce Subscriptions for recurring payments:
+
+- **WC_GoCardless_Subscriptions** — Main subscriptions handler
+- **WC_GoCardless_Renewal_Handler** — Processes subscription renewal payments
+
+### Subscription Settings
+
+1. Ensure WooCommerce Subscriptions is installed
+2. Create a subscription product
+3. Select GoCardless as the payment method
+4. Customer authorization carries over to renewals
+
+## Frontend Components
+
+### Checkout Handler
+
+The `WC_GoCardless_Checkout` class handles:
+- Payment form rendering
+- JavaScript initialization
+- AJAX payment processing
+
+### Redirect Handler
+
+The `WC_GoCardless_Redirect` class handles:
+- Processing return from GoCardless
+- Order completion and verification
+- Error handling
+
+## Payment Tokens
+
+The plugin stores payment method authorization as tokens:
+
+- **WC_GoCardless_Payment_Token_Mandate** — Stores mandate reference for Direct Debit
+
+Tokens allow returning customers to use saved payment methods.
