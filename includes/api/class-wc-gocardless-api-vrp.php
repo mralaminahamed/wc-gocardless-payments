@@ -101,7 +101,7 @@ class WC_GoCardless_API_VRP {
 	public function create_consent_billing_request( array $args ): array {
 		$constraints = array(
 			'max_amount_per_payment' => (int) ( $args['max_amount_per_payment'] ?? 0 ),
-			'currency'              => strtoupper( $args['currency'] ?? 'GBP' ),
+			'currency'               => strtoupper( $args['currency'] ?? 'GBP' ),
 		);
 
 		if ( ! empty( $args['periodic_limits'] ) && is_array( $args['periodic_limits'] ) ) {
@@ -110,12 +110,12 @@ class WC_GoCardless_API_VRP {
 
 		$body = array(
 			'billing_requests' => array(
-				'mandate_request'     => array(
-					'scheme'     => self::SCHEME,
+				'mandate_request'    => array(
+					'scheme'      => self::SCHEME,
 					'constraints' => $constraints,
 				),
-				'prefilled_customer'  => $this->build_prefilled_customer( $args ),
-				'metadata'            => array(
+				'prefilled_customer' => $this->build_prefilled_customer( $args ),
+				'metadata'           => array(
 					'wc_order_id'        => (string) ( $args['wc_order_id'] ?? '' ),
 					'wc_subscription_id' => (string) ( $args['wc_subscription_id'] ?? '' ),
 					'payment_method'     => 'vrp',

@@ -91,7 +91,7 @@ class WC_GoCardless_API_Billing_Requests {
 				'payment_request'    => array(
 					'amount'           => $args['amount'],
 					'currency'         => strtoupper( $args['currency'] ),
-					'description'     => $args['description'] ?? '',
+					'description'      => $args['description'] ?? '',
 					'funds_settlement' => 'direct',
 				),
 				'prefilled_customer' => $this->build_prefilled_customer( $args ),
@@ -155,16 +155,16 @@ class WC_GoCardless_API_Billing_Requests {
 			'currency'         => $currency,
 			'description'      => $args['description'] ?? '',
 			'funds_settlement' => 'direct',
-			'scheme'          => $payment_scheme,
+			'scheme'           => $payment_scheme,
 		);
 
 		$body = array(
 			'billing_requests' => array(
-				'payment_request'     => $payment_request,
-				'prefilled_customer'  => $this->build_prefilled_customer( $args ),
+				'payment_request'    => $payment_request,
+				'prefilled_customer' => $this->build_prefilled_customer( $args ),
 				'metadata'           => array(
 					'wc_order_id'    => $args['wc_order_id'] ?? '',
-					'payment_method'  => 'instant_bank_pay',
+					'payment_method' => 'instant_bank_pay',
 				),
 			),
 		);

@@ -314,15 +314,15 @@ final class WC_GoCardless_Payments {
 	 */
 	public function register_email_classes( array $email_classes ): array {
 		// Customer emails.
-		$email_classes['WC_GoCardless_Email_Mandate_Confirmed']     = new WC_GoCardless_Email_Mandate_Confirmed();
+		$email_classes['WC_GoCardless_Email_Mandate_Confirmed']    = new WC_GoCardless_Email_Mandate_Confirmed();
 		$email_classes['WC_GoCardless_Email_Payment_Success']      = new WC_GoCardless_Email_Payment_Success();
 		$email_classes['WC_GoCardless_Email_Payment_Failed']       = new WC_GoCardless_Email_Payment_Failed();
 		$email_classes['WC_GoCardless_Email_Refund_Processed']     = new WC_GoCardless_Email_Refund_Processed();
 		$email_classes['WC_GoCardless_Email_Subscription_Renewal'] = new WC_GoCardless_Email_Subscription_Renewal();
 
 		// Admin emails.
-		$email_classes['WC_GoCardless_Email_Admin_Payment_Failed']  = new WC_GoCardless_Email_Admin_Payment_Failed();
-		$email_classes['WC_GoCardless_Email_Admin_Webhook_Error']   = new WC_GoCardless_Email_Admin_Webhook_Error();
+		$email_classes['WC_GoCardless_Email_Admin_Payment_Failed'] = new WC_GoCardless_Email_Admin_Payment_Failed();
+		$email_classes['WC_GoCardless_Email_Admin_Webhook_Error']  = new WC_GoCardless_Email_Admin_Webhook_Error();
 
 		return $email_classes;
 	}
