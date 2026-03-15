@@ -1,0 +1,195 @@
+<?php
+/**
+ * Refund Processed Email — WC_GoCardless_Email_Refund_Processed
+ *
+ * Sends a customer-facing email when a refund is processed for a GoCardless payment.
+ * This confirms to the customer that their payment has been refunded.
+ *
+ * Triggers:
+ *   - Fired by `wc_gocardless_refund_processed` action when a refund
+ *     is successfully processed.
+ *
+ * Email ID:         wc_gocardless_refund_processed
+ * Default heading:  Refund processed
+ * Default subject:  Your refund for Order {order_number}
+ * Recipient:        Customer (billing email)
+ *
+ * Template path:    templates/emails/refund-processed.php
+ * Override path:    {theme}/woocommerce/emails/refund-processed.php
+ *
+ * @package WC_GoCardless_Payments\Emails
+ * @since   1.0.0
+ */
+
+declare( strict_types=1 );
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Class WC_GoCardless_Email_Refund_Processed
+ *
+ * @since 1.0.0
+ */
+class WC_GoCardless_Email_Refund_Processed extends WC_Email {
+
+	/**
+	 * The GoCardless refund ID.
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	public string $refund_id = '';
+
+	/**
+	 * The refund amount.
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	public string $refund_amount = '';
+
+	/**
+	 * Constructor — configure email properties and bind trigger.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __construct() {
+		$this->id             = 'wc_gocardless_refund_processed';
+		$this->customer_email = true;
+		$this->title          = __( 'GoCardless — Refund Processed', 'wc-gocardless-payments' );
+		$this->description    = __( 'Sent to the customer when a refund is processed for their GoCardless payment.', 'wc-gocardless-payments' );
+
+		$this->template_html  = 'emails/refund-processed.php';
+		$this->template_plain = 'emails/plain/refund-processed.php';
+		$this->template_base  = WC_GOCARDLESS_PATH . 'templates/';
+
+		$this->subject = $this->get_default_subject();
+		$this->heading = $this->get_default_heading();
+
+		add_action( 'wc_gocardless_refund_processed', array( $this, 'trigger' ), 10, 5 );
+
+		parent::__construct();
+	}
+
+	/**
+	 * Return the default email subject.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	public function get_default_subject(): string {
+		return __( 'Your refund for Order {order_number}', 'wc-gocardless-payments' );
+	}
+
+	/**
+	 * Return the default email heading.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	public function get_default_heading(): string {
+		return __( 'Refund processed', 'wc-gocardless-payments' );
+	}
+
+	/**
+	 * Trigger the email for a processed refund.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WC_Order             $order         WooCommerce order.
+	 * @param array<string, mixed> $refund       GoCardless refund object.
+	 * @param string               $refund_id    GoCardless refund ID.
+	 * @param float                $amount       Refund amount.
+	 * @param string               $currency     Refund currency.
+	 * @return void
+	 */
+	public function trigger(
+		WC_Order $order,
+		array $refund,
+		string $refund_id,
+		float $amount,
+		string $currency
+	): void {
+		$this->setup_locale();
+
+		if ( ! $this->is_enabled() ) {
+			$this->restore_locale();
+			return;
+		}
+
+		$this->object        = $order;
+		$this->refund_id     = $refund_id;
+		$this->refund_amount = wc_price( $amount, array( 'currency' => $currency ) );
+		$this->recipient     = $order->get_billing_email();
+
+		if ( ! $this->recipient ) {
+			$this->restore_locale();
+			return;
+		}
+
+		$this->placeholders['{order_number}']  = $order->get_order_number();
+		$this->placeholders['{order_date}']    = wc_format_datetime( $order->get_date_created() );
+		$this->placeholders['{refund_id}']     = $refund_id;
+		$this->placeholders['{refund_amount}'] = $this->refund_amount;
+
+		$this->send(
+			$this->get_recipient(),
+			$this->get_subject(),
+			$this->get_content(),
+			$this->get_headers(),
+			$this->get_attachments()
+		);
+
+		$this->restore_locale();
+	}
+
+	/**
+	 * Return the HTML content for the email.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string HTML email body.
+	 */
+	public function get_content_html(): string {
+		return wc_get_template_html(
+			$this->template_html,
+			array(
+				'order'         => $this->object,
+				'refund_id'     => $this->refund_id,
+				'refund_amount' => $this->refund_amount,
+				'email_heading' => $this->get_heading(),
+				'sent_to_admin' => false,
+				'plain_text'    => false,
+				'email'         => $this,
+			),
+			'',
+			$this->template_base
+		);
+	}
+
+	/**
+	 * Return the plain-text content for the email.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string Plain-text email body.
+	 */
+	public function get_content_plain(): string {
+		return wc_get_template_html(
+			$this->template_plain,
+			array(
+				'order'         => $this->object,
+				'refund_id'     => $this->refund_id,
+				'refund_amount' => $this->refund_amount,
+				'email_heading' => $this->get_heading(),
+				'sent_to_admin' => false,
+				'plain_text'    => true,
+				'email'         => $this,
+			),
+			'',
+			$this->template_base
+		);
+	}
+}
