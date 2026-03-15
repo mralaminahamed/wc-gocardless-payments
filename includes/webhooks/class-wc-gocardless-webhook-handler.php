@@ -68,7 +68,6 @@ class WC_GoCardless_Webhook_Handler {
 		// Must be a POST request.
 		if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ?? '' ) ) {
 			$this->respond( 405, 'Method Not Allowed' );
-			return;
 		}
 
 		$raw_body  = file_get_contents( 'php://input' );
@@ -77,14 +76,12 @@ class WC_GoCardless_Webhook_Handler {
 		if ( empty( $raw_body ) ) {
 			$this->logger->warning( '[Webhook] Empty request body received.' );
 			$this->respond( 400, 'Empty body' );
-			return;
 		}
 
 		// Verify the webhook signature.
 		if ( ! $this->verify_signature( $raw_body, $signature ) ) {
 			$this->logger->error( '[Webhook] Signature verification failed.' );
 			$this->respond( 498, 'Invalid signature' );
-			return;
 		}
 
 		$payload = json_decode( $raw_body, true );
@@ -92,7 +89,6 @@ class WC_GoCardless_Webhook_Handler {
 		if ( JSON_ERROR_NONE !== json_last_error() || empty( $payload['events'] ) ) {
 			$this->logger->warning( '[Webhook] Invalid or empty payload.' );
 			$this->respond( 400, 'Invalid payload' );
-			return;
 		}
 
 		$this->logger->info(
@@ -114,6 +110,24 @@ class WC_GoCardless_Webhook_Handler {
 						$event['action'] ?? 'unknown',
 						$e->getMessage()
 					)
+				);
+
+				/**
+				 * Fires when a GoCardless webhook fails to process.
+				 *
+				 * @since 1.0.0
+				 *
+				 * @param string               $event_type    GoCardless event type.
+				 * @param string               $error_message Error message.
+				 * @param array<string, mixed> $event_data   Full event payload.
+				 * @param string|null          $order_id     Related order ID if available.
+				 */
+				do_action(
+					'wc_gocardless_webhook_error',
+					$event['resource_type'] ?? 'unknown',
+					$e->getMessage(),
+					$event,
+					$this->find_order_id_from_event( $event )
 				);
 			}
 		}
@@ -192,5 +206,49 @@ class WC_GoCardless_Webhook_Handler {
 		header( 'Content-Type: text/plain' );
 		echo esc_html( $message );
 		exit;
+	}
+
+	/**
+	 * Extract order ID from webhook event links.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array<string, mixed> $event GoCardless event object.
+	 * @return string|null Order ID if found.
+	 */
+	private function find_order_id_from_event( array $event ): ?string {
+		$links = $event['links'] ?? array();
+
+		// Try to find payment ID and look up order.
+		if ( ! empty( $links['payment'] ) ) {
+			$orders = wc_get_orders(
+				array(
+					'limit'      => 1,
+					'meta_key'   => '_gocardless_payment_id',
+					'meta_value' => sanitize_text_field( $links['payment'] ),
+				)
+			);
+
+			if ( ! empty( $orders ) ) {
+				return (string) $orders[0]->get_id();
+			}
+		}
+
+		// Try mandate.
+		if ( ! empty( $links['mandate'] ) ) {
+			$orders = wc_get_orders(
+				array(
+					'limit'      => 1,
+					'meta_key'   => '_gocardless_mandate_id',
+					'meta_value' => sanitize_text_field( $links['mandate'] ),
+				)
+			);
+
+			if ( ! empty( $orders ) ) {
+				return (string) $orders[0]->get_id();
+			}
+		}
+
+		return null;
 	}
 }

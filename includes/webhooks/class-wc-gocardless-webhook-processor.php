@@ -174,6 +174,17 @@ class WC_GoCardless_Webhook_Processor {
 								esc_html( $payment_id )
 							)
 						);
+
+						/**
+						 * Fires when a GoCardless payment is confirmed.
+						 *
+						 * @since 1.0.0
+						 *
+						 * @param WC_Order             $order      WooCommerce order.
+						 * @param array<string, mixed> $payment   GoCardless payment object.
+						 * @param string                $payment_id GoCardless payment ID.
+						 */
+						do_action( 'wc_gocardless_payment_confirmed', $order, $event['payments'][0] ?? array(), $payment_id );
 					}
 				} elseif ( 'vrp' === WC_GoCardless_Order_Helper::get_payment_type( $order ) ) {
 					// VRP: open-banking confirmation — complete the order.
@@ -188,6 +199,17 @@ class WC_GoCardless_Webhook_Processor {
 								esc_html( $payment_id )
 							)
 						);
+
+						/**
+						 * Fires when a GoCardless VRP payment is confirmed.
+						 *
+						 * @since 1.0.0
+						 *
+						 * @param WC_Order             $order      WooCommerce order.
+						 * @param array<string, mixed> $payment   GoCardless payment object.
+						 * @param string                $payment_id GoCardless payment ID.
+						 */
+						do_action( 'wc_gocardless_payment_confirmed', $order, $event['payments'][0] ?? array(), $payment_id );
 					}
 				} else {
 					// Direct Debit: 'confirmed' means bank has accepted the collection.
@@ -200,6 +222,17 @@ class WC_GoCardless_Webhook_Processor {
 						)
 					);
 					wc_reduce_stock_levels( $order->get_id() );
+
+					/**
+					 * Fires when a GoCardless Direct Debit payment is confirmed.
+					 *
+					 * @since 1.0.0
+					 *
+					 * @param WC_Order             $order      WooCommerce order.
+					 * @param array<string, mixed> $payment   GoCardless payment object.
+					 * @param string                $payment_id GoCardless payment ID.
+					 */
+					do_action( 'wc_gocardless_payment_confirmed', $order, $event['payments'][0] ?? array(), $payment_id );
 				}
 				break;
 
@@ -253,11 +286,12 @@ class WC_GoCardless_Webhook_Processor {
 				 *
 				 * @since 1.0.0
 				 *
-				 * @param WC_Order             $order    WooCommerce order.
-				 * @param string               $payment_id GoCardless payment ID.
-				 * @param array<string, mixed> $event    Full GoCardless event object.
+				 * @param WC_Order             $order           WooCommerce order.
+				 * @param array<string, mixed> $payment        GoCardless payment object.
+				 * @param string               $payment_id     GoCardless payment ID.
+				 * @param string               $failure_reason Human-readable failure reason.
 				 */
-				do_action( 'wc_gocardless_payment_failed', $order, $payment_id, $event );
+				do_action( 'wc_gocardless_payment_failed', $order, $event['payments'][0] ?? array(), $payment_id, $failure_reason );
 				break;
 
 			case 'cancelled':
@@ -468,14 +502,54 @@ class WC_GoCardless_Webhook_Processor {
 			return;
 		}
 
-		if ( 'paid' === $action ) {
-			$order->add_order_note(
-				sprintf(
-					/* translators: %s: GoCardless refund ID */
-					__( 'GoCardless refund processed successfully (Refund ID: %s).', 'wc-gocardless-payments' ),
-					esc_html( $refund_id )
-				)
-			);
+		switch ( $action ) {
+			case 'created':
+				$order->add_order_note(
+					sprintf(
+						/* translators: %s: GoCardless refund ID */
+						__( 'GoCardless refund created (Refund ID: %s).', 'wc-gocardless-payments' ),
+						esc_html( $refund_id )
+					)
+				);
+				break;
+
+			case 'paid':
+				$order->add_order_note(
+					sprintf(
+						/* translators: %s: GoCardless refund ID */
+						__( 'GoCardless refund processed successfully (Refund ID: %s).', 'wc-gocardless-payments' ),
+						esc_html( $refund_id )
+					)
+				);
+
+				/**
+				 * Fires when a GoCardless refund is processed.
+				 *
+				 * @since 1.0.0
+				 *
+				 * @param WC_Order             $order      WooCommerce order.
+				 * @param array<string, mixed> $refund    GoCardless refund object.
+				 * @param string                $refund_id  GoCardless refund ID.
+				 * @param float                 $amount     Refund amount.
+				 * @param string                $currency   Refund currency.
+				 */
+				$refund_amount = isset( $event['refunds'][ $refund_id ]['amount'] )
+					? (float) $event['refunds'][ $refund_id ]['amount'] / 100
+					: 0;
+				$refund_currency = $event['refunds'][ $refund_id ]['currency'] ?? $order->get_currency();
+
+				do_action( 'wc_gocardless_refund_processed', $order, $event['refunds'][ $refund_id ] ?? array(), $refund_id, $refund_amount, $refund_currency );
+				break;
+
+			case 'failed':
+				$order->add_order_note(
+					sprintf(
+						/* translators: %s: GoCardless refund ID */
+						__( 'GoCardless refund failed (Refund ID: %s).', 'wc-gocardless-payments' ),
+						esc_html( $refund_id )
+					)
+				);
+				break;
 		}
 	}
 
