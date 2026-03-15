@@ -1,9 +1,8 @@
 <?php
- namespace WC_GoCardless_Payments\Tests\Blocks;
+namespace WC_GoCardless_Payments\Tests\Blocks;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
-use WC_GoCardless_Blocks_Integration;
 
 /**
  * Blocks_Integration_Test.
@@ -27,20 +26,14 @@ class Blocks_Integration_Test extends TestCase {
     }
 
     /**
-     * Test blocks integration base class can be instantiated.
-     */
-    public function test_blocks_integration_instantiation() {
-        $blocks = new WC_GoCardless_Blocks_Integration();
-        $this->assertInstanceOf( WC_GoCardless_Blocks_Integration::class, $blocks );
-    }
-
-    /**
-     * Test blocks integration has required methods.
+     * Test blocks integration base class methods exist.
      */
     public function test_blocks_integration_has_required_methods() {
-        $blocks = new WC_GoCardless_Blocks_Integration();
+        $reflection = new \ReflectionClass( 'WC_GoCardless_Blocks_Integration' );
 
-        $this->assertTrue( method_exists( $blocks, 'initialize' ) );
-        $this->assertTrue( method_exists( $blocks, 'get_payment_method_data' ) );
+        $this->assertTrue( $reflection->isAbstract() );
+        $this->assertTrue( $reflection->hasMethod( 'initialize' ) );
+        $this->assertTrue( $reflection->hasMethod( 'get_payment_method_data' ) );
+        $this->assertTrue( $reflection->hasMethod( 'is_active' ) );
     }
 }
