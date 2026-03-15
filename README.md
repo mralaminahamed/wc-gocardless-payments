@@ -13,6 +13,8 @@ A production-ready WooCommerce payment gateway integrating GoCardless for Direct
 - **Subscription Support** — WooCommerce Subscriptions integration
 - **Webhook Handling** — HMAC-SHA256 signature verification
 - **HPOS Compatible** — High-Performance Order Storage support
+- **WooCommerce Blocks** — Cart & Checkout block support
+- **Email Notifications** — Mandate confirmation emails
 
 ---
 
@@ -20,7 +22,7 @@ A production-ready WooCommerce payment gateway integrating GoCardless for Direct
 
 | Requirement   | Version   |
 |---------------|-----------|
-| PHP           | ≥ 7.4     |
+| PHP           | ≥ 8.0     |
 | WordPress     | ≥ 6.2     |
 | WooCommerce   | ≥ 8.0     |
 
@@ -68,7 +70,8 @@ wc-gocardless-payments/
 │   │   ├── class-wc-gocardless-api-mandates.php
 │   │   ├── class-wc-gocardless-api-customers.php
 │   │   ├── class-wc-gocardless-api-billing-requests.php
-│   │   └── class-wc-gocardless-api-vrp.php
+│   │   ├── class-wc-gocardless-api-vrp.php
+│   │   └── class-wc-gocardless-api-exception.php
 │   ├── admin/
 │   │   └── class-wc-gocardless-admin.php
 │   ├── gateway/
@@ -76,6 +79,11 @@ wc-gocardless-payments/
 │   │   ├── class-wc-gocardless-gateway-direct-debit.php
 │   │   ├── class-wc-gocardless-gateway-instant-bank.php
 │   │   └── class-wc-gocardless-gateway-vrp.php
+│   ├── blocks/
+│   │   ├── class-wc-gocardless-blocks-integration.php
+│   │   ├── class-wc-gocardless-blocks-direct-debit.php
+│   │   ├── class-wc-gocardless-blocks-instant-bank.php
+│   │   └── class-wc-gocardless-blocks-vrp.php
 │   ├── frontend/
 │   │   ├── class-wc-gocardless-checkout.php
 │   │   └── class-wc-gocardless-redirect.php
@@ -85,6 +93,8 @@ wc-gocardless-payments/
 │   ├── subscriptions/
 │   │   ├── class-wc-gocardless-subscriptions.php
 │   │   └── class-wc-gocardless-renewal-handler.php
+│   ├── emails/
+│   │   └── class-wc-gocardless-email-mandate-confirmed.php
 │   └── payment-token/
 │       └── class-wc-gocardless-payment-token-mandate.php
 ├── templates/

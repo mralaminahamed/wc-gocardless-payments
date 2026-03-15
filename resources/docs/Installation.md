@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- PHP 7.4 or higher
+- PHP 8.0 or higher
 - WordPress 6.2 or higher
 - WooCommerce 8.0 or higher
 - GoCardless account with API credentials
@@ -62,7 +62,7 @@ composer install
 ### Plugin Not Appearing
 
 - Ensure WooCommerce is installed and active
-- Check PHP version meets requirements (7.4+)
+- Check PHP version meets requirements (8.0+)
 - Verify all files were uploaded correctly
 
 ### API Connection Fails

@@ -7,7 +7,7 @@
 **Symptom:** Plugin cannot be activated
 
 **Solutions:**
-- Verify PHP version is 7.4 or higher
+- Verify PHP version is 8.0 or higher
 - Verify WordPress version is 6.2 or higher
 - Verify WooCommerce is installed and active
 - Check for JavaScript errors in browser console

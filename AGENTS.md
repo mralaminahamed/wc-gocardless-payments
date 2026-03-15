@@ -6,7 +6,7 @@ Agent-specific documentation for the WooCommerce GoCardless Payments WordPress p
 
 WooCommerce payment gateway integrating GoCardless for Direct Debit (ACH/BACS/SEPA), Instant Bank Pay, Variable Recurring Payments (VRP), and Payment Intentions.
 
-- **PHP**: 7.4+ | **WordPress**: 6.2+ | **WooCommerce**: 8.0+
+- **PHP**: 8.0+ | **WordPress**: 6.2+ | **WooCommerce**: 8.0+
 - **Namespace**: `WC_GoCardless` | **Text Domain**: `wc-gocardless-payments`
 
 ---
@@ -16,7 +16,7 @@ WooCommerce payment gateway integrating GoCardless for Direct Debit (ACH/BACS/SE
 ### PHP Code Sniffer
 ```bash
 # Full plugin
-./vendor/bin/phpcs --standard=WordPress --runtime-set testVersion 7.4- includes/ wc-gocardless-payments.php
+./vendor/bin/phpcs --standard=WordPress --runtime-set testVersion 8.0- includes/ wc-gocardless-payments.php
 
 # Custom ruleset
 ./vendor/bin/phpcs --standard=phpcs.xml.dist includes/
@@ -56,7 +56,7 @@ composer release     # Create release zip
 ### General
 - Always use `declare( strict_types=1 );` at the top of PHP files
 - Follow WordPress Coding Standards (WPCS)
-- Use PHP 7.4+ syntax (typed properties, null coalescing, arrow functions)
+- Use PHP 8.0+ syntax (typed properties, null coalescing, arrow functions)
 - Use dependency injection via constructors; avoid globals
 
 ### Namespaces & Class Files
