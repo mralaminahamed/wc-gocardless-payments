@@ -1,6 +1,6 @@
 === WooCommerce GoCardless Payments ===
 Contributors: mralaminahamed
-Tags: woocommerce, gocardless, payment gateway, direct debit, instant bank pay, subscriptions
+Tags: woocommerce, gocardless, payment-gateway, direct-debit, subscriptions
 Requires at least: 6.2
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -10,7 +10,7 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A production-ready WooCommerce payment gateway integrating GoCardless for Direct Debit (ACH/BACS/SEPA), Instant Bank Pay, Variable Recurring Payments (VRP), and Payment Intentions.
+Take Direct Debit through GoCardless — BACS, SEPA and ACH — plus Instant Bank Pay and recurring payments.
 
 == Description ==
 
