@@ -55,6 +55,25 @@ Your webhook URL is displayed on the settings page. Format:
 
 Yes, with WooCommerce Subscriptions plugin installed, recurring billing is handled via GoCardless Subscriptions API.
 
+== External Services ==
+
+This plugin is a payment gateway for **GoCardless**, so it sends what GoCardless
+needs to take a Direct Debit payment. Without those requests there is no payment.
+
+**GoCardless** — `api.gocardless.com`. Requests are made when a customer chooses
+this gateway at checkout and afterwards over the life of the mandate: the plugin
+creates a customer, a bank account and a mandate, then creates payments against
+it, and reads payment and subscription status back. What leaves your site is the
+customer's name, email address, billing address, the bank details they entered,
+and the order's amount, currency and reference. Every request carries the access
+token you saved in the plugin settings.
+
+The sandbox host `api-sandbox.gocardless.com` is used instead whenever the gateway
+is in test mode.
+
+Terms: https://gocardless.com/legal/merchant-agreement — Privacy:
+https://gocardless.com/privacy
+
 == Changelog ==
 
 = 1.0.0 =
