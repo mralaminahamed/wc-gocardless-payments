@@ -1,8 +1,8 @@
 === WooCommerce GoCardless Payments ===
 Contributors: mralaminahamed
-Tags: woocommerce, gocardless, payment gateway, direct debit, instant bank pay, subscriptions
+Tags: woocommerce, gocardless, payment-gateway, direct-debit, subscriptions
 Requires at least: 6.2
-Tested up to: 6.7
+Tested up to: 6.9
 Requires PHP: 7.4
 WC requires at least: 8.0
 WC tested up to: 9.9
@@ -10,7 +10,7 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A production-ready WooCommerce payment gateway integrating GoCardless for Direct Debit (ACH/BACS/SEPA), Instant Bank Pay, Variable Recurring Payments (VRP), and Payment Intentions.
+Take Direct Debit through GoCardless — BACS, SEPA and ACH — plus Instant Bank Pay and recurring payments.
 
 == Description ==
 
@@ -54,6 +54,25 @@ Your webhook URL is displayed on the settings page. Format:
 = Does this support WooCommerce Subscriptions? =
 
 Yes, with WooCommerce Subscriptions plugin installed, recurring billing is handled via GoCardless Subscriptions API.
+
+== External Services ==
+
+This plugin is a payment gateway for **GoCardless**, so it sends what GoCardless
+needs to take a Direct Debit payment. Without those requests there is no payment.
+
+**GoCardless** — `api.gocardless.com`. Requests are made when a customer chooses
+this gateway at checkout and afterwards over the life of the mandate: the plugin
+creates a customer, a bank account and a mandate, then creates payments against
+it, and reads payment and subscription status back. What leaves your site is the
+customer's name, email address, billing address, the bank details they entered,
+and the order's amount, currency and reference. Every request carries the access
+token you saved in the plugin settings.
+
+The sandbox host `api-sandbox.gocardless.com` is used instead whenever the gateway
+is in test mode.
+
+Terms: https://gocardless.com/legal/merchant-agreement — Privacy:
+https://gocardless.com/privacy
 
 == Changelog ==
 
