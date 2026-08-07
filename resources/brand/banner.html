@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>WooCommerce GoCardless Payments — directory banner</title>
+<!--
+	Source markup for the WordPress.org banners, rendered to PNG by
+	tests/assets/wporg-brand.spec.ts at every required size.
+
+	The palette is not in this file. Every colour comes from `--brand-*` custom
+	properties the spec injects from tests/assets/brand.ts, and there are
+	deliberately no fallbacks: opening this straight in a browser shows the
+	layout unpainted, which is the honest signal that the paint lives elsewhere.
+-->
+<style>
+	*, *::before, *::after { box-sizing: border-box; }
+	html, body { margin: 0; padding: 0; background: var(--brand-deep); }
+
+	.banner {
+		--pad-x: 88px; --wordmark: 74px; --tagline: 26px;
+		--pill: 17px; --gap: 24px; --mark: 300px;
+
+		position: relative; display: flex; flex-direction: column; justify-content: center;
+		width: 1544px; height: 500px; padding: 0 var(--pad-x); overflow: hidden;
+		background: var(--brand-field);
+		font-family: Inter, 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+		color: #fff;
+	}
+
+	.banner.is-narrow {
+		--pad-x: 44px; --wordmark: 37px; --tagline: 13px;
+		--pill: 10px; --gap: 12px; --mark: 150px;
+		width: 772px; height: 250px;
+	}
+
+	.banner.is-square {
+		--pad-x: 64px; --wordmark: 58px; --tagline: 21px;
+		--pill: 14px; --gap: 20px; --mark: 250px;
+		width: 1024px; height: 512px;
+	}
+
+	.dots {
+		position: absolute;
+		background-image: radial-gradient(rgba(255, 255, 255, .3) 1.6px, transparent 1.6px);
+		background-size: 18px 18px;
+	}
+	.dots.tr {
+		top: calc(var(--gap) * 1.4); right: calc(var(--pad-x) + var(--mark) * .92);
+		width: calc(var(--mark) * .5); height: calc(var(--mark) * .3); opacity: .55;
+	}
+	.dots.bl {
+		bottom: calc(var(--gap) * 1.1); left: var(--pad-x);
+		width: calc(var(--mark) * .3); height: calc(var(--mark) * .2); opacity: .32;
+	}
+
+	.copy { position: relative; z-index: 1; max-width: 64%; }
+
+	.wordmark {
+		margin: 0; font-size: var(--wordmark); font-weight: 800;
+		letter-spacing: -.025em; line-height: 1.02; white-space: nowrap;
+	}
+	.wordmark .accent {
+		color: transparent;
+		background: linear-gradient(90deg, var(--brand-pool), var(--brand-glyph-base));
+		-webkit-background-clip: text; background-clip: text;
+	}
+
+	.tagline {
+		margin: calc(var(--gap) * .7) 0 0; font-size: var(--tagline);
+		font-weight: 400; line-height: 1.35; color: rgba(255, 255, 255, .82);
+	}
+
+	.pills {
+		display: flex; flex-wrap: nowrap; gap: calc(var(--gap) * .42);
+		margin: var(--gap) 0 0; padding: 0; list-style: none;
+	}
+	.pills li {
+		padding: calc(var(--pill) * .48) calc(var(--pill) * 1);
+		font-size: var(--pill); font-weight: 600; color: rgba(255, 255, 255, .94);
+		white-space: nowrap; background: rgba(255, 255, 255, .12);
+		border: 1px solid rgba(255, 255, 255, .18); border-radius: 999px;
+	}
+
+	/* Fully inside the canvas: WordPress.org crops banners on some views, so
+	   nothing meaningful may touch an edge. */
+	.mark {
+		position: absolute; top: 50%; right: var(--pad-x);
+		width: var(--mark); height: var(--mark);
+		filter: drop-shadow(0 30px 60px rgba(var(--brand-shadow), .5));
+		transform: translateY(-50%);
+	}
+</style>
+</head>
+<body>
+	<div class="banner" id="banner">
+		<div class="dots tr"></div>
+		<div class="dots bl"></div>
+
+		<div class="copy">
+			<h1 class="wordmark">GoCardless Payments <span class="accent">for WooCommerce</span></h1>
+			<p class="tagline">Take Direct Debit through GoCardless — BACS, SEPA and ACH — plus Instant Bank Pay and recurring payments.</p>
+			<ul class="pills">
+				<li>BACS · SEPA · ACH</li>
+				<li>Instant Bank Pay</li>
+				<li>Recurring</li>
+				<li>Sandbox mode</li>
+			</ul>
+		</div>
+
+		<div class="mark" id="mark"></div>
+	</div>
+</body>
+</html>

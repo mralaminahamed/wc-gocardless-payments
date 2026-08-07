@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  WooCommerce GoCardless Payments — icon master
+
+  A bank: pediment, columns, plinth. Direct Debit is the one payment method where the money moves bank to bank rather than card to processor, and the building says that in a way a card glyph cannot.
+
+  Palette — canonical copy lives in tests/assets/brand.ts. These values are
+  repeated here only because SVG cannot import; if they ever disagree with that
+  file, that file is right.
+
+  Every stop is a Tailwind sky. Sky blue is banking without being any particular bank, and it separates this from the darker blue the WooCommerce set uses for admin tooling.
+
+  Rendered to PNG by tests/assets/wporg-brand.spec.ts — never hand-edit the
+  PNGs. See .wordpress-org/BRAND.md.
+
+  Author: Al Amin Ahamed
+  License: GPL-2.0-or-later
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256"
+     role="img" aria-label="WooCommerce GoCardless Payments">
+	<title>WooCommerce GoCardless Payments</title>
+
+	<defs>
+		<linearGradient id="frame" x1="0%" y1="0%" x2="100%" y2="100%">
+			<stop offset="0%"   stop-color="#082f49"/>
+			<stop offset="40%"  stop-color="#0c4a6e"/>
+			<stop offset="78%"  stop-color="#0284c7"/>
+			<stop offset="100%" stop-color="#0ea5e9"/>
+		</linearGradient>
+
+		<radialGradient id="highlight" cx="22%" cy="18%" r="70%">
+			<stop offset="0%"   stop-color="#38bdf8" stop-opacity="0.30"/>
+			<stop offset="55%"  stop-color="#0284c7" stop-opacity="0.04"/>
+			<stop offset="100%" stop-color="#082f49" stop-opacity="0"/>
+		</radialGradient>
+
+		<linearGradient id="specular" x1="0%" y1="0%" x2="0%" y2="100%">
+			<stop offset="0%"   stop-color="#ffffff" stop-opacity="0.10"/>
+			<stop offset="34%"  stop-color="#ffffff" stop-opacity="0"/>
+		</linearGradient>
+
+		<radialGradient id="pool" cx="78%" cy="104%" r="72%">
+			<stop offset="0%"   stop-color="#0284c7" stop-opacity="0.38"/>
+			<stop offset="64%"  stop-color="#0284c7" stop-opacity="0"/>
+		</radialGradient>
+
+		<linearGradient id="glyph" x1="50%" y1="0%" x2="50%" y2="100%">
+			<stop offset="0%"   stop-color="#ffffff"/>
+			<stop offset="60%"  stop-color="#f0f9ff"/>
+			<stop offset="100%" stop-color="#bae6fd"/>
+		</linearGradient>
+	</defs>
+
+	<!-- Ground, highlight, refracted pool, specular sweep — the same stack
+	     field() reproduces in CSS, so icon and banner catch the light alike. -->
+	<rect width="256" height="256" rx="56" fill="url(#frame)"/>
+	<rect width="256" height="256" rx="56" fill="url(#highlight)"/>
+	<rect width="256" height="256" rx="56" fill="url(#pool)"/>
+	<rect width="256" height="256" rx="56" fill="url(#specular)"/>
+
+	<path d="M128 42 L220 92 H36 Z" fill="url(#glyph)"/>
+	<rect x="62" y="106" width="26" height="80" rx="7" fill="url(#glyph)"/>
+	<rect x="115" y="106" width="26" height="80" rx="7" fill="url(#glyph)"/>
+	<rect x="168" y="106" width="26" height="80" rx="7" fill="url(#glyph)"/>
+	<rect x="40" y="198" width="176" height="22" rx="11" fill="url(#glyph)"/>
+</svg>
