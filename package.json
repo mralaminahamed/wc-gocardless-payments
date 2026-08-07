@@ -1,0 +1,13 @@
+{
+  "name": "wc-gocardless-payments",
+  "private": true,
+  "license": "GPL-2.0-or-later",
+  "author": "Al Amin Ahamed",
+  "description": "Listing-asset tooling for WooCommerce GoCardless Payments.",
+  "scripts": {
+    "shots:banners": "playwright test --config=playwright.assets.config.ts --project=banners"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2"
+  }
+}
